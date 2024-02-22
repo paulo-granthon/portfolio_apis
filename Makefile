@@ -3,6 +3,14 @@ BACKEND_DIR = api
 
 .PHONY: frontend-dev frontend-build frontend-setup backend-dev
 
+all: setup mono
+
+setup:
+	yarn setup
+
+mono:
+	yarn dev
+
 fd: frontend-dev
 frontend-dev:
 	cd $(FRONTEND_DIR) && yarn start
@@ -18,5 +26,3 @@ frontend-setup:
 bd: backend-dev
 backend-dev:
 	cd $(BACKEND_DIR) && go run main.go
-
-
