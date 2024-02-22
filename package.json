@@ -1,0 +1,16 @@
+{
+  "name": "portfolio_apis",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"yarn api\" \"yarn web\"",
+    "setup": "yarn && make fs",
+    "api": "make bd",
+    "web": "make fd"
+  },
+  "repository": "https://github.com/paulo-granthon/portfolio_apis.git",
+  "author": "Paulo Granthon <paulo.granthon@fatec.sp.gov.br>",
+  "license": "MIT",
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
