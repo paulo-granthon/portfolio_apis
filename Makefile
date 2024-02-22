@@ -13,7 +13,7 @@ mono:
 
 fd: frontend-dev
 frontend-dev:
-	cd $(FRONTEND_DIR) && yarn start
+	cd $(FRONTEND_DIR) && yarn dev
 
 fb: frontend-build
 frontend-build:
