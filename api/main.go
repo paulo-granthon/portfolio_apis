@@ -10,7 +10,11 @@ func main() {
 	http.HandleFunc("/", getRoot)
 	http.HandleFunc("/hello", getHello)
 
-	err := http.ListenAndServe(":3333", nil)
+	port := 3333
+
+	fmt.Println("Server is running on port", port)
+
+	err := http.ListenAndServe(":"+fmt.Sprint(port), nil)
 	if err != nil {
 		fmt.Println(err)
 	}
