@@ -18,10 +18,8 @@ func main() {
 
 func getRoot(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "Hello World")
-	io.WriteString(w, "Hello World")
 }
 
 func getHello(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello")
 	io.WriteString(w, "Hello")
 }
