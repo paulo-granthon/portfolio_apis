@@ -1,29 +1,28 @@
 package main
 
 import (
-	"fmt"
-	"io"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
-func main() {
-	http.HandleFunc("/", getRoot)
-	http.HandleFunc("/hello", getHello)
+type APIServer struct {
+	listenAddress string
+}
 
-	port := 3333
-
-	fmt.Println("Server is running on port", port)
-
-	err := http.ListenAndServe(":"+fmt.Sprint(port), nil)
-	if err != nil {
-		fmt.Println(err)
+func NewAPIServer(listenAddress string) *APIServer {
+	return &APIServer{
+		listenAddress: listenAddress,
 	}
 }
 
-func getRoot(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello World")
+func (s *APIServer) Start() error {
+	router := mux.NewRouter()
+	router.HandleFunc("/", s.getRoot).Methods("GET")
+
+	return http.ListenAndServe(s.listenAddress, router)
 }
 
-func getHello(w http.ResponseWriter, r *http.Request) {
-	io.WriteString(w, "Hello")
+func (s *APIServer) getRoot(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello, World!"))
 }
