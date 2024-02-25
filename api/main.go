@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -18,11 +19,9 @@ func NewAPIServer(listenAddress string) *APIServer {
 
 func (s *APIServer) Start() error {
 	router := mux.NewRouter()
-	router.HandleFunc("/", s.getRoot).Methods("GET")
+	router.HandleFunc("/", RootEndpoint().Create()).Methods("GET")
+
+	log.Println("Starting server on", s.listenAddress)
 
 	return http.ListenAndServe(s.listenAddress, router)
-}
-
-func (s *APIServer) getRoot(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello, World!"))
 }
