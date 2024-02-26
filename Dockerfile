@@ -1,7 +1,9 @@
 FROM postgres:16.2
 
 RUN apt-get update && \
-    apt-get install -y build-essential git postgresql-server-dev-16 python3
+    apt-get install -y \
+        build-essential git postgresql-server-dev-16 python3 && \
+    apt-get clean && rm -rf /var/lib/apt/lists/* # Clean up the package list
 
 RUN git clone -b master --depth=1 https://github.com/petere/pguint.git /pguint
 
