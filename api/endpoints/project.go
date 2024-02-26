@@ -1,28 +1,18 @@
-package main
+package endpoints
 
 import (
+	"models"
 	"net/http"
 	"server"
 	"strconv"
 )
 
-type Project struct {
-	Id       uint64 `json:"id"`
-	Name     string `json:"name"`
-	Semester uint8  `json:"semester"`
-	Company  string `json:"company"`
-}
-
-func exampleProjects() []Project {
-	return []Project{
-		NewProject(1, "Khali", 1, "FATEC"),
-		NewProject(2, "API2Semestre", 2, "2RP"),
-		NewProject(3, "api3", 3, "2RP"),
+func exampleProjects() []models.Project {
+	return []models.Project{
+		models.NewProject(1, "Khali", 1, "FATEC"),
+		models.NewProject(2, "API2Semestre", 2, "2RP"),
+		models.NewProject(3, "api3", 3, "2RP"),
 	}
-}
-
-func NewProject(id uint64, name string, semester uint8, company string) Project {
-	return Project{id, name, semester, company}
 }
 
 func ProjectEndpoints() []server.Endpoint {
@@ -71,5 +61,5 @@ func GetProject(w http.ResponseWriter, r *http.Request) error {
 		return server.WriteJSON(w, http.StatusOK, project)
 	}
 
-	return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "Project not found"})
+	return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
 }

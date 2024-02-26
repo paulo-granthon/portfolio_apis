@@ -1,6 +1,7 @@
 package main
 
 import (
+	"endpoints"
 	"log"
 	"server"
 )
@@ -8,7 +9,7 @@ import (
 func main() {
 	server, error := server.NewServer(
 		3333,
-		CreateEndpoints(),
+		endpoints.CreateEndpoints(),
 	)
 
 	if error != nil {
