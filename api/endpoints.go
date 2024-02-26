@@ -6,9 +6,10 @@ import (
 )
 
 func CreateEndpoints() []server.Endpoint {
-	return []server.Endpoint{
+	return append(
+		[]server.Endpoint{},
 		RootEndpoint(),
-	}
+	)
 }
 
 func RootEndpoint() server.Endpoint {
