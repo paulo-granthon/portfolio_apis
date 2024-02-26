@@ -43,7 +43,7 @@ case "$1" in
         ;;
     *)
         # If no specific flag is provided, execute pgcli command
-        pgcli postgresql://"${DB_USER}":"${DB_PASSWORD}"@"${DB_HOST}":"${DB_PORT}"
+        pgcli postgresql://"${DB_USER}":"${DB_PASSWORD}"@"${DB_HOST}":"${DB_PORT}"/"${DB_NAME}"
         ;;
 esac
 
