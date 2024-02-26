@@ -9,6 +9,9 @@ all: all-dev
 # Run all the setup and start both api and web
 all-dev: all-setup mono-dev
 
+# Run all the setup and start both api and web in production mode
+all-prod: all-setup mono-prod
+
 # Setup the whole project
 all-setup:
 	@make mono-setup
