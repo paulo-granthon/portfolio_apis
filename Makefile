@@ -89,6 +89,16 @@ backend-build:
 backend-clean:
 	@rm -rf bin
 
+### Database commands
+
+# Start database container
+database-up:
+	@docker-compose up -d
+
+# Stop database container
+database-down:
+	@docker-compose down
+
 ### Shortcuts / Aliases
 
 a: all
@@ -113,6 +123,9 @@ fp: frontend-prod
 fb: frontend-build
 fs: frontend-setup
 fc: frontend-clean
+
+du: database-up
+dd: database-down
 
 ### Phony targets
 
@@ -143,4 +156,5 @@ fc: frontend-clean
 	md mp ms mc \
 	fd fp fb fs fc \
 	bt bd bp bs bc \
+	du dd \
 	ac
