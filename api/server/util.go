@@ -24,6 +24,10 @@ func WriteJSON(w http.ResponseWriter, status int, value any) error {
 	return json.NewEncoder(w).Encode(value)
 }
 
+func ReadJSON[T comparable](r *http.Request, value *T) error {
+	return json.NewDecoder(r.Body).Decode(value)
+}
+
 type Error struct {
 	Error string
 }
