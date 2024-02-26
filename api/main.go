@@ -24,4 +24,7 @@ func (s *APIServer) Start() error {
 	log.Println("Starting server on", s.listenAddress)
 
 	return http.ListenAndServe(s.listenAddress, router)
+func main() {
+	server := NewAPIServer("3333")
+	server.Start()
 }
