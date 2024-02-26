@@ -7,7 +7,7 @@ import (
 
 func CreateEndpoints() []server.Endpoint {
 	return append(
-		[]server.Endpoint{},
+		ProjectEndpoints(),
 		RootEndpoint(),
 	)
 }
