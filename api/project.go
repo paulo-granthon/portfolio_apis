@@ -14,4 +14,8 @@ func exampleProjects() []Project {
 		NewProject(3, "api3", 3, "2RP"),
 	}
 }
+
+func NewProject(id uint64, name string, semester uint8, company string) Project {
+	return Project{id, name, semester, company}
+}
 }
