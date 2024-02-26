@@ -8,14 +8,14 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetRequestParam(r *http.Request, key string) (any, error) {
+func GetRequestParam(r *http.Request, key string) (*string, error) {
 	param := mux.Vars(r)[key]
 
 	if key == "" {
 		return nil, fmt.Errorf("Parameter %s not found", key)
 	}
 
-	return param, nil
+	return &param, nil
 }
 
 func WriteJSON(w http.ResponseWriter, status int, value any) error {
