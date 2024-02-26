@@ -12,7 +12,7 @@ all-dev: all-setup mono-dev
 # Setup the whole project
 all-setup:
 	@make mono-setup
-	@make backend-setup
+	@make backend-build
 	@make frontend-setup
 
 # Clean the whole project's temporary files
@@ -76,11 +76,11 @@ backend-dev:
 
 # Run backend in production mode
 backend-prod:
-	@make backend-setup
+	@make backend-build
 	@./bin/api/main
 
 # Build backend for production
-backend-setup:
+backend-build:
 	@go build -C ./api/ -o ../bin/api/main -tags prod
 
 # Clean backend production build
@@ -103,7 +103,7 @@ mc: mono-clean
 bt: backend-test
 bd: backend-dev
 bp: backend-prod
-bs: backend-setup
+bs: backend-build
 bc: backend-clean
 
 fd: frontend-dev
@@ -128,7 +128,7 @@ fc: frontend-clean
 	backend-test \
 	backend-dev \
 	backend-prod \
-	backend-setup \
+	backend-build \
 	backend-clean \
 	\
 	frontend-dev \
