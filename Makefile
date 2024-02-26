@@ -47,7 +47,6 @@ frontend-dev:
 
 # Run frontend in production mode
 frontend-prod:
-	@make frontend-setup
 	@make frontend-build
 	@cd $(FRONTEND_DIR) && yarn prod
 
