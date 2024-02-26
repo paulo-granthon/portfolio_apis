@@ -1,11 +1,14 @@
 package main
 
-import "net/http"
+import (
+	"net/http"
+	"server"
+)
 
-func RootEndpoint() APIEndpoint {
-	return APIEndpoint{
+func RootEndpoint() server.Endpoint {
+	return server.Endpoint{
 		Path: "/",
-		Methods: []APIMethod{
+		Methods: []server.Method{
 			{
 				Method: "GET",
 				Func: func(w http.ResponseWriter, r *http.Request) error {

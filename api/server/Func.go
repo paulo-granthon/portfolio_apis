@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"encoding/json"
@@ -12,16 +12,16 @@ func WriteJSON(w http.ResponseWriter, status int, value any) error {
 	return json.NewEncoder(w).Encode(value)
 }
 
-type APIError struct {
+type Error struct {
 	Error string
 }
 
-type APIMethod struct {
+type Method struct {
 	Method string
-	Func   APIFunc
+	Func   Func
 }
 
-func (e *APIEndpoint) getAPIFunc(method string) (APIFunc, error) {
+func (e *Endpoint) getFunc(method string) (Func, error) {
 	for _, m := range e.Methods {
 		if m.Method != method {
 			continue
@@ -31,21 +31,21 @@ func (e *APIEndpoint) getAPIFunc(method string) (APIFunc, error) {
 	return nil, fmt.Errorf("Method %s not allowed", method)
 }
 
-type APIFunc func(w http.ResponseWriter, r *http.Request) error
+type Func func(w http.ResponseWriter, r *http.Request) error
 
-func NewHTTPHandlerFunc(apiEndpoint APIEndpoint) http.HandlerFunc {
+func NewHTTPHandlerFunc(apiEndpoint Endpoint) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
-		apiFunc, err := apiEndpoint.getAPIFunc(r.Method)
+		apiFunc, err := apiEndpoint.getFunc(r.Method)
 
 		if err != nil {
-			WriteJSON(w, http.StatusMethodNotAllowed, APIError{Error: err.Error()})
+			WriteJSON(w, http.StatusMethodNotAllowed, Error{Error: err.Error()})
 			http.Error(w, err.Error(), http.StatusMethodNotAllowed)
 			return
 		}
 
 		if err := apiFunc(w, r); err != nil {
-			WriteJSON(w, http.StatusInternalServerError, APIError{Error: err.Error()})
+			WriteJSON(w, http.StatusInternalServerError, Error{Error: err.Error()})
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	}
