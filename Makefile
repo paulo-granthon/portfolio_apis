@@ -72,7 +72,7 @@ backend-test:
 
 # Run backend in development mode
 backend-dev:
-	@go run -C ./api/ main.go
+	@go run -C ./api/ .
 
 # Run backend in production mode
 backend-prod:
