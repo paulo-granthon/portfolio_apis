@@ -8,9 +8,7 @@ import (
 func main() {
 	server, error := server.NewServer(
 		3333,
-		[]server.Endpoint{
-			RootEndpoint(),
-		},
+		CreateEndpoints(),
 	)
 
 	if error != nil {

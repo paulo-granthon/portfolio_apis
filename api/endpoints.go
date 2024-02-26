@@ -5,6 +5,12 @@ import (
 	"server"
 )
 
+func CreateEndpoints() []server.Endpoint {
+	return []server.Endpoint{
+		RootEndpoint(),
+	}
+}
+
 func RootEndpoint() server.Endpoint {
 	return server.Endpoint{
 		Path: "/",
