@@ -11,9 +11,9 @@ type APIServer struct {
 	listenAddress string
 }
 
-func NewAPIServer(listenAddress string) *APIServer {
+func NewAPIServer(port int) *APIServer {
 	return &APIServer{
-		listenAddress: listenAddress,
+		listenAddress: fmt.Sprintf(":%v", port),
 	}
 }
 
@@ -25,6 +25,6 @@ func (s *APIServer) Start() error {
 
 	return http.ListenAndServe(s.listenAddress, router)
 func main() {
-	server := NewAPIServer("3333")
+	server := NewAPIServer(3333)
 	server.Start()
 }
