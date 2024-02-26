@@ -3,6 +3,7 @@ package endpoints
 import (
 	"models"
 	"net/http"
+	"schemas"
 	"server"
 	"strconv"
 )
@@ -23,6 +24,10 @@ func ProjectEndpoints() []server.Endpoint {
 				{
 					Method: "GET",
 					Func:   GetProjects,
+				},
+				{
+					Method: "POST",
+					Func:   CreateProject,
 				},
 			},
 		},
@@ -62,4 +67,20 @@ func GetProject(w http.ResponseWriter, r *http.Request) error {
 	}
 
 	return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
+}
+
+func CreateProject(w http.ResponseWriter, r *http.Request) error {
+	var request schemas.CreateProjectRequest
+	if error := server.ReadJSON(r, &request); error != nil {
+		return server.SendError(w, error)
+	}
+
+	project := models.NewProject(
+		4,
+		request.Name,
+		request.Semester,
+		request.Company,
+	)
+
+	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: project.Id})
 }
