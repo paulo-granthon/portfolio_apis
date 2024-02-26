@@ -3,11 +3,12 @@ version: '3.8'
 services:
   portfolio-apis-postgres:
     container_name: portfolio-apis-postgres
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - '5432:5432'
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=secret
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
