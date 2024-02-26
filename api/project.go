@@ -1,5 +1,10 @@
 package main
 
+import (
+	"net/http"
+	"server"
+)
+
 type Project struct {
 	Id       uint64 `json:"id"`
 	Name     string `json:"name"`
@@ -18,4 +23,21 @@ func exampleProjects() []Project {
 func NewProject(id uint64, name string, semester uint8, company string) Project {
 	return Project{id, name, semester, company}
 }
+
+func ProjectEndpoints() []server.Endpoint {
+	return []server.Endpoint{
+		{
+			Path: "/projects",
+			Methods: []server.Method{
+				{
+					Method: "GET",
+					Func:   GetProjects,
+				},
+			},
+		},
+	}
+}
+
+func GetProjects(w http.ResponseWriter, r *http.Request) error {
+	return server.WriteJSON(w, http.StatusOK, exampleProjects())
 }
