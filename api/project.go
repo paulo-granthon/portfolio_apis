@@ -6,4 +6,12 @@ type Project struct {
 	Semester uint8  `json:"semester"`
 	Company  string `json:"company"`
 }
+
+func exampleProjects() []Project {
+	return []Project{
+		NewProject(1, "Khali", 1, "FATEC"),
+		NewProject(2, "API2Semestre", 2, "2RP"),
+		NewProject(3, "api3", 3, "2RP"),
+	}
+}
 }
