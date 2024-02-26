@@ -72,7 +72,7 @@ backend-test:
 
 # Run backend in development mode
 backend-dev:
-	@cd $(BACKEND_DIR) && air
+	@cd $(BACKEND_DIR) && ./stop.bash && air
 
 # Run backend in production mode
 backend-prod:
