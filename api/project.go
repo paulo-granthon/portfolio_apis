@@ -1,7 +1,8 @@
 package main
 
 type Project struct {
-	name     string
-	semester uint8
-	company  string
+	Name     string `json:"name"`
+	Semester uint8  `json:"semester"`
+	Company  string `json:"company"`
+}
 }
