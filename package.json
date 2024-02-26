@@ -2,10 +2,14 @@
   "name": "portfolio_apis",
   "version": "1.0.0",
   "scripts": {
-    "dev": "concurrently \"yarn api\" \"yarn web\"",
-    "setup": "yarn && make fs",
-    "api": "make bd",
-    "web": "make fd"
+    "dev": "concurrently \"yarn api-dev\" \"yarn web-dev\"",
+    "api-dev": "make bd",
+    "web-dev": "make fd",
+    "prod": "concurrently \"yarn api-prod\" \"yarn web-prod\"",
+    "api-prod": "make bp",
+    "web-prod": "make fp",
+    "setup": "yarn"
+
   },
   "repository": "https://github.com/paulo-granthon/portfolio_apis.git",
   "author": "Paulo Granthon <paulo.granthon@fatec.sp.gov.br>",
