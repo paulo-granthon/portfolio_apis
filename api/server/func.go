@@ -20,9 +20,9 @@ func (e *Endpoint) getFunc(method string) (Func, error) {
 	return nil, fmt.Errorf("Method %s not allowed", method)
 }
 
-type Func func(w http.ResponseWriter, r *http.Request) error
+type Func func(s Server, w http.ResponseWriter, r *http.Request) error
 
-func NewHTTPHandlerFunc(apiEndpoint Endpoint) http.HandlerFunc {
+func NewHTTPHandlerFunc(s Server, apiEndpoint Endpoint) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 
 		apiFunc, err := apiEndpoint.getFunc(r.Method)
@@ -33,7 +33,7 @@ func NewHTTPHandlerFunc(apiEndpoint Endpoint) http.HandlerFunc {
 			return
 		}
 
-		if err := apiFunc(w, r); err != nil {
+		if err := apiFunc(s, w, r); err != nil {
 			WriteJSON(w, http.StatusInternalServerError, Error{Error: err.Error()})
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}

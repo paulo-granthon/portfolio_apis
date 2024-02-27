@@ -43,44 +43,45 @@ func ProjectEndpoints() []server.Endpoint {
 	}
 }
 
-func GetProjects(w http.ResponseWriter, r *http.Request) error {
-	return server.WriteJSON(w, http.StatusOK, exampleProjects())
+func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	projects := s.Storage.GetProjects()
+	return server.WriteJSON(w, http.StatusOK, projects)
 }
 
-func GetProject(w http.ResponseWriter, r *http.Request) error {
-	idStr, error := server.GetRequestParam(r, "id")
-	if error != nil {
-		return server.SendError(w, error)
+func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	idStr, err := server.GetRequestParam(r, "id")
+	if err != nil {
+		return server.SendError(w, err)
 	}
 
-	id, error := strconv.ParseUint(*idStr, 10, 64)
-	if error != nil {
-		return server.SendError(w, error)
+	id, err := strconv.ParseUint(*idStr, 10, 64)
+	if err != nil {
+		return server.SendError(w, err)
 	}
 
-	for _, project := range exampleProjects() {
-		if project.Id != id {
-			continue
-		}
-
-		return server.WriteJSON(w, http.StatusOK, project)
+	project, err := s.Storage.GetProject(id)
+	if err != nil {
+		return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
 	}
 
-	return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
+	return server.WriteJSON(w, http.StatusOK, project)
 }
 
-func CreateProject(w http.ResponseWriter, r *http.Request) error {
+func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.CreateProjectRequest
 	if error := server.ReadJSON(r, &request); error != nil {
 		return server.SendError(w, error)
 	}
 
-	project := models.NewProject(
-		4,
+	var project models.Project
+	err := s.Storage.CreateProject(
 		request.Name,
 		request.Semester,
 		request.Company,
 	)
+	if err != nil {
+		return server.SendError(w, err)
+	}
 
 	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: project.Id})
 }

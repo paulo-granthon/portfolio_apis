@@ -39,7 +39,7 @@ func (s *Server) Start() {
 		for _, method := range endpoint.Methods {
 			methods = append(methods, method.Method)
 		}
-		router.HandleFunc(endpoint.Path, endpoint.Create()).Methods(methods...)
+		router.HandleFunc(endpoint.Path, endpoint.Create(*s)).Methods(methods...)
 	}
 
 	log.Println("Starting server on", s.port)

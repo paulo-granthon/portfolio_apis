@@ -18,7 +18,7 @@ func RootEndpoint() server.Endpoint {
 		Methods: []server.Method{
 			{
 				Method: "GET",
-				Func: func(w http.ResponseWriter, r *http.Request) error {
+				Func: func(s server.Server, w http.ResponseWriter, r *http.Request) error {
 					w.Write([]byte("Hello, World!"))
 					return nil
 				},

@@ -1,6 +1,8 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+)
 
 type Endpoint struct {
 	Path    string
@@ -14,6 +16,6 @@ func NewEndpoint(path string, methods []Method) *Endpoint {
 	}
 }
 
-func (e Endpoint) Create() http.HandlerFunc {
-	return NewHTTPHandlerFunc(e)
+func (endpoint Endpoint) Create(server Server) http.HandlerFunc {
+	return NewHTTPHandlerFunc(server, endpoint)
 }
