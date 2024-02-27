@@ -1,6 +1,6 @@
 FROM postgres:16.2
 
-### PostgreSQL container with the pguint extension 
+### PostgreSQL container with the pguint extension
 
 ### Update the package list and install the extension build dependencies
 RUN apt-get update && \
