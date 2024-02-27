@@ -36,7 +36,10 @@ func ProjectEndpoints() []server.Endpoint {
 }
 
 func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
-	projects := s.Storage.GetProjects()
+	projects, err := s.Storage.GetProjects()
+	if err != nil {
+		return server.SendError(w, err)
+	}
 	return server.WriteJSON(w, http.StatusOK, projects)
 }
 
