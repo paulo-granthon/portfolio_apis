@@ -34,7 +34,23 @@ func (s *PostgreStorage) Migrate() error {
 			company VARCHAR(100) NOT NULL
 		)
 	`)
-	return err
+	if err != nil {
+		return err
+	}
+
+	exampleProjects := []models.Project{
+		models.NewProject(1, "Khali", 1, "FATEC"),
+		models.NewProject(2, "API2Semestre", 2, "2RP"),
+		models.NewProject(3, "api3", 3, "2RP"),
+	}
+
+	for _, p := range exampleProjects {
+		if err := s.CreateProject(&p); err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
 
 func (s *PostgreStorage) GetProjects() ([]*models.Project, error) {
