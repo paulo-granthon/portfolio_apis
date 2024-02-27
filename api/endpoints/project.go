@@ -8,14 +8,6 @@ import (
 	"strconv"
 )
 
-func exampleProjects() []models.Project {
-	return []models.Project{
-		models.NewProject(1, "Khali", 1, "FATEC"),
-		models.NewProject(2, "API2Semestre", 2, "2RP"),
-		models.NewProject(3, "api3", 3, "2RP"),
-	}
-}
-
 func ProjectEndpoints() []server.Endpoint {
 	return []server.Endpoint{
 		{
