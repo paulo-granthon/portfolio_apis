@@ -2,6 +2,7 @@ package storage
 
 import (
 	"database/sql"
+
 	"models"
 )
 
@@ -38,14 +39,14 @@ func (s *PostgreStorage) Migrate() error {
 		return err
 	}
 
-	exampleProjects := []models.Project{
-		models.NewProject("Khali", 1, "FATEC"),
-		models.NewProject("API2Semestre", 2, "2RP"),
-		models.NewProject("api3", 3, "2RP"),
+	exampleProjects := []models.CreateProject{
+		models.NewCreateProject("Khali", 1, "FATEC"),
+		models.NewCreateProject("API2Semestre", 2, "2RP"),
+		models.NewCreateProject("api3", 3, "2RP"),
 	}
 
 	for _, p := range exampleProjects {
-		if err := s.CreateProject(&p); err != nil {
+		if _, err := s.CreateProject(p); err != nil {
 			return err
 		}
 	}
@@ -83,13 +84,18 @@ func (s *PostgreStorage) GetProject(id uint64) (*models.Project, error) {
 	`, id).Scan(&p.Id, &p.Name, &p.Semester, &p.Company)
 }
 
-func (s *PostgreStorage) CreateProject(p *models.Project) error {
-	return s.db.QueryRow(`
+func (s *PostgreStorage) CreateProject(p models.CreateProject) (*uint64, error) {
+	var id uint64
+	if err := s.db.QueryRow(`
 		INSERT INTO projects (name, semester, company)
 		VALUES ($1, $2, $3)
 		RETURNING id
 	`, p.Name, p.Semester, p.Company,
-	).Scan(&p.Id)
+	).Scan(&id); err != nil {
+		return nil, err
+	}
+
+	return &id, nil
 }
 
 func (s *PostgreStorage) UpdateProject(p *models.Project) error {

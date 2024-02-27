@@ -65,15 +65,16 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		return server.SendError(w, error)
 	}
 
-	var project models.Project
-	err := s.Storage.CreateProject(
+	project := models.NewCreateProject(
 		request.Name,
 		request.Semester,
 		request.Company,
 	)
+
+	id, err := s.Storage.CreateProject(project)
 	if err != nil {
 		return server.SendError(w, err)
 	}
 
-	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: project.Id})
+	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: *id})
 }
