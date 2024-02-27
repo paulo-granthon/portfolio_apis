@@ -1,6 +1,7 @@
 package server
 
 import (
+	"db"
 	"fmt"
 	"log"
 	"net/http"
@@ -9,11 +10,16 @@ import (
 )
 
 type Server struct {
-	endpoints []Endpoint
 	port      string
+	endpoints []Endpoint
+	Storage   db.Storage
 }
 
-func NewServer(port int, endpoints []Endpoint) (*Server, error) {
+func NewServer(
+	port int,
+	endpoints []Endpoint,
+	storage db.Storage,
+) (*Server, error) {
 	if port < 1 || port > 65535 {
 		return nil, fmt.Errorf("Invalid listen address: %v", port)
 	}
@@ -21,6 +27,7 @@ func NewServer(port int, endpoints []Endpoint) (*Server, error) {
 	return &Server{
 		port:      fmt.Sprintf(":%v", port),
 		endpoints: endpoints,
+		Storage:   storage,
 	}, nil
 }
 
