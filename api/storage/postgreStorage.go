@@ -1,4 +1,4 @@
-package db
+package storage
 
 import (
 	"database/sql"
@@ -39,9 +39,9 @@ func (s *PostgreStorage) Migrate() error {
 	}
 
 	exampleProjects := []models.Project{
-		models.NewProject(1, "Khali", 1, "FATEC"),
-		models.NewProject(2, "API2Semestre", 2, "2RP"),
-		models.NewProject(3, "api3", 3, "2RP"),
+		models.NewProject("Khali", 1, "FATEC"),
+		models.NewProject("API2Semestre", 2, "2RP"),
+		models.NewProject("api3", 3, "2RP"),
 	}
 
 	for _, p := range exampleProjects {

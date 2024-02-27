@@ -1,14 +1,14 @@
 package main
 
 import (
-	"db"
 	"endpoints"
 	"log"
 	"server"
+	"storage"
 )
 
 func main() {
-	db, error := db.NewPostgreStorage()
+	db, error := storage.NewPostgreStorage()
 	if error != nil {
 		log.Fatal("Error creating database:", error)
 		return

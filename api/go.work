@@ -2,9 +2,9 @@ go 1.22.0
 
 use (
 	.
-	./db
 	./endpoints
 	./models
 	./schemas
 	./server
+	./storage
 )

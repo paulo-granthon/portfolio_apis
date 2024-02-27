@@ -1,10 +1,10 @@
 package server
 
 import (
-	"db"
 	"fmt"
 	"log"
 	"net/http"
+	"storage"
 
 	"github.com/gorilla/mux"
 )
@@ -12,13 +12,13 @@ import (
 type Server struct {
 	port      string
 	endpoints []Endpoint
-	Storage   db.Storage
+	Storage   storage.Storage
 }
 
 func NewServer(
 	port int,
 	endpoints []Endpoint,
-	storage db.Storage,
+	storage storage.Storage,
 ) (*Server, error) {
 	if port < 1 || port > 65535 {
 		return nil, fmt.Errorf("Invalid listen address: %v", port)
