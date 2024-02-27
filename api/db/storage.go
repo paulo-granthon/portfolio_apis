@@ -16,11 +16,11 @@ type Storage interface {
 	DeleteProject(uint64) error
 }
 
-type PostgresStorage struct {
+type PostgreStorage struct {
 	db *sql.DB
 }
 
-func NewPostgresStorage() (*PostgresStorage, error) {
+func NewPostgreStorage() (*PostgreStorage, error) {
 	connStr := "user=postgres password=secret sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
@@ -31,12 +31,12 @@ func NewPostgresStorage() (*PostgresStorage, error) {
 		return nil, err
 	}
 
-	return &PostgresStorage{
+	return &PostgreStorage{
 		db: db,
 	}, nil
 }
 
-func (s *PostgresStorage) Migrate() error {
+func (s *PostgreStorage) Migrate() error {
 	_, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS projects (
 			id SERIAL PRIMARY KEY,
@@ -48,22 +48,26 @@ func (s *PostgresStorage) Migrate() error {
 	return err
 }
 
-func (s *PostgresStorage) CreateProject(p *models.Project) error {
-	return nil
-}
-
-func (s *PostgresStorage) GetProject(id uint64) (*models.Project, error) {
+func (s *PostgreStorage) GetProjects() ([]*models.Project, error) {
 	return nil, nil
 }
 
-func (s *PostgresStorage) UpdateProject(p *models.Project) error {
+func (s *PostgreStorage) GetProject(id uint64) (*models.Project, error) {
+	return nil, nil
+}
+
+func (s *PostgreStorage) CreateProject(p *models.Project) error {
 	return nil
 }
 
-func (s *PostgresStorage) DeleteProject(id uint64) error {
+func (s *PostgreStorage) UpdateProject(p *models.Project) error {
 	return nil
 }
 
-func (s *PostgresStorage) Close() {
+func (s *PostgreStorage) DeleteProject(id uint64) error {
+	return nil
+}
+
+func (s *PostgreStorage) Close() {
 	s.db.Close()
 }
