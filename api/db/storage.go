@@ -9,8 +9,9 @@ import (
 
 type Storage interface {
 	Migrate() error
-	CreateProject(*models.Project) error
+	GetProjects() ([]*models.Project, error)
 	GetProject(uint64) (*models.Project, error)
+	CreateProject(*models.Project) error
 	UpdateProject(*models.Project) error
 	DeleteProject(uint64) error
 }
