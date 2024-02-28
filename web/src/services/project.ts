@@ -1,4 +1,8 @@
-import { ProjectSchema } from "../schemas/project";
+import {
+  PostProjectSchema,
+  ProjectSchema,
+  UpdateProjectSchema,
+} from "../schemas/project";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -14,37 +18,28 @@ export async function getProject(id: string): Promise<ProjectSchema> {
     .then((data) => data);
 }
 
-export async function createProject(
-  project: ProjectSchema,
-): Promise<ProjectSchema> {
+export async function createProject(project: PostProjectSchema) {
   return fetch(API_URL + "/projects", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(project),
-  })
-    .then((response) => response.json())
-    .then((data) => data);
+  });
 }
 
-export async function updateProject(
-  id: string,
-  project: ProjectSchema,
-): Promise<ProjectSchema> {
+export async function updateProject(id: string, project: UpdateProjectSchema) {
   return fetch(API_URL + "/projects/" + id, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(project),
-  })
-    .then((response) => response.json())
-    .then((data) => data);
+  });
 }
 
-export async function deleteProject(id: string): Promise<void> {
+export async function deleteProject(id: string) {
   return fetch(API_URL + "/projects/" + id, {
     method: "DELETE",
-  }).then((response) => response.json());
+  });
 }
