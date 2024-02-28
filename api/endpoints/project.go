@@ -76,3 +76,25 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 
 	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: *id})
 }
+
+func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	var request schemas.UpdateProjectRequest
+	if err := server.ReadJSON(r, &request); err != nil {
+		return server.SendError(w, err)
+	}
+
+	project := models.NewProject(
+		request.Id,
+		request.Project.Name,
+		request.Project.Semester,
+		request.Project.Company,
+		request.Project.Summary,
+		request.Project.Url,
+	)
+
+	if err := s.Storage.UpdateProject(project); err != nil {
+		return server.SendError(w, err)
+	}
+
+	return server.WriteJSON(w, http.StatusOK, nil)
+}
