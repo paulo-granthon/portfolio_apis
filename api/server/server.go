@@ -4,16 +4,22 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"storage"
 
 	"github.com/gorilla/mux"
 )
 
 type Server struct {
-	endpoints []Endpoint
 	port      string
+	endpoints []Endpoint
+	Storage   storage.Storage
 }
 
-func NewServer(port int, endpoints []Endpoint) (*Server, error) {
+func NewServer(
+	port int,
+	endpoints []Endpoint,
+	storage storage.Storage,
+) (*Server, error) {
 	if port < 1 || port > 65535 {
 		return nil, fmt.Errorf("Invalid listen address: %v", port)
 	}
@@ -21,6 +27,7 @@ func NewServer(port int, endpoints []Endpoint) (*Server, error) {
 	return &Server{
 		port:      fmt.Sprintf(":%v", port),
 		endpoints: endpoints,
+		Storage:   storage,
 	}, nil
 }
 
@@ -32,7 +39,7 @@ func (s *Server) Start() {
 		for _, method := range endpoint.Methods {
 			methods = append(methods, method.Method)
 		}
-		router.HandleFunc(endpoint.Path, endpoint.Create()).Methods(methods...)
+		router.HandleFunc(endpoint.Path, endpoint.Create(*s)).Methods(methods...)
 	}
 
 	log.Println("Starting server on", s.port)

@@ -8,8 +8,9 @@
     "prod": "concurrently \"yarn api-prod\" \"yarn web-prod\"",
     "api-prod": "make bp",
     "web-prod": "make fp",
-    "setup": "yarn"
-
+    "setup": "yarn",
+    "db-up": "docker-compose up -d",
+    "db-down": "docker-compose down"
   },
   "repository": "https://github.com/paulo-granthon/portfolio_apis.git",
   "author": "Paulo Granthon <paulo.granthon@fatec.sp.gov.br>",
