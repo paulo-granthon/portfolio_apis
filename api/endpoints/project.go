@@ -57,16 +57,16 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 
 func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.CreateProjectRequest
-	if error := server.ReadJSON(r, &request); error != nil {
+	if error := server.ReadJSON(r, &request.Project); error != nil {
 		return server.SendError(w, error)
 	}
 
 	project := models.NewCreateProject(
-		request.Name,
-		request.Semester,
-		request.Company,
-		request.Summary,
-		request.Url,
+		request.Project.Name,
+		request.Project.Semester,
+		request.Project.Company,
+		request.Project.Summary,
+		request.Project.Url,
 	)
 
 	id, err := s.Storage.CreateProject(project)
