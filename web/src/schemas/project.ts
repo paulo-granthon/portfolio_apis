@@ -6,3 +6,7 @@ export interface ProjectSchema {
   summary: string;
   url: string;
 }
+
+export type PostProjectSchema = Omit<ProjectSchema, "id">;
+
+export type UpdateProjectSchema = Omit<ProjectSchema, "id">;
