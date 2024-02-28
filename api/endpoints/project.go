@@ -98,3 +98,22 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 
 	return server.WriteJSON(w, http.StatusOK, nil)
 }
+
+func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	idStr, err := server.GetRequestParam(r, "id")
+	if err != nil {
+		return server.SendError(w, err)
+	}
+
+	id, err := strconv.ParseUint(*idStr, 10, 64)
+	if err != nil {
+		return server.SendError(w, err)
+	}
+
+	err = s.Storage.DeleteProject(id)
+	if err != nil {
+		return server.SendError(w, err)
+	}
+
+	return server.WriteJSON(w, http.StatusOK, nil)
+}
