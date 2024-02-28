@@ -78,13 +78,23 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 }
 
 func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	idStr, err := server.GetRequestParam(r, "id")
+	if err != nil {
+		return server.SendError(w, err)
+	}
+
+	id, err := strconv.ParseUint(*idStr, 10, 64)
+	if err != nil {
+		return server.SendError(w, err)
+	}
+
 	var request schemas.UpdateProjectRequest
 	if err := server.ReadJSON(r, &request); err != nil {
 		return server.SendError(w, err)
 	}
 
 	project := models.NewProject(
-		request.Id,
+		id,
 		request.Project.Name,
 		request.Project.Semester,
 		request.Project.Company,

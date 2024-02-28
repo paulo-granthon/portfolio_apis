@@ -15,6 +15,5 @@ type CreateProjectResponse struct {
 }
 
 type UpdateProjectRequest struct {
-	Id      uint64         `json:"id"`
 	Project models.Project `json:"project"`
 }
