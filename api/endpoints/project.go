@@ -13,23 +13,16 @@ func ProjectEndpoints() []server.Endpoint {
 		{
 			Path: "/projects",
 			Methods: []server.Method{
-				{
-					Method: "GET",
-					Func:   GetProjects,
-				},
-				{
-					Method: "POST",
-					Func:   CreateProject,
-				},
+				server.NewMethod("GET", GetProjects),
+				server.NewMethod("POST", CreateProject),
 			},
 		},
 		{
 			Path: "/projects/{id}",
 			Methods: []server.Method{
-				{
-					Method: "GET",
-					Func:   GetProject,
-				},
+				server.NewMethod("GET", GetProject),
+				server.NewMethod("PUT", UpdateProject),
+				server.NewMethod("DELETE", DeleteProject),
 			},
 		},
 	}
