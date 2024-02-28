@@ -40,9 +40,21 @@ func (s *PostgreStorage) Migrate() error {
 	}
 
 	exampleProjects := []models.CreateProject{
-		models.NewCreateProject("Khali", 1, "FATEC"),
-		models.NewCreateProject("API2Semestre", 2, "2RP"),
-		models.NewCreateProject("api3", 3, "2RP"),
+		models.NewCreateProject(
+			"Khali", 1, "FATEC",
+			"Avaliação 360",
+			"github.com/taniacruzz/Khali",
+		),
+		models.NewCreateProject(
+			"API2Semestre", 2, "2RP",
+			"Controle de Horas-Extras e Sobreavisos",
+			"github.com/projetoKhali/API2Semestre",
+		),
+		models.NewCreateProject(
+			"api3", 3, "2RP",
+			"Controle de Horas-Extras e Sobreavisos",
+			"github.com/projetoKhali/api3",
+		),
 	}
 
 	for _, p := range exampleProjects {

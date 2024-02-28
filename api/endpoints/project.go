@@ -72,6 +72,8 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		request.Name,
 		request.Semester,
 		request.Company,
+		request.Summary,
+		request.Url,
 	)
 
 	id, err := s.Storage.CreateProject(project)
