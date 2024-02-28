@@ -10,6 +10,13 @@ type Method struct {
 	Func   Func
 }
 
+func NewMethod(method string, f Func) Method {
+	return Method{
+		Method: method,
+		Func:   f,
+	}
+}
+
 func (e *Endpoint) getFunc(method string) (Func, error) {
 	for _, m := range e.Methods {
 		if m.Method != method {
