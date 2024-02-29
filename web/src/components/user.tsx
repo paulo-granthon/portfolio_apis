@@ -9,7 +9,10 @@ interface UserProps {
 export default function User({ user }: UserProps) {
   const [userGithubProfileUrl, setUserGithubProfileUrl] = useState<string>("");
 
-  const userCurrentSemester = "todo!()";
+  const userInitialSemester = user.semesterMatriculated.toString();
+  const userCurrentSemester = user.semesterMatriculated
+    .currentSemester()
+    .toString();
 
   useEffect(() => {
     getProfilePicture("paulo-granthon").then(
@@ -27,8 +30,7 @@ export default function User({ user }: UserProps) {
       <img src={userGithubProfileUrl} alt="GitHub Profile" />
       <p>{user.summary}</p>
       <div>
-        <p>{user.semesterMatriculated.year}-</p>
-        <p>{user.semesterMatriculated.semester}</p>
+        <p>{userInitialSemester}</p>
       </div>
       <p>Semestre Atual: {userCurrentSemester}</p>
     </div>

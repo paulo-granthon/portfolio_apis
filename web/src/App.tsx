@@ -1,5 +1,6 @@
 import Portfolio from "./pages/portfolio";
 import { UserSchema } from "./schemas/user";
+import { YearSemester } from "./schemas/user";
 
 export default function App() {
   const user: UserSchema = {
@@ -7,10 +8,7 @@ export default function App() {
     name: "paulo",
     summary:
       "Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer",
-    semesterMatriculated: {
-      year: 2022,
-      semester: 2,
-    },
+    semesterMatriculated: new YearSemester(2022, 2),
     githubUsername: "paulo-granthon",
   };
 
