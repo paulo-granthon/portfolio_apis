@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserSchema } from "../schemas/user";
 import { getProfilePicture } from "../services/github";
+import { userStyles } from "../styles";
 
 interface UserProps {
   user: UserSchema;
@@ -27,7 +28,11 @@ export default function User({ user }: UserProps) {
   return (
     <div>
       <h1>{user.name}</h1>
-      <img src={userGithubProfileUrl} alt="GitHub Profile" />
+      <img
+        src={userGithubProfileUrl}
+        alt="GitHub Profile"
+        {...userStyles.profilePicture}
+      />
       <p>{user.summary}</p>
       <div>
         <p>{userInitialSemester}</p>
