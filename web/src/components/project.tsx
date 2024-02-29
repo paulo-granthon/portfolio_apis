@@ -1,6 +1,10 @@
 import { ProjectSchema } from "../schemas/project";
 
-export default function Project(project: ProjectSchema) {
+interface ProjectProps {
+  project: ProjectSchema;
+}
+
+export default function Project({ project }: ProjectProps) {
   return (
     <div>
       <div>
