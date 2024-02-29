@@ -30,7 +30,6 @@ func NewUser(
 	summary *string,
 	semesterMatriculed *YearSemester,
 	githubUsername *string,
-	password string,
 ) User {
 	return User{
 		Id:                 id,
@@ -38,6 +37,5 @@ func NewUser(
 		Summary:            summary,
 		SemesterMatriculed: semesterMatriculed,
 		GithubUsername:     githubUsername,
-		Password:           password,
 	}
 }
