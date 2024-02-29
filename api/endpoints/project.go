@@ -29,7 +29,12 @@ func ProjectEndpoints() []server.Endpoint {
 }
 
 func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
-	projects, err := s.Storage.GetProjects()
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return err
+	}
+
+	projects, err := projectModule.GetProjects()
 	if err != nil {
 		return server.SendError(w, err)
 	}
@@ -47,7 +52,12 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 		return server.SendError(w, err)
 	}
 
-	project, err := s.Storage.GetProject(id)
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return err
+	}
+
+	project, err := projectModule.GetProject(id)
 	if err != nil {
 		return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
 	}
@@ -69,7 +79,12 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		request.Project.Url,
 	)
 
-	id, err := s.Storage.CreateProject(project)
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return err
+	}
+
+	id, err := projectModule.CreateProject(project)
 	if err != nil {
 		return server.SendError(w, err)
 	}
@@ -102,7 +117,12 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		request.Project.Url,
 	)
 
-	if err := s.Storage.UpdateProject(project); err != nil {
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return err
+	}
+
+	if err := projectModule.UpdateProject(project); err != nil {
 		return server.SendError(w, err)
 	}
 
@@ -120,7 +140,12 @@ func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		return server.SendError(w, err)
 	}
 
-	err = s.Storage.DeleteProject(id)
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return err
+	}
+
+	err = projectModule.DeleteProject(id)
 	if err != nil {
 		return server.SendError(w, err)
 	}
