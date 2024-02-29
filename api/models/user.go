@@ -39,3 +39,18 @@ func NewUser(
 		GithubUsername:     githubUsername,
 	}
 }
+
+type CreateUser struct {
+	Name     string `json:"name"`
+	Password string
+}
+
+func NewCreateUser(
+	name string,
+	password string,
+) CreateUser {
+	return CreateUser{
+		Name:     name,
+		Password: password,
+	}
+}
