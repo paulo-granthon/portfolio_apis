@@ -138,7 +138,7 @@ func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 		return server.SendError(w, err)
 	}
 
-	user := models.NewUser(
+	user := models.NewUpdateUser(
 		id,
 		request.User.Name,
 		request.User.Summary,
