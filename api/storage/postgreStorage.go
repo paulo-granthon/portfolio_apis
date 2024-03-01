@@ -55,6 +55,13 @@ func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 }
 
 func (s *PostgreStorage) Migrate() error {
+	if _, err := s.db.Exec(`
+		CREATE EXTENSION IF NOT EXISTS uint;
+	`); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error executing root migration", err)
+		return err
+	}
+
 	userModule, err := s.GetUserModule()
 	if err != nil {
 		return err
