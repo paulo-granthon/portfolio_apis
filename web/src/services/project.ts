@@ -12,7 +12,7 @@ export async function getProjects(): Promise<ProjectSchema[]> {
     .then((data) => data);
 }
 
-export async function getProject(id: string): Promise<ProjectSchema> {
+export async function getProject(id: number): Promise<ProjectSchema> {
   return fetch(API_URL + "/projects/" + id)
     .then((response) => response.json())
     .then((data) => data);
@@ -28,7 +28,7 @@ export async function createProject(project: PostProjectSchema) {
   });
 }
 
-export async function updateProject(id: string, project: UpdateProjectSchema) {
+export async function updateProject(id: number, project: UpdateProjectSchema) {
   return fetch(API_URL + "/projects/" + id, {
     method: "PUT",
     headers: {
@@ -38,7 +38,7 @@ export async function updateProject(id: string, project: UpdateProjectSchema) {
   });
 }
 
-export async function deleteProject(id: string) {
+export async function deleteProject(id: number) {
   return fetch(API_URL + "/projects/" + id, {
     method: "DELETE",
   });

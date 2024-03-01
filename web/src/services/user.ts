@@ -13,7 +13,7 @@ export async function getUsers(): Promise<UserSchema[]> {
     .then((data) => data);
 }
 
-export async function getUser(id: string): Promise<UserSchema> {
+export async function getUser(id: number): Promise<UserSchema> {
   return fetch(API_URL + "/users/" + id)
     .then((response) => response.json())
     .then((data) => data);
@@ -39,7 +39,7 @@ export async function createUser(user: PostUserSchema) {
   });
 }
 
-export async function updateUser(id: string, user: UpdateUserSchema) {
+export async function updateUser(id: number, user: UpdateUserSchema) {
   return fetch(API_URL + "/users/" + id, {
     method: "PUT",
     headers: {
@@ -49,7 +49,7 @@ export async function updateUser(id: string, user: UpdateUserSchema) {
   });
 }
 
-export async function deleteUser(id: string) {
+export async function deleteUser(id: number) {
   return fetch(API_URL + "/users/" + id, {
     method: "DELETE",
   });
