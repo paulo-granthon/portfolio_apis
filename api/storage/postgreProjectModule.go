@@ -41,7 +41,7 @@ func (s *PostgreProjectModule) Migrate() error {
 	}
 
 	for _, p := range exampleProjects {
-		if _, err := s.CreateProject(p); err != nil {
+		if _, err := s.Create(p); err != nil {
 			return err
 		}
 	}
@@ -49,7 +49,7 @@ func (s *PostgreProjectModule) Migrate() error {
 	return nil
 }
 
-func (s *PostgreProjectModule) GetProjects() ([]*models.Project, error) {
+func (s *PostgreProjectModule) Get() ([]*models.Project, error) {
 	rows, err := s.db.Query(`
 		SELECT id, name, semester, company
 		FROM projects
@@ -70,7 +70,7 @@ func (s *PostgreProjectModule) GetProjects() ([]*models.Project, error) {
 	return projects, nil
 }
 
-func (s *PostgreProjectModule) GetProject(id uint64) (*models.Project, error) {
+func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 	p := &models.Project{}
 	return p, s.db.QueryRow(`
 		SELECT id, name, semester, company
@@ -79,7 +79,7 @@ func (s *PostgreProjectModule) GetProject(id uint64) (*models.Project, error) {
 	`, id).Scan(&p.Id, &p.Name, &p.Semester, &p.Company)
 }
 
-func (s *PostgreProjectModule) CreateProject(p models.CreateProject) (*uint64, error) {
+func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	var id uint64
 	if err := s.db.QueryRow(`
 		INSERT INTO projects (name, semester, company)
@@ -93,7 +93,7 @@ func (s *PostgreProjectModule) CreateProject(p models.CreateProject) (*uint64, e
 	return &id, nil
 }
 
-func (s *PostgreProjectModule) UpdateProject(p models.Project) error {
+func (s *PostgreProjectModule) Update(p models.Project) error {
 	_, err := s.db.Exec(`
 		UPDATE projects
 		SET name = $1, semester = $2, company = $3
@@ -102,7 +102,7 @@ func (s *PostgreProjectModule) UpdateProject(p models.Project) error {
 	return err
 }
 
-func (s *PostgreProjectModule) DeleteProject(id uint64) error {
+func (s *PostgreProjectModule) Delete(id uint64) error {
 	_, err := s.db.Exec(`
 		DELETE FROM projects
 		WHERE id = $1

@@ -13,9 +13,9 @@ type Storage interface {
 
 type StorageModule[T any, TCreate any] interface {
 	Migrate() error
-	GetProjects() ([]*T, error)
-	GetProject(uint64) (*T, error)
-	CreateProject(TCreate) (*uint64, error)
-	UpdateProject(T) error
-	DeleteProject(uint64) error
+	Get() ([]*T, error)
+	GetById(uint64) (*T, error)
+	Create(TCreate) (*uint64, error)
+	Update(T) error
+	Delete(uint64) error
 }

@@ -34,7 +34,7 @@ func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error 
 		return err
 	}
 
-	projects, err := projectModule.GetProjects()
+	projects, err := projectModule.Get()
 	if err != nil {
 		return server.SendError(w, err)
 	}
@@ -57,7 +57,7 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 		return err
 	}
 
-	project, err := projectModule.GetProject(id)
+	project, err := projectModule.GetById(id)
 	if err != nil {
 		return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
 	}
@@ -84,7 +84,7 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		return err
 	}
 
-	id, err := projectModule.CreateProject(project)
+	id, err := projectModule.Create(project)
 	if err != nil {
 		return server.SendError(w, err)
 	}
@@ -122,7 +122,7 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		return err
 	}
 
-	if err := projectModule.UpdateProject(project); err != nil {
+	if err := projectModule.Update(project); err != nil {
 		return server.SendError(w, err)
 	}
 
@@ -145,7 +145,7 @@ func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		return err
 	}
 
-	err = projectModule.DeleteProject(id)
+	err = projectModule.Delete(id)
 	if err != nil {
 		return server.SendError(w, err)
 	}
