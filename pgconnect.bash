@@ -39,7 +39,7 @@ function execute_sql_script_file() {
 
 # Load the environment variables
 # shellcheck source=./.env
-. ./.env
+. ./api/.env
 
 case "$1" in
     "--watch" | "-w")
