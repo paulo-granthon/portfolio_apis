@@ -59,7 +59,7 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 
 	project, err := projectModule.GetById(id)
 	if err != nil {
-		return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "models.Project not found"})
+		return server.WriteJSON(w, http.StatusNotFound, server.Error{Error: "project not found"})
 	}
 
 	return server.WriteJSON(w, http.StatusOK, project)
