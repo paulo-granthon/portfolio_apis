@@ -10,7 +10,7 @@ import (
 func main() {
 	db, error := storage.NewPostgreStorage()
 	if error != nil {
-		log.Fatal("Error creating database:", error)
+		log.Fatal("Error creating database: ", error)
 		return
 	}
 
@@ -21,7 +21,7 @@ func main() {
 	)
 
 	if error != nil {
-		log.Fatal("Error creating server:", error)
+		log.Fatal("Error creating server: ", error)
 		return
 	}
 
