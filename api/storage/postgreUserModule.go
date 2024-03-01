@@ -15,11 +15,15 @@ func NewPostgreUserModule(db *sql.DB) (*PostgreUserModule, error) {
 }
 
 func (s *PostgreUserModule) Migrate() error {
-		CREATE TYPE YearSemester AS (
-			year     uint2,
-			yearSemester uint1
-		)
 	if _, err := s.db.Exec(`
+		DO $$ BEGIN
+			CREATE TYPE YearSemester AS (
+				year     uint2,
+				yearSemester uint1
+			);
+		EXCEPTION
+			WHEN duplicate_object THEN null;
+		END $$;
 	`); err != nil {
 		return fmt.Errorf("failed to create YearSemester type: %w", err)
 	}
