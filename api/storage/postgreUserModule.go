@@ -36,6 +36,7 @@ func (s *PostgreUserModule) Migrate() error {
 	exampleUsers := []models.CreateUser{
 		models.NewCreateUser(
 			"Paulo Granthon",
+			"123456",
 			&summary,
 			&yearSemesterMatriculed,
 			&githubUsername,
@@ -90,10 +91,10 @@ func (s *PostgreUserModule) GetById(id uint64) (*models.User, error) {
 func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	var id uint64
 	if err := s.db.QueryRow(`
-		INSERT INTO users (name, summary, yearSemester, githubUsername)
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO users (name, password, summary, yearSemester, githubUsername)
+		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id
-	`, p.Name, p.Summary, p.SemesterMatriculed, p.GithubUsername,
+	`, p.Name, p.Password, p.Summary, p.SemesterMatriculed, p.GithubUsername,
 	).Scan(&id); err != nil {
 		return nil, err
 	}

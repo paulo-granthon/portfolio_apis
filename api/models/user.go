@@ -56,6 +56,7 @@ func NewRegisterUser(
 
 type CreateUser struct {
 	Name               string        `json:"name"`
+	Password           string        `json:"password"`
 	Summary            *string       `json:"summary"`
 	SemesterMatriculed *YearSemester `json:"semesterMatriculed"`
 	GithubUsername     *string       `json:"githubUsername"`
@@ -63,11 +64,19 @@ type CreateUser struct {
 
 func NewCreateUser(
 	name string,
+	password string,
 	summary *string,
 	semesterMatriculed *YearSemester,
 	githubUsername *string,
 ) CreateUser {
 	return CreateUser{
+		Name:               name,
+		Password:           password,
+		Summary:            summary,
+		SemesterMatriculed: semesterMatriculed,
+		GithubUsername:     githubUsername,
+	}
+}
 
 type UpdateUser struct {
 	Id                 uint64        `json:"id"`

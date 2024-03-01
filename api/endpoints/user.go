@@ -103,6 +103,7 @@ func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 
 	user := models.NewCreateUser(
 		request.User.Name,
+		request.User.Password,
 		request.User.Summary,
 		request.User.SemesterMatriculed,
 		request.User.GithubUsername,
