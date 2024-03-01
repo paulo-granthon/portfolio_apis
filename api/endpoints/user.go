@@ -11,10 +11,15 @@ import (
 func UserEndpoints() []server.Endpoint {
 	return []server.Endpoint{
 		{
+			Path: "/register",
+			Methods: []server.Method{
+				server.NewMethod("POST", RegisterUser),
+			},
+		},
+		{
 			Path: "/users",
 			Methods: []server.Method{
 				server.NewMethod("GET", GetUsers),
-				server.NewMethod("POST", RegisterUser),
 				server.NewMethod("POST", CreateUser),
 			},
 		},
