@@ -35,7 +35,7 @@ func (s *PostgreStorage) GetProjectModule() (StorageModule[models.Project, model
 	return s.postgreProjectModule, nil
 }
 
-func (s *PostgreStorage) GetUserModule() (StorageModule[models.User, models.CreateUser], error) {
+func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 	if s.postgreUserModule.db == nil {
 		return nil, fmt.Errorf("userModule not found")
 	}

@@ -9,7 +9,7 @@ import (
 type Storage interface {
 	Migrate() error
 	GetProjectModule() (StorageModule[models.Project, models.CreateProject], error)
-	GetUserModule() (StorageModule[models.User, models.CreateUser], error)
+	GetUserModule() (UserStorageModule, error)
 }
 
 type StorageModule[T any, TCreate any] interface {
@@ -18,5 +18,15 @@ type StorageModule[T any, TCreate any] interface {
 	GetById(uint64) (*T, error)
 	Create(TCreate) (*uint64, error)
 	Update(T) error
+	Delete(uint64) error
+}
+
+type UserStorageModule interface {
+	Migrate() error
+	Get() ([]*models.User, error)
+	GetById(uint64) (*models.User, error)
+	Create(models.CreateUser) (*uint64, error)
+	Register(models.RegisterUser) (*uint64, error)
+	Update(models.User) error
 	Delete(uint64) error
 }
