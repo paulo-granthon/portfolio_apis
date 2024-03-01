@@ -1,12 +1,12 @@
 package models
 
 type Project struct {
-	Id       uint64 `json:"id"`
-	Name     string `json:"name"`
-	Semester uint8  `json:"semester"`
-	Company  string `json:"company"`
-	Summary  string `json:"summary"`
-	Url      string `json:"url"`
+	Id       uint64 `json:"id" db:"id"`
+	Name     string `json:"name" db:"name"`
+	Semester uint8  `json:"semester" db:"semester"`
+	Company  string `json:"company" db:"company"`
+	Summary  string `json:"summary" db:"summary"`
+	Url      string `json:"url" db:"url"`
 }
 
 func NewProject(
@@ -28,11 +28,11 @@ func NewProject(
 }
 
 type CreateProject struct {
-	Name     string `json:"name"`
-	Semester uint8  `json:"semester"`
-	Company  string `json:"company"`
-	Summary  string `json:"summary"`
-	Url      string `json:"url"`
+	Name     string `json:"name" db:"name"`
+	Semester uint8  `json:"semester" db:"semester"`
+	Company  string `json:"company" db:"company"`
+	Summary  string `json:"summary" db:"summary"`
+	Url      string `json:"url" db:"url"`
 }
 
 func NewCreateProject(

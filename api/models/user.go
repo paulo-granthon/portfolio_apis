@@ -16,11 +16,11 @@ func NewYearSemester(
 }
 
 type User struct {
-	Id                 uint64        `json:"id"`
-	Name               string        `json:"name"`
-	Summary            *string       `json:"summary"`
-	SemesterMatriculed *YearSemester `json:"semesterMatriculed"`
-	GithubUsername     *string       `json:"githubUsername"`
+	Id                 uint64        `json:"id" db:"id"`
+	Name               string        `json:"name" db:"name"`
+	Summary            *string       `json:"summary" db:"summary"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"yearSemester"`
+	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }
 
 func NewUser(
@@ -40,8 +40,8 @@ func NewUser(
 }
 
 type RegisterUser struct {
-	Name     string `json:"name"`
-	Password string
+	Name     string `json:"name" db:"name"`
+	Password string `json:"password" db:"password"`
 }
 
 func NewRegisterUser(
@@ -79,11 +79,11 @@ func NewCreateUser(
 }
 
 type UpdateUser struct {
-	Id                 uint64        `json:"id"`
-	Name               *string       `json:"name"`
-	Summary            *string       `json:"summary"`
-	SemesterMatriculed *YearSemester `json:"semesterMatriculed"`
-	GithubUsername     *string       `json:"githubUsername"`
+	Id                 uint64        `json:"id" db:"id"`
+	Name               *string       `json:"name" db:"name"`
+	Summary            *string       `json:"summary" db:"summary"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"yearSemester"`
+	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }
 
 func NewUpdateUser(
