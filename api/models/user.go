@@ -2,16 +2,16 @@ package models
 
 type YearSemester struct {
 	Year     uint16 `json:"year"`
-	Semester bool   `json:"semester"`
+	Semester uint8  `json:"semester"`
 }
 
 func NewYearSemester(
 	year uint16,
-	semester bool,
+	semester uint8,
 ) YearSemester {
 	return YearSemester{
 		Year:     year,
-		Semester: semester,
+		Semester: ((semester - 1) % 2) + 1, // ensure to 1 or 2
 	}
 }
 
