@@ -8,6 +8,7 @@ import (
 
 type PostgreStorage struct {
 	postgreProjectModule *PostgreProjectModule
+	postgreUserModule    *PostgreUserModule
 	db                   *sql.DB
 }
 
@@ -32,6 +33,13 @@ func (s *PostgreStorage) GetProjectModule() (StorageModule[models.Project, model
 		return nil, fmt.Errorf("projectModule not found")
 	}
 	return s.postgreProjectModule, nil
+}
+
+func (s *PostgreStorage) GetUserModule() (StorageModule[models.User, models.CreateUser], error) {
+	if s.postgreUserModule.db == nil {
+		return nil, fmt.Errorf("userModule not found")
+	}
+	return s.postgreUserModule, nil
 }
 
 func (s *PostgreStorage) Migrate() error {

@@ -9,6 +9,7 @@ import (
 type Storage interface {
 	Migrate() error
 	GetProjectModule() (StorageModule[models.Project, models.CreateProject], error)
+	GetUserModule() (StorageModule[models.User, models.CreateUser], error)
 }
 
 type StorageModule[T any, TCreate any] interface {
