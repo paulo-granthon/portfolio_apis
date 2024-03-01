@@ -6,9 +6,9 @@ import (
 )
 
 func CreateEndpoints() []server.Endpoint {
-	return append(
+	return mergeEndpoints(
 		ProjectEndpoints(),
-		RootEndpoint(),
+		RootEndpoints(),
 	)
 }
 
@@ -20,11 +20,13 @@ func mergeEndpoints(endpoints ...[]server.Endpoint) []server.Endpoint {
 	return merged
 }
 
-func RootEndpoint() server.Endpoint {
-	return server.Endpoint{
-		Path: "/",
-		Methods: []server.Method{
-			server.NewMethod("GET", GetRoot),
+func RootEndpoints() []server.Endpoint {
+	return []server.Endpoint{
+		{
+			Path: "/",
+			Methods: []server.Method{
+				server.NewMethod("GET", GetRoot),
+			},
 		},
 	}
 }
