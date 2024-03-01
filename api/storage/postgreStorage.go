@@ -15,7 +15,7 @@ type PostgreStorage struct {
 }
 
 func NewPostgreStorage() (*PostgreStorage, error) {
-	db, err := sqlx.Connect("postgres", "user=postgres password=secret sslmode=disable")
+	db, err := sqlx.Connect("postgres", "port=3332 user=postgres password=secret sslmode=disable")
 	if err != nil {
 		log.Fatalln(err)
 	}
