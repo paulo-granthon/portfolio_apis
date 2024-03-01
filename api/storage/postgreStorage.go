@@ -23,8 +23,20 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		return nil, err
 	}
 
+	postgreProjectModule, err := NewPostgreProjectModule(db)
+	if err != nil {
+		return nil, err
+	}
+
+	postgreUserModule, err := NewPostgreUserModule(db)
+	if err != nil {
+		return nil, err
+	}
+
 	return &PostgreStorage{
-		db: db,
+		postgreProjectModule: postgreProjectModule,
+		postgreUserModule:    postgreUserModule,
+		db:                   db,
 	}, nil
 }
 
