@@ -27,6 +27,6 @@ type UserStorageModule interface {
 	GetById(uint64) (*models.User, error)
 	Create(models.CreateUser) (*uint64, error)
 	Register(models.RegisterUser) (*uint64, error)
-	Update(models.User) error
+	Update(models.UpdateUser) error
 	Delete(uint64) error
 }

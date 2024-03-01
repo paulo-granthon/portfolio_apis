@@ -115,7 +115,7 @@ func (s *PostgreUserModule) Register(p models.RegisterUser) (*uint64, error) {
 	return &id, nil
 }
 
-func (s *PostgreUserModule) Update(p models.User) error {
+func (s *PostgreUserModule) Update(p models.UpdateUser) error {
 	_, err := s.db.Exec(`
 		UPDATE users
 		SET name = $1, summary = $2, yearSemester = $3, githubUsername = $4
