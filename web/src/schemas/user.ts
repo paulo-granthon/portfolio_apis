@@ -56,4 +56,8 @@ export type PostUserSchema = Partial<Omit<UserSchema, "id">> &
     password: string;
   };
 
+export type RegisterUserSchema = Pick<UserSchema, "name"> & {
+  password: string;
+};
+
 export type UpdateUserSchema = Omit<UserSchema, "id">;
