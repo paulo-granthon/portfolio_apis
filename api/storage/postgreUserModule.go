@@ -2,6 +2,7 @@ package storage
 
 import (
 	"database/sql"
+	"fmt"
 	"models"
 )
 
@@ -14,12 +15,16 @@ func NewPostgreUserModule(db *sql.DB) (*PostgreUserModule, error) {
 }
 
 func (s *PostgreUserModule) Migrate() error {
-	_, err := s.db.Exec(`
 		CREATE TYPE YearSemester AS (
 			year     uint2,
 			yearSemester uint1
 		)
+	if _, err := s.db.Exec(`
+	`); err != nil {
+		return fmt.Errorf("failed to create YearSemester type: %w", err)
+	}
 
+	if _, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
@@ -28,9 +33,8 @@ func (s *PostgreUserModule) Migrate() error {
 			githubUsername VARCHAR(39) NULL,
 			password VARCHAR(50) NOT NULL
 		)
-	`)
-	if err != nil {
-		return err
+	`); err != nil {
+		return fmt.Errorf("failed to create users table: %w", err)
 	}
 
 	summary := "Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer"
