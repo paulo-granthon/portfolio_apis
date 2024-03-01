@@ -8,14 +8,14 @@ import (
 
 type Storage interface {
 	Migrate() error
-	GetProjectModule() (ProjectModule, error)
+	GetProjectModule() (StorageModule[models.Project, models.CreateProject], error)
 }
 
-type ProjectModule interface {
+type StorageModule[T any, TCreate any] interface {
 	Migrate() error
-	GetProjects() ([]*models.Project, error)
-	GetProject(uint64) (*models.Project, error)
-	CreateProject(models.CreateProject) (*uint64, error)
-	UpdateProject(models.Project) error
+	GetProjects() ([]*T, error)
+	GetProject(uint64) (*T, error)
+	CreateProject(TCreate) (*uint64, error)
+	UpdateProject(T) error
 	DeleteProject(uint64) error
 }

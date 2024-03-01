@@ -3,6 +3,7 @@ package storage
 import (
 	"database/sql"
 	"fmt"
+	"models"
 )
 
 type PostgreStorage struct {
@@ -26,11 +27,10 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 	}, nil
 }
 
-func (s *PostgreStorage) GetProjectModule() (ProjectModule, error) {
+func (s *PostgreStorage) GetProjectModule() (StorageModule[models.Project, models.CreateProject], error) {
 	if s.postgreProjectModule.db == nil {
 		return nil, fmt.Errorf("projectModule not found")
 	}
-
 	return s.postgreProjectModule, nil
 }
 
