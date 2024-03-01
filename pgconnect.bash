@@ -7,7 +7,7 @@ function watch_query() {
     if [ -n "${DB_NAME}" ]; then
         DB_NAME_MAYBE="-d ${DB_NAME}"
     fi
-    PGPASSWORD="${DB_PASSWORD}" watch -etn 1 "psql -h${DB_HOST} -U${DB_USER} ${DB_NAME_MAYBE} -c '${query}'"
+    PGPASSWORD="${DB_PASS}" watch -etn 1 "psql -h${DB_HOST} -U${DB_USER} ${DB_NAME_MAYBE} -c '${query}'"
     clear
 }
 
@@ -18,7 +18,7 @@ function execute_query_once() {
     if [ -n "${DB_NAME}" ]; then
         DB_NAME_MAYBE="-d ${DB_NAME}"
     fi
-    PGPASSWORD="${DB_PASSWORD}" psql -h"${DB_HOST}" -U"${DB_USER}" "${DB_NAME_MAYBE}" -c "${query}"
+    PGPASSWORD="${DB_PASS}" psql -h"${DB_HOST}" -U"${DB_USER}" "${DB_NAME_MAYBE}" -c "${query}"
 }
 
 function execute_sql_script_file() {
@@ -34,7 +34,7 @@ function execute_sql_script_file() {
         DB_NAME_MAYBE="-d ${DB_NAME}"
     fi
 
-    PGPASSWORD="${DB_PASSWORD}" psql -h"${DB_HOST}" -U"${DB_USER}" "${DB_NAME_MAYBE}" -f "${script_file}"
+    PGPASSWORD="${DB_PASS}" psql -h"${DB_HOST}" -U"${DB_USER}" "${DB_NAME_MAYBE}" -f "${script_file}"
 }
 
 # Load the environment variables
@@ -55,7 +55,7 @@ case "$1" in
         ;;
     *)
         # If no specific flag is provided, execute pgcli command
-        pgcli postgresql://"${DB_USER}":"${DB_PASSWORD}"@"${DB_HOST}":"${DB_PORT}"/"${DB_NAME}"
+        pgcli postgresql://"${DB_USER}":"${DB_PASS}"@"${DB_HOST}":"${DB_PORT}"/"${DB_NAME}"
         ;;
 esac
 
