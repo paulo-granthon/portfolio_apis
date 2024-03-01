@@ -12,6 +12,14 @@ func CreateEndpoints() []server.Endpoint {
 	)
 }
 
+func mergeEndpoints(endpoints ...[]server.Endpoint) []server.Endpoint {
+	var merged []server.Endpoint
+	for _, e := range endpoints {
+		merged = append(merged, e...)
+	}
+	return merged
+}
+
 func RootEndpoint() server.Endpoint {
 	return server.Endpoint{
 		Path: "/",
