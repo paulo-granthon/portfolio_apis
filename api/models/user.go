@@ -21,7 +21,6 @@ type User struct {
 	Summary            *string       `json:"summary"`
 	SemesterMatriculed *YearSemester `json:"semesterMatriculed"`
 	GithubUsername     *string       `json:"githubUsername"`
-	Password           string        `json:"password"`
 }
 
 func NewUser(
