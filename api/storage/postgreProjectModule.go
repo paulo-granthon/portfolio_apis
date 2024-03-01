@@ -1,15 +1,16 @@
 package storage
 
 import (
-	"database/sql"
 	"models"
+
+	"github.com/jmoiron/sqlx"
 )
 
 type PostgreProjectModule struct {
-	db *sql.DB
+	db *sqlx.DB
 }
 
-func NewPostgreProjectModule(db *sql.DB) (*PostgreProjectModule, error) {
+func NewPostgreProjectModule(db *sqlx.DB) (*PostgreProjectModule, error) {
 	return &PostgreProjectModule{db: db}, nil
 }
 

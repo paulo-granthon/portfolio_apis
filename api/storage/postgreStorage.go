@@ -1,22 +1,23 @@
 package storage
 
 import (
-	"database/sql"
 	"fmt"
+	"log"
 	"models"
+
+	"github.com/jmoiron/sqlx"
 )
 
 type PostgreStorage struct {
 	postgreProjectModule *PostgreProjectModule
 	postgreUserModule    *PostgreUserModule
-	db                   *sql.DB
+	db                   *sqlx.DB
 }
 
 func NewPostgreStorage() (*PostgreStorage, error) {
-	connStr := "user=postgres password=secret sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
+	db, err := sqlx.Connect("postgres", "user=postgres password=secret sslmode=disable")
 	if err != nil {
-		return nil, err
+		log.Fatalln(err)
 	}
 
 	if err := db.Ping(); err != nil {
