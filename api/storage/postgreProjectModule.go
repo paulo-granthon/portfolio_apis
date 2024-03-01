@@ -9,6 +9,10 @@ type PostgreProjectModule struct {
 	db *sql.DB
 }
 
+func NewPostgreProjectModule(db *sql.DB) (*PostgreProjectModule, error) {
+	return &PostgreProjectModule{db: db}, nil
+}
+
 func (s *PostgreProjectModule) Migrate() error {
 	_, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS projects (

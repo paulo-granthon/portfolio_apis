@@ -9,6 +9,10 @@ type PostgreUserModule struct {
 	db *sql.DB
 }
 
+func NewPostgreUserModule(db *sql.DB) (*PostgreUserModule, error) {
+	return &PostgreUserModule{db: db}, nil
+}
+
 func (s *PostgreUserModule) Migrate() error {
 	_, err := s.db.Exec(`
 		CREATE TYPE YearSemester AS (
