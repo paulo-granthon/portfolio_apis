@@ -39,16 +39,16 @@ func NewUser(
 	}
 }
 
-type CreateUser struct {
+type RegisterUser struct {
 	Name     string `json:"name"`
 	Password string
 }
 
-func NewCreateUser(
+func NewRegisterUser(
 	name string,
 	password string,
-) CreateUser {
-	return CreateUser{
+) RegisterUser {
+	return RegisterUser{
 		Name:     name,
 		Password: password,
 	}
