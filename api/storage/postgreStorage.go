@@ -64,19 +64,23 @@ func (s *PostgreStorage) Migrate() error {
 
 	userModule, err := s.GetUserModule()
 	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting userModule", err)
 		return err
 	}
 
 	if err := userModule.Migrate(); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error migrating userModule", err)
 		return err
 	}
 
 	projectModule, err := s.GetProjectModule()
 	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting projectModule", err)
 		return err
 	}
 
 	if err := projectModule.Migrate(); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error migrating projectModule", err)
 		return err
 	}
 
