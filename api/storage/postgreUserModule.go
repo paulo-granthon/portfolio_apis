@@ -25,7 +25,7 @@ func (s *PostgreUserModule) Migrate() error {
 			name VARCHAR(50) NOT NULL,
 			summary VARCHAR(100) NULL,
 			yearSemester YearSemester NULL,
-			githubUsername VARCHAR(39) NULL
+			githubUsername VARCHAR(39) NULL,
 			password VARCHAR(50) NOT NULL
 		)
 	`)
