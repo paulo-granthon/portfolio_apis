@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"encoding/json"
 	"fmt"
 	"models"
 
@@ -103,11 +104,16 @@ func (s *PostgreUserModule) GetById(id uint64) (*models.User, error) {
 
 func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	var id uint64
+	semesterMatriculed, err := json.Marshal(p.SemesterMatriculed)
+	if err != nil {
+		return nil, err
+	}
+
 	if err := s.db.QueryRow(`
 		INSERT INTO users (name, password, summary, yearSemester, githubUsername)
 		VALUES ($1, $2, $3, $4, $5)
 		RETURNING id
-	`, p.Name, p.Password, p.Summary, p.SemesterMatriculed, p.GithubUsername,
+	`, p.Name, p.Password, p.Summary, semesterMatriculed, p.GithubUsername,
 	).Scan(&id); err != nil {
 		return nil, err
 	}
