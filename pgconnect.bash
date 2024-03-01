@@ -3,14 +3,14 @@
 # function to imediately execute a query on connect
 function watch_query() {
     query=${1:-"show databases"}
-    watch -etn 1 "mysql -h$DB_HOST -u$DB_USER -p$DB_PASSWORD $DB_NAME -t -e '$query'"
+    PGPASSWORD="${DB_PASSWORD}" watch -etn 1 "psql -h${DB_HOST} -U${DB_USER} -d${DB_NAME} -c '${query}'"
     clear
 }
 
 # Function to execute a query once
 function execute_query_once() {
     query=${1:-"show databases"}
-    mysql -h"${DB_HOST}" -u"${DB_USER}" -p"${DB_PASSWORD}" "${DB_NAME}" -t -e "${query}"
+    PGPASSWORD="${DB_PASSWORD}" psql -h"${DB_HOST}" -U"${DB_USER}" -d"${DB_NAME}" -c "${query}"
 }
 
 function execute_sql_script_file() {
@@ -22,7 +22,7 @@ function execute_sql_script_file() {
         exit 1
     fi
 
-    mysql -h"${DB_HOST}" -u"${DB_USER}" -p"${DB_PASSWORD}" "${DB_NAME}" < "${script_file}"
+    PGPASSWORD="${DB_PASSWORD}" psql -h"${DB_HOST}" -U"${DB_USER}" -d"${DB_NAME}" -f "${script_file}"
 }
 
 # Load the environment variables
