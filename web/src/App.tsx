@@ -1,16 +1,14 @@
-import Portfolio from "./pages/portfolio";
+import { useEffect, useState } from "react";
 import { UserSchema } from "./schemas/user";
-import { YearSemester } from "./schemas/user";
+import { getUser } from "./services/user";
+import Portfolio from "./pages/portfolio";
 
 export default function App() {
-  const user: UserSchema = {
-    id: 0,
-    name: "paulo",
-    summary:
-      "Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer",
-    semesterMatriculated: new YearSemester(2022, 2),
-    githubUsername: "paulo-granthon",
-  };
+  const [user, setUser] = useState<UserSchema | undefined>();
 
-  return <Portfolio {...user} />;
+  useEffect(() => {
+    getUser(1).then((user) => setUser(user));
+  }, []);
+
+  return <>{user ? <Portfolio {...user} /> : <p>Usuário não encontrado</p>}</>;
 }
