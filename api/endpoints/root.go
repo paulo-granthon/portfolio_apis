@@ -29,7 +29,11 @@ func GetRoot(s server.Server, w http.ResponseWriter, r *http.Request) error {
 func Migrate(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	err := s.Storage.Migrate()
 	if err != nil {
-		return server.SendError(w, err)
+		return server.SendError(
+			w, err, 500,
+			"error migrating",
+		)
 	}
+
 	return server.WriteJSON(w, http.StatusOK, "Migrated")
 }

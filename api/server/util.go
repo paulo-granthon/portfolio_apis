@@ -3,6 +3,7 @@ package server
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -32,6 +33,12 @@ type Error struct {
 	Error string
 }
 
-func SendError(w http.ResponseWriter, error error) error {
-	return WriteJSON(w, http.StatusBadRequest, Error{Error: error.Error()})
+func SendError(
+	w http.ResponseWriter,
+	err error,
+	code int,
+	msg string,
+) error {
+	log.Println(err)
+	return WriteJSON(w, code, Error{Error: msg})
 }
