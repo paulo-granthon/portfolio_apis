@@ -7,7 +7,7 @@ function watch_query() {
     if [ -n "${DB_NAME}" ]; then
         DB_NAME_MAYBE="-d ${DB_NAME}"
     fi
-    PGPASSWORD="${DB_PASS}" watch -etn 1 "psql -h${DB_HOST} -U${DB_USER} ${DB_NAME_MAYBE} -c '${query}'"
+    PGPASSWORD="${DB_PASS}" watch -etn 1 "psql -h${DB_HOST} -p${DB_PORT} -U${DB_USER} ${DB_NAME_MAYBE} -c '${query}'"
     clear
 }
 
@@ -18,7 +18,7 @@ function execute_query_once() {
     if [ -n "${DB_NAME}" ]; then
         DB_NAME_MAYBE="-d ${DB_NAME}"
     fi
-    PGPASSWORD="${DB_PASS}" psql -h"${DB_HOST}" -U"${DB_USER}" "${DB_NAME_MAYBE}" -c "${query}"
+    PGPASSWORD="${DB_PASS}" psql -h"${DB_HOST}" -p${DB_PORT} -U"${DB_USER}" "${DB_NAME_MAYBE}" -c "${query}"
 }
 
 function execute_sql_script_file() {
