@@ -21,6 +21,7 @@ func GetRequestParam(r *http.Request, key string) (*string, error) {
 
 func WriteJSON(w http.ResponseWriter, status int, value any) error {
 	w.Header().Add("Content-Type", "application/json")
+	w.Header().Add("Access-Control-Allow-Origin", "*")
 	w.WriteHeader(status)
 	return json.NewEncoder(w).Encode(value)
 }
