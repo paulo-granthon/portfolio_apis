@@ -22,7 +22,7 @@ func (s *PostgreUserModule) Migrate() error {
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
-			summary VARCHAR(100) NULL,
+			summary VARCHAR(200) NULL,
 			yearSemester JSONB NULL,
 			githubUsername VARCHAR(39) NULL,
 			password VARCHAR(50) NOT NULL
