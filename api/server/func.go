@@ -24,7 +24,7 @@ func (e *Endpoint) getFunc(method string) (Func, error) {
 		}
 		return m.Func, nil
 	}
-	return nil, fmt.Errorf("Method %s not allowed", method)
+	return nil, fmt.Errorf("method %s not allowed", method)
 }
 
 type Func func(s Server, w http.ResponseWriter, r *http.Request) error

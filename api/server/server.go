@@ -39,7 +39,12 @@ func (s *Server) Start() {
 		for _, method := range endpoint.Methods {
 			methods = append(methods, method.Method)
 		}
-		router.HandleFunc(endpoint.Path, endpoint.Create(*s)).Methods(methods...)
+
+		router.HandleFunc(
+			endpoint.Path,
+			endpoint.Create(*s),
+		// allowing all methods to allow custom response when method is not allowed
+		).Methods("OPTIONS", "GET", "POST", "PUT", "DELETE")
 	}
 
 	log.Println("Starting server on", s.port)
