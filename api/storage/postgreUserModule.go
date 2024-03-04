@@ -17,25 +17,13 @@ func NewPostgreUserModule(db *sqlx.DB) (*PostgreUserModule, error) {
 }
 
 func (s *PostgreUserModule) Migrate() error {
-	if _, err := s.db.Exec(`
-		DO $$ BEGIN
-			CREATE TYPE YearSemester AS (
-				year     uint2,
-				yearSemester uint1
-			);
-		EXCEPTION
-			WHEN duplicate_object THEN null;
-		END $$;
-	`); err != nil {
-		return fmt.Errorf("failed to create YearSemester type: %w", err)
-	}
 
 	if _, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
 			summary VARCHAR(100) NULL,
-			yearSemester YearSemester NULL,
+			yearSemester JSONB NULL,
 			githubUsername VARCHAR(39) NULL,
 			password VARCHAR(50) NOT NULL
 		)
