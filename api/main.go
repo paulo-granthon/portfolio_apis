@@ -25,5 +25,10 @@ func main() {
 		return
 	}
 
-	server.Start()
+	err := server.Start()
+
+	if err != nil {
+		log.Fatal("Error starting server: ", err)
+		return
+	}
 }

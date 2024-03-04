@@ -31,7 +31,7 @@ func NewServer(
 	}, nil
 }
 
-func (s *Server) Start() {
+func (s *Server) Start() error {
 	router := mux.NewRouter()
 
 	for _, endpoint := range s.endpoints {
@@ -51,6 +51,8 @@ func (s *Server) Start() {
 
 	error := http.ListenAndServe(s.port, router)
 	if error != nil {
-		log.Fatal("Error starting server:", error)
+		return fmt.Errorf("Error starting server:", error)
 	}
+
+	return nil
 }
