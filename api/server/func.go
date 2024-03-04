@@ -35,14 +35,19 @@ func NewHTTPHandlerFunc(s Server, apiEndpoint Endpoint) http.HandlerFunc {
 		apiFunc, err := apiEndpoint.getFunc(r.Method)
 
 		if err != nil {
-			WriteJSON(w, http.StatusMethodNotAllowed, Error{Error: err.Error()})
-			http.Error(w, err.Error(), http.StatusMethodNotAllowed)
+			SendError(
+				w, err, http.StatusMethodNotAllowed,
+				fmt.Sprintf("method %s not allowed", r.Method),
+			)
 			return
 		}
 
 		if err := apiFunc(s, w, r); err != nil {
-			WriteJSON(w, http.StatusInternalServerError, Error{Error: err.Error()})
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			SendError(
+				w, err, http.StatusInternalServerError,
+				fmt.Sprintf("error processing request: %s", err.Error()),
+			)
+			return
 		}
 	}
 }
