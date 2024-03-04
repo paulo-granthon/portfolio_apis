@@ -38,7 +38,7 @@ func GetUsers(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -46,19 +46,22 @@ func GetUsers(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	users, err := userModule.Get()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error getting users",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, users)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		users,
+	)
 }
 
 func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -66,7 +69,7 @@ func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -74,7 +77,7 @@ func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -87,14 +90,17 @@ func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, user)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		user,
+	)
 }
 
 func RegisterUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.RegisterUserRequest
 	if err := server.ReadJSON(r, &request.Payload); err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"error reading request",
 		)
 	}
@@ -107,7 +113,7 @@ func RegisterUser(s server.Server, w http.ResponseWriter, r *http.Request) error
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -115,19 +121,22 @@ func RegisterUser(s server.Server, w http.ResponseWriter, r *http.Request) error
 	id, err := userModule.Register(user)
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error registering user",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusCreated, schemas.RegisterUserResponse{Id: *id})
+	return server.WriteJSON(
+		w, http.StatusCreated,
+		schemas.RegisterUserResponse{Id: *id},
+	)
 }
 
 func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.CreateUserRequest
 	if err := server.ReadJSON(r, &request.User); err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"error parsing request",
 		)
 	}
@@ -143,7 +152,7 @@ func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -151,19 +160,22 @@ func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := userModule.Create(user)
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error creating user",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusCreated, schemas.CreateUserResponse{Id: *id})
+	return server.WriteJSON(
+		w, http.StatusCreated,
+		schemas.CreateUserResponse{Id: *id},
+	)
 }
 
 func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -171,7 +183,7 @@ func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -179,7 +191,7 @@ func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.UpdateUserRequest
 	if err := server.ReadJSON(r, &request); err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"error parsing request",
 		)
 	}
@@ -195,26 +207,29 @@ func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
 
 	if err := userModule.Update(user); err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error updating user",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, nil)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		"user updated",
+	)
 }
 
 func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -222,7 +237,7 @@ func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -230,7 +245,7 @@ func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -238,10 +253,13 @@ func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	err = userModule.Delete(id)
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error deleting user",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, nil)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		"user deleted",
+	)
 }

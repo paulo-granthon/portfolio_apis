@@ -32,7 +32,7 @@ func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error 
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -40,19 +40,22 @@ func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error 
 	projects, err := projectModule.Get()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error getting projects",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, projects)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		projects,
+	)
 }
 
 func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -60,7 +63,7 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -68,7 +71,7 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -76,19 +79,22 @@ func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	project, err := projectModule.GetById(id)
 	if err != nil {
 		return server.SendError(
-			w, err, 404,
+			w, err, http.StatusNotFound,
 			"project not found",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, project)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		project,
+	)
 }
 
 func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.CreateProjectRequest
 	if err := server.ReadJSON(r, &request.Project); err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"error parsing request",
 		)
 	}
@@ -104,7 +110,7 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -112,19 +118,22 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	id, err := projectModule.Create(project)
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error creating project",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusCreated, schemas.CreateProjectResponse{Id: *id})
+	return server.WriteJSON(
+		w, http.StatusCreated,
+		schemas.CreateProjectResponse{Id: *id},
+	)
 }
 
 func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -132,7 +141,7 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -140,7 +149,7 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	var request schemas.UpdateProjectRequest
 	if err := server.ReadJSON(r, &request); err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"error parsing request",
 		)
 	}
@@ -157,26 +166,29 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
 
 	if err := projectModule.Update(project); err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error updating project",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, nil)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		"project updated",
+	)
 }
 
 func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id not found",
 		)
 	}
@@ -184,7 +196,7 @@ func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, 400,
+			w, err, http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}
@@ -192,7 +204,7 @@ func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"storage misconfiguration",
 		)
 	}
@@ -200,10 +212,13 @@ func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	err = projectModule.Delete(id)
 	if err != nil {
 		return server.SendError(
-			w, err, 500,
+			w, err, http.StatusInternalServerError,
 			"error deleting project",
 		)
 	}
 
-	return server.WriteJSON(w, http.StatusOK, nil)
+	return server.WriteJSON(
+		w, http.StatusOK,
+		"project deleted",
+	)
 }
