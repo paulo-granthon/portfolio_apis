@@ -47,7 +47,7 @@ export interface UserSchema {
   id: number;
   name: string;
   summary: string;
-  semesterMatriculated: YearSemester;
+  semesterMatriculed: YearSemester;
   githubUsername: string;
 }
 

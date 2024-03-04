@@ -10,8 +10,8 @@ interface UserProps {
 export default function User({ user }: UserProps) {
   const [userGithubProfileUrl, setUserGithubProfileUrl] = useState<string>("");
 
-  const userInitialSemester = user.semesterMatriculated.toString();
-  const userCurrentSemester = user.semesterMatriculated
+  const userInitialSemester = user.semesterMatriculed.toString();
+  const userCurrentSemester = user.semesterMatriculed
     .currentSemester()
     .toString();
 
