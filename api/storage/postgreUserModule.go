@@ -66,18 +66,21 @@ func (s *PostgreUserModule) Get() ([]*models.User, error) {
 
 	var users []*models.User
 	for rows.Next() {
-		p := &models.User{}
+		user := &models.User{}
+
 		if err := rows.Scan(
-			&p.Id,
-			&p.Name,
-			&p.Summary,
-			&p.SemesterMatriculed,
-			&p.GithubUsername,
+			&user.Id,
+			&user.Name,
+			&user.Summary,
+			&user.SemesterMatriculed,
+			&user.GithubUsername,
 		); err != nil {
 			return nil, err
 		}
-		users = append(users, p)
+
+		users = append(users, user)
 	}
+
 	return users, nil
 }
 
