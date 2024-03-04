@@ -8,6 +8,7 @@ func CreateEndpoints() []server.Endpoint {
 	return mergeEndpoints(
 		ProjectEndpoints(),
 		RootEndpoints(),
+		UserEndpoints(),
 	)
 }
 
