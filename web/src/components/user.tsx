@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { UserSchema } from "../schemas/user";
 import { getProfilePicture } from "../services/github";
-import { userStyles } from "../styles";
+import * as userStyles from "../styles/user";
 
 interface UserProps {
   user: UserSchema;
@@ -26,18 +26,22 @@ export default function User({ user }: UserProps) {
   }, []);
 
   return (
-    <div>
-      <h1>{user.name}</h1>
-      <img
-        src={userGithubProfileUrl}
-        alt="GitHub Profile"
-        {...userStyles.profilePicture}
-      />
-      <p>{user.summary}</p>
-      <div>
-        <p>{userInitialSemester}</p>
+    <div {...userStyles.userCard}>
+      <div {...userStyles.userCardLeft}>
+        <img
+          src={userGithubProfileUrl}
+          alt="GitHub Profile"
+          {...userStyles.profilePicture}
+        />
       </div>
-      <p>Semestre Atual: {userCurrentSemester}</p>
+      <div {...userStyles.userCardRight}>
+        <h1>{user.name}</h1>
+        <div {...userStyles.userCardSemester}>
+          <p>{userInitialSemester}</p>
+          <p>Semestre Atual: {userCurrentSemester}</p>
+        </div>
+        <p>{user.summary}</p>
+      </div>
     </div>
   );
 }
