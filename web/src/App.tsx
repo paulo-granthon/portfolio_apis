@@ -10,5 +10,5 @@ export default function App() {
     getUser(1).then((user) => setUser(user));
   }, []);
 
-  return <>{user ? <Portfolio {...user} /> : <p>Usuário não encontrado</p>}</>;
+  return <>{user ? <Portfolio user={user} /> : <p>Usuário não encontrado</p>}</>;
 }

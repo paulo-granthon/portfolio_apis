@@ -15,7 +15,11 @@ export default function Portfolio(user: UserSchema) {
       url: "https://example.com",
     },
   ];
+interface PortfolioProps {
+  user: UserSchema;
+}
 
+export default function Portfolio({user}: PortfolioProps) {
   return (
     <div {...styles.portfolio}>
       <div>
