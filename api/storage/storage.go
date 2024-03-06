@@ -10,7 +10,7 @@ type Storage interface {
 	Migrate() error
 	GetProjectModule() (ProjectStorageModule, error)
 	GetUserModule() (UserStorageModule, error)
-	GetTeamModule() (StorageModule[models.Team, models.CreateTeam, models.Team], error)
+	GetTeamModule() (TeamStorageModule, error)
 }
 
 type StorageModule[T any, TCreate any, TUpdate any] interface {
@@ -39,5 +39,16 @@ type UserStorageModule interface {
 	Create(models.CreateUser) (*uint64, error)
 	Register(models.RegisterUser) (*uint64, error)
 	Update(models.UpdateUser) error
+	Delete(uint64) error
+}
+
+type TeamStorageModule interface {
+	Migrate() error
+	Get() ([]*models.Team, error)
+	GetById(uint64) (*models.Team, error)
+	Create(models.CreateTeam) (*uint64, error)
+	AddUsers(uint64, ...uint64) error
+	RemoveUsers(uint64, ...uint64) error
+	Update(models.Team) error
 	Delete(uint64) error
 }

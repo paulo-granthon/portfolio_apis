@@ -80,6 +80,36 @@ func (s *PostgreTeamModule) Create(t models.CreateTeam) (*uint64, error) {
 	return &id, nil
 }
 
+func (s *PostgreTeamModule) AddUsers(teamId uint64, userIds ...uint64) error {
+	query := "INSERT INTO team_users (team_id, user_id) VALUES"
+	for i, userId := range userIds {
+		query += fmt.Sprintf("(%d, %d)", teamId, userId)
+		if i != len(userIds)-1 {
+			query += ","
+		}
+	}
+
+	if _, err := s.db.Exec(query); err != nil {
+		return fmt.Errorf("failed to add users to team: %w", err)
+	}
+	return nil
+}
+
+func (s *PostgreTeamModule) RemoveUsers(teamId uint64, userIds ...uint64) error {
+	query := "DELETE FROM team_users WHERE"
+	for i, userId := range userIds {
+		query += fmt.Sprintf(" (team_id = %d AND user_id = %d)", teamId, userId)
+		if i != len(userIds)-1 {
+			query += " OR"
+		}
+	}
+
+	if _, err := s.db.Exec(query); err != nil {
+		return fmt.Errorf("failed to remove users from team: %w", err)
+	}
+	return nil
+}
+
 func (s *PostgreTeamModule) Update(t models.Team) error {
 	if _, err := s.db.Exec(`
 		UPDATE teams

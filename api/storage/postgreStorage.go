@@ -3,7 +3,6 @@ package storage
 import (
 	"fmt"
 	"log"
-	"models"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -63,9 +62,7 @@ func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 	return s.postgreUserModule, nil
 }
 
-func (s *PostgreStorage) GetTeamModule() (
-	StorageModule[models.Team, models.CreateTeam, models.Team],
-	error,
+func (s *PostgreStorage) GetTeamModule() (TeamStorageModule, error,
 ) {
 	if s.postgreTeamModule.db == nil {
 		return nil, fmt.Errorf("teamModule not found")
