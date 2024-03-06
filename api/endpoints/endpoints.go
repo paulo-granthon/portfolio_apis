@@ -9,6 +9,7 @@ func CreateEndpoints() []server.Endpoint {
 		ProjectEndpoints(),
 		RootEndpoints(),
 		UserEndpoints(),
+		TeamEndpoints(),
 	)
 }
 
