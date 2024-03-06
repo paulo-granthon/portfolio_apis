@@ -17,7 +17,6 @@ func NewPostgreUserModule(db *sqlx.DB) (*PostgreUserModule, error) {
 }
 
 func (s *PostgreUserModule) Migrate() error {
-
 	if _, err := s.db.Exec(`
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -47,7 +46,7 @@ func (s *PostgreUserModule) Migrate() error {
 
 	for _, p := range exampleUsers {
 		if _, err := s.Create(p); err != nil {
-			return err
+			return fmt.Errorf("failed to insert user seeds: %w", err)
 		}
 	}
 
@@ -60,7 +59,7 @@ func (s *PostgreUserModule) Get() ([]*models.User, error) {
 		FROM users
 	`)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to get users: %w", err)
 	}
 	defer rows.Close()
 
@@ -75,7 +74,7 @@ func (s *PostgreUserModule) Get() ([]*models.User, error) {
 			&user.SemesterMatriculed,
 			&user.GithubUsername,
 		); err != nil {
-			return nil, err
+			return nil, fmt.Errorf("failed to scan user: %w", err)
 		}
 
 		users = append(users, user)
@@ -97,7 +96,7 @@ func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	var id uint64
 	semesterMatriculed, err := json.Marshal(p.SemesterMatriculed)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to marshal yearSemester: %w", err)
 	}
 
 	if err := s.db.QueryRow(`
@@ -106,7 +105,7 @@ func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 		RETURNING id
 	`, p.Name, p.Password, p.Summary, semesterMatriculed, p.GithubUsername,
 	).Scan(&id); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create user: %w", err)
 	}
 
 	return &id, nil
@@ -120,7 +119,7 @@ func (s *PostgreUserModule) Register(p models.RegisterUser) (*uint64, error) {
 		RETURNING id
 	`, p.Name, p.Password,
 	).Scan(&id); err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to register user: %w", err)
 	}
 
 	return &id, nil
