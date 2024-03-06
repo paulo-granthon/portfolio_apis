@@ -21,6 +21,14 @@ func (s *PostgreTeamModule) Migrate() error {
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL
 		)
+
+		CREATE TABLE IF NOT EXISTS team_users (
+			team_id INT NOT NULL,
+			user_id INT NOT NULL,
+			PRIMARY KEY (team_id, user_id),
+			FOREIGN KEY (team_id) REFERENCES teams(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		)
 	`); err != nil {
 		return fmt.Errorf("failed to create teams table: %w", err)
 	}
