@@ -23,11 +23,11 @@ func (s *PostgreTeamModule) Migrate() error {
 		);
 
 		CREATE TABLE IF NOT EXISTS team_users (
-			team_id INT NOT NULL,
-			user_id INT NOT NULL,
-			PRIMARY KEY (team_id, user_id),
-			FOREIGN KEY (team_id) REFERENCES teams(id),
-			FOREIGN KEY (user_id) REFERENCES users(id)
+			teamId INT NOT NULL,
+			userId INT NOT NULL,
+			PRIMARY KEY (teamId, user_id),
+			FOREIGN KEY (teamId) REFERENCES teams(id),
+			FOREIGN KEY (userId) REFERENCES users(id)
 		)
 	`); err != nil {
 		return fmt.Errorf("failed to create teams table: %w", err)
@@ -37,10 +37,29 @@ func (s *PostgreTeamModule) Migrate() error {
 		models.NewCreateTeam("Khali"),
 	}
 
+	var teamIdToAddMember *uint64
+
 	for _, p := range exampleTeams {
-		if _, err := s.Create(p); err != nil {
+		insertedTeamId, err := s.Create(p)
+		if err != nil {
+			if teamIdToAddMember == nil {
+				teamIdToAddMember = insertedTeamId
+			}
 			return fmt.Errorf("failed to insert team seeds: %w", err)
 		}
+	}
+
+	if teamIdToAddMember == nil {
+		existingTeam, err := s.GetById(1)
+		if err != nil {
+			return fmt.Errorf("no team was inserted neither found in the database: %w", err)
+		}
+
+		teamIdToAddMember = &existingTeam.Id
+	}
+
+	if err := s.AddUsers(*teamIdToAddMember, 1); err != nil {
+		return fmt.Errorf("failed to add users to team: %w", err)
 	}
 
 	return nil
