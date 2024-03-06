@@ -20,7 +20,7 @@ func (s *PostgreTeamModule) Migrate() error {
 		CREATE TABLE IF NOT EXISTS teams (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL
-		)
+		);
 
 		CREATE TABLE IF NOT EXISTS team_users (
 			team_id INT NOT NULL,
