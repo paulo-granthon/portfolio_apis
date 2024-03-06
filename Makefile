@@ -99,6 +99,11 @@ database-up:
 database-down:
 	@docker-compose down
 
+# Recreate and start the database container
+database-recreate:
+	@make database-down
+	@docker-compose up --build -d
+
 ### Shortcuts / Aliases
 
 a: all
@@ -126,6 +131,7 @@ fc: frontend-clean
 
 du: database-up
 dd: database-down
+dr: database-recreate
 
 ### Phony targets
 
@@ -156,5 +162,5 @@ dd: database-down
 	md mp ms mc \
 	fd fp fb fs fc \
 	bt bd bp bs bc \
-	du dd \
+	du dd dr \
 	ac
