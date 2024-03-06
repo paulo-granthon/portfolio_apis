@@ -12,6 +12,14 @@ export async function getProjects(): Promise<ProjectSchema[]> {
     .then((data) => data);
 }
 
+export async function getProjectsOfUser(
+  userId: number,
+): Promise<ProjectSchema[]> {
+  return fetch(API_URL + "/users/" + userId + "/projects")
+    .then((response) => response.json())
+    .then((data) => data);
+}
+
 export async function getProject(id: number): Promise<ProjectSchema> {
   return fetch(API_URL + "/projects/" + id)
     .then((response) => response.json())
