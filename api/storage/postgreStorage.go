@@ -31,17 +31,17 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		return nil, err
 	}
 
+	postgreTeamModule, err := NewPostgreTeamModule(db)
+	if err != nil {
+		return nil, err
+	}
+
 	postgreProjectModule, err := NewPostgreProjectModule(db)
 	if err != nil {
 		return nil, err
 	}
 
 	postgreUserModule, err := NewPostgreUserModule(db)
-	if err != nil {
-		return nil, err
-	}
-
-	postgreTeamModule, err := NewPostgreTeamModule(db)
 	if err != nil {
 		return nil, err
 	}
