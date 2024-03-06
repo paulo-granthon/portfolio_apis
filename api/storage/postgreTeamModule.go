@@ -16,23 +16,6 @@ func NewPostgreTeamModule(db *sqlx.DB) (*PostgreTeamModule, error) {
 }
 
 func (s *PostgreTeamModule) Migrate() error {
-	if _, err := s.db.Exec(`
-		CREATE TABLE IF NOT EXISTS teams (
-			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL
-		);
-
-		CREATE TABLE IF NOT EXISTS team_users (
-			teamId INT NOT NULL,
-			userId INT NOT NULL,
-			PRIMARY KEY (teamId, user_id),
-			FOREIGN KEY (teamId) REFERENCES teams(id),
-			FOREIGN KEY (userId) REFERENCES users(id)
-		)
-	`); err != nil {
-		return fmt.Errorf("failed to create teams table: %w", err)
-	}
-
 	exampleTeams := []models.CreateTeam{
 		models.NewCreateTeam("Khali"),
 	}

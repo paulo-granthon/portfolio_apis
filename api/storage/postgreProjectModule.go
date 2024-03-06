@@ -15,22 +15,6 @@ func NewPostgreProjectModule(db *sqlx.DB) (*PostgreProjectModule, error) {
 }
 
 func (s *PostgreProjectModule) Migrate() error {
-	_, err := s.db.Exec(`
-		CREATE TABLE IF NOT EXISTS projects (
-			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL,
-			semester UINT1 NOT NULL,
-			company VARCHAR(100) NOT NULL,
-			teamId INT NOT NULL,
-			summary TEXT NOT NULL,
-			url VARCHAR(100) NOT NULL,
-			FOREIGN KEY (teamId) REFERENCES teams(id)
-		)
-	`)
-	if err != nil {
-		return err
-	}
-
 	exampleProjects := []models.CreateProject{
 		models.NewCreateProject(
 			"Khali", 1, "FATEC", 1,

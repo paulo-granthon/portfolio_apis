@@ -31,17 +31,17 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		return nil, err
 	}
 
-	postgreTeamModule, err := NewPostgreTeamModule(db)
-	if err != nil {
-		return nil, err
-	}
-
 	postgreProjectModule, err := NewPostgreProjectModule(db)
 	if err != nil {
 		return nil, err
 	}
 
 	postgreUserModule, err := NewPostgreUserModule(db)
+	if err != nil {
+		return nil, err
+	}
+
+	postgreTeamModule, err := NewPostgreTeamModule(db)
 	if err != nil {
 		return nil, err
 	}
@@ -79,8 +79,53 @@ func (s *PostgreStorage) GetTeamModule() (TeamStorageModule, error,
 func (s *PostgreStorage) Migrate() error {
 	if _, err := s.db.Exec(`
 		CREATE EXTENSION IF NOT EXISTS uint;
+
+		CREATE TABLE IF NOT EXISTS users (
+			id SERIAL PRIMARY KEY,
+			name VARCHAR(50) NOT NULL,
+			summary VARCHAR(200) NULL,
+			yearSemester JSONB NULL,
+			githubUsername VARCHAR(39) NULL,
+			password VARCHAR(50) NOT NULL
+		);
+
+		CREATE TABLE IF NOT EXISTS projects (
+			id SERIAL PRIMARY KEY,
+			name VARCHAR(50) NOT NULL,
+			semester UINT1 NOT NULL,
+			company VARCHAR(100) NOT NULL,
+			teamId INT NOT NULL,
+			summary TEXT NOT NULL,
+			url VARCHAR(100) NOT NULL,
+			FOREIGN KEY (teamId) REFERENCES teams(id)
+		);
+
+		CREATE TABLE IF NOT EXISTS teams (
+			id SERIAL PRIMARY KEY,
+			name VARCHAR(50) NOT NULL
+		);
+
+		CREATE TABLE IF NOT EXISTS team_users (
+			teamId INT NOT NULL,
+			userId INT NOT NULL,
+			PRIMARY KEY (teamId, user_id),
+			FOREIGN KEY (teamId) REFERENCES teams(id),
+			FOREIGN KEY (userId) REFERENCES users(id)
+		);
+
 	`); err != nil {
 		fmt.Println("PostgreStorage.Migrate: error executing root migration", err)
+		return err
+	}
+
+	teamModule, err := s.GetTeamModule()
+	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
+		return err
+	}
+
+	if err := teamModule.Migrate(); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
 		return err
 	}
 
@@ -103,17 +148,6 @@ func (s *PostgreStorage) Migrate() error {
 
 	if err := projectModule.Migrate(); err != nil {
 		fmt.Println("PostgreStorage.Migrate: error migrating projectModule", err)
-		return err
-	}
-
-	teamModule, err := s.GetTeamModule()
-	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
-		return err
-	}
-
-	if err := teamModule.Migrate(); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
 		return err
 	}
 

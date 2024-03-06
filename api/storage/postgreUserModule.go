@@ -17,19 +17,6 @@ func NewPostgreUserModule(db *sqlx.DB) (*PostgreUserModule, error) {
 }
 
 func (s *PostgreUserModule) Migrate() error {
-	if _, err := s.db.Exec(`
-		CREATE TABLE IF NOT EXISTS users (
-			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL,
-			summary VARCHAR(200) NULL,
-			yearSemester JSONB NULL,
-			githubUsername VARCHAR(39) NULL,
-			password VARCHAR(50) NOT NULL
-		)
-	`); err != nil {
-		return fmt.Errorf("failed to create users table: %w", err)
-	}
-
 	summary := "Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer"
 	yearSemesterMatriculed := models.NewYearSemester(uint16(2022), uint8(2))
 	githubUsername := "paulo-granthon"
