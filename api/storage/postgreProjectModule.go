@@ -87,6 +87,29 @@ func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 		WHERE id = $1
 	`, id).Scan(&p.Id, &p.Name, &p.Semester, &p.Company, &p.TeamId, &p.Summary, &p.Url)
 }
+
+func (s *PostgreProjectModule) GetByUserId(id uint64) ([]*models.Project, error) {
+	rows, err := s.db.Query(`
+		SELECT p.id, p.name, p.semester, p.company, p.teamId, p.summary, p.url
+		FROM projects p
+		JOIN teams t ON p.teamId = t.id
+		JOIN teamUsers tu ON t.id = tu.teamId
+		WHERE tu.userId = $1
+	`, id)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var projects []*models.Project
+	for rows.Next() {
+		p := &models.Project{}
+		if err := rows.Scan(&p.Id, &p.Name, &p.Semester, &p.Company, &p.TeamId, &p.Summary, &p.Url); err != nil {
+			return nil, err
+		}
+		projects = append(projects, p)
+	}
+	return projects, nil
 }
 
 func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
