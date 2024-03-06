@@ -48,7 +48,7 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 	}, nil
 }
 
-func (s *PostgreStorage) GetProjectModule() (StorageModule[models.Project, models.CreateProject], error) {
+func (s *PostgreStorage) GetProjectModule() (ProjectStorageModule, error) {
 	if s.postgreProjectModule.db == nil {
 		return nil, fmt.Errorf("projectModule not found")
 	}
