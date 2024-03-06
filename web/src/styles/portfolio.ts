@@ -8,6 +8,8 @@ const styles = stylex.create({
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
+    maxWidth: "80em",
+    margin: 'auto',
   },
   projectsHeader: {
     margin: "0",

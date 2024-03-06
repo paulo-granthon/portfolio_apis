@@ -1,33 +1,47 @@
 import * as stylex from "@stylexjs/stylex";
 
-const profilePictureSize: string | number = "18.75vw";
+const profilePictureSize: string | number = "8.75em";
 
 const styles = stylex.create({
-  userCard: {
+  card: {
     display: "flex",
     flexFlow: "row",
     gap: "1.25vw",
   },
-  userCardLeft: {
+  cardLeft: {
     margin: "1.5vw",
   },
-  profilePicture: {
+  cardLeftPicture: {
     width: profilePictureSize,
     height: profilePictureSize,
     borderRadius: "50%",
   },
-  userCardRight: {
+  cardRight: {
     display: "flex",
     flexFlow: "column",
   },
-  userCardSemester: {
+  cardRightHeader: {
     display: "flex",
     flexFlow: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  cardRightSemester: {
+    display: "flex",
+    flexFlow: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    gap: "2rem",
+  },
+  cardRightSummary: {
+    margin: "1.5vw",
   },
 });
 
-export const userCard = stylex.props(styles.userCard);
-export const userCardLeft = stylex.props(styles.userCardLeft);
-export const profilePicture = stylex.props(styles.profilePicture);
-export const userCardRight = stylex.props(styles.userCardRight);
-export const userCardSemester = stylex.props(styles.userCardSemester);
+export const card = stylex.props(styles.card);
+export const cardLeft = stylex.props(styles.cardLeft);
+export const cardLeftPicture = stylex.props(styles.cardLeftPicture);
+export const cardRight = stylex.props(styles.cardRight);
+export const cardRightHeader = stylex.props(styles.cardRightHeader);
+export const cardRightSemester = stylex.props(styles.cardRightSemester);
+export const cardRightSummary = stylex.props(styles.cardRightSummary);

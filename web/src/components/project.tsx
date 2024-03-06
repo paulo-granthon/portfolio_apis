@@ -9,12 +9,14 @@ export default function Project({ project }: ProjectProps) {
   return (
     <div {...styles.project}>
       <div {...styles.projectHeader}>
-        <p>{project.name}</p>
-        <p>{project.semester}º Sem</p>
+        <h3 {...styles.projectHeaderTitle}>{project.name}</h3>
+        <div {...styles.projectHeaderExtra}>
+          <p {...styles.projectHeaderExtraItem}>{project.company}</p>
+          <p {...styles.projectHeaderExtraItem}>{project.semester}º Sem</p>
+        </div>
       </div>
       <div {...styles.projectSubHeader}>
-          <p>{project.url}</p>
-          <p>{project.company}</p>
+        <p>{project.url}</p>
       </div>
       <p>{project.summary}</p>
     </div>

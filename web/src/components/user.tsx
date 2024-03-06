@@ -26,21 +26,23 @@ export default function User({ user }: UserProps) {
   }, []);
 
   return (
-    <div {...userStyles.userCard}>
-      <div {...userStyles.userCardLeft}>
+    <div {...userStyles.card}>
+      <div {...userStyles.cardLeft}>
         <img
+          alt="GitHub Profile Picture"
           src={userGithubProfileUrl}
-          alt="GitHub Profile"
-          {...userStyles.profilePicture}
+          {...userStyles.cardLeftPicture}
         />
       </div>
-      <div {...userStyles.userCardRight}>
-        <h1>{user.name}</h1>
-        <div {...userStyles.userCardSemester}>
-          <p>{userInitialSemester}</p>
-          <p>Semestre Atual: {userCurrentSemester}</p>
+      <div {...userStyles.cardRight}>
+        <div {...userStyles.cardRightHeader}>
+          <h1>{user.name}</h1>
+          <div {...userStyles.cardRightSemester}>
+            <p>{userInitialSemester}</p>
+            <p>Semestre Atual: {userCurrentSemester}</p>
+          </div>
         </div>
-        <p>{user.summary}</p>
+        <p {...userStyles.cardRightSummary}>{user.summary}</p>
       </div>
     </div>
   );
