@@ -11,6 +11,7 @@ import (
 type PostgreStorage struct {
 	postgreProjectModule *PostgreProjectModule
 	postgreUserModule    *PostgreUserModule
+	postgreTeamModule    *PostgreTeamModule
 	db                   *sqlx.DB
 }
 
@@ -62,6 +63,16 @@ func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 	return s.postgreUserModule, nil
 }
 
+func (s *PostgreStorage) GetTeamModule() (
+	StorageModule[models.Team, models.CreateTeam, models.Team],
+	error,
+) {
+	if s.postgreTeamModule.db == nil {
+		return nil, fmt.Errorf("teamModule not found")
+	}
+	return s.postgreTeamModule, nil
+}
+
 func (s *PostgreStorage) Migrate() error {
 	if _, err := s.db.Exec(`
 		CREATE EXTENSION IF NOT EXISTS uint;
@@ -89,6 +100,17 @@ func (s *PostgreStorage) Migrate() error {
 
 	if err := projectModule.Migrate(); err != nil {
 		fmt.Println("PostgreStorage.Migrate: error migrating projectModule", err)
+		return err
+	}
+
+	teamModule, err := s.GetTeamModule()
+	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
+		return err
+	}
+
+	if err := teamModule.Migrate(); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
 		return err
 	}
 

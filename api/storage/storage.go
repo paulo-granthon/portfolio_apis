@@ -10,6 +10,7 @@ type Storage interface {
 	Migrate() error
 	GetProjectModule() (ProjectStorageModule, error)
 	GetUserModule() (UserStorageModule, error)
+	GetTeamModule() (StorageModule[models.Team, models.CreateTeam, models.Team], error)
 }
 
 type StorageModule[T any, TCreate any, TUpdate any] interface {
