@@ -103,6 +103,7 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		request.Project.Name,
 		request.Project.Semester,
 		request.Project.Company,
+		request.Project.TeamId,
 		request.Project.Summary,
 		request.Project.Url,
 	)
@@ -159,6 +160,7 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		&request.Project.Name,
 		&request.Project.Semester,
 		&request.Project.Company,
+		&request.Project.TeamId,
 		&request.Project.Summary,
 		&request.Project.Url,
 	)

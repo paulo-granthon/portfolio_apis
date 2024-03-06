@@ -20,7 +20,11 @@ func (s *PostgreProjectModule) Migrate() error {
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
 			semester UINT1 NOT NULL,
-			company VARCHAR(100) NOT NULL
+			company VARCHAR(100) NOT NULL,
+			teamId INT NOT NULL,
+			summary TEXT NOT NULL,
+			url VARCHAR(100) NOT NULL,
+			FOREIGN KEY (teamId) REFERENCES teams(id)
 		)
 	`)
 	if err != nil {
@@ -29,17 +33,17 @@ func (s *PostgreProjectModule) Migrate() error {
 
 	exampleProjects := []models.CreateProject{
 		models.NewCreateProject(
-			"Khali", 1, "FATEC",
+			"Khali", 1, "FATEC", 1,
 			"Avaliação 360",
 			"github.com/taniacruzz/Khali",
 		),
 		models.NewCreateProject(
-			"API2Semestre", 2, "2RP",
+			"API2Semestre", 2, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos",
 			"github.com/projetoKhali/API2Semestre",
 		),
 		models.NewCreateProject(
-			"api3", 3, "2RP",
+			"api3", 3, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos",
 			"github.com/projetoKhali/api3",
 		),
@@ -56,7 +60,7 @@ func (s *PostgreProjectModule) Migrate() error {
 
 func (s *PostgreProjectModule) Get() ([]*models.Project, error) {
 	rows, err := s.db.Query(`
-		SELECT id, name, semester, company
+		SELECT id, name, semester, company, teamId, summary, url
 		FROM projects
 	`)
 	if err != nil {
@@ -67,7 +71,7 @@ func (s *PostgreProjectModule) Get() ([]*models.Project, error) {
 	var projects []*models.Project
 	for rows.Next() {
 		p := &models.Project{}
-		if err := rows.Scan(&p.Id, &p.Name, &p.Semester, &p.Company); err != nil {
+		if err := rows.Scan(&p.Id, &p.Name, &p.Semester, &p.Company, &p.TeamId, &p.Summary, &p.Url); err != nil {
 			return nil, err
 		}
 		projects = append(projects, p)
@@ -78,19 +82,20 @@ func (s *PostgreProjectModule) Get() ([]*models.Project, error) {
 func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 	p := &models.Project{}
 	return p, s.db.QueryRow(`
-		SELECT id, name, semester, company
+		SELECT id, name, semester, company, teamId, summary, url
 		FROM projects
 		WHERE id = $1
-	`, id).Scan(&p.Id, &p.Name, &p.Semester, &p.Company)
+	`, id).Scan(&p.Id, &p.Name, &p.Semester, &p.Company, &p.TeamId, &p.Summary, &p.Url)
+}
 }
 
 func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	var id uint64
 	if err := s.db.QueryRow(`
-		INSERT INTO projects (name, semester, company)
+		INSERT INTO projects (name, semester, company, teamId, summary, url)
 		VALUES ($1, $2, $3)
 		RETURNING id
-	`, p.Name, p.Semester, p.Company,
+	`, p.Name, p.Semester, p.Company, p.TeamId, p.Summary, p.Url,
 	).Scan(&id); err != nil {
 		return nil, err
 	}
@@ -101,9 +106,9 @@ func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 func (s *PostgreProjectModule) Update(p models.UpdateProject) error {
 	_, err := s.db.Exec(`
 		UPDATE projects
-		SET name = $1, semester = $2, company = $3
+		SET name = $1, semester = $2, company = $3, teamId = $4, summary = $5, url = $6
 		WHERE id = $4
-	`, p.Name, p.Semester, p.Company, p.Id)
+	`, p.Name, p.Semester, p.Company, p.TeamId, p.Summary, p.Url, p.Id)
 	return err
 }
 
