@@ -31,6 +31,12 @@ func UserEndpoints() []server.Endpoint {
 				server.NewMethod("DELETE", DeleteUser),
 			},
 		},
+		{
+			Path: "/users/{id}/projects",
+			Methods: []server.Method{
+				server.NewMethod("GET", GetUserProjects),
+			},
+		},
 	}
 }
 
@@ -261,5 +267,44 @@ func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	return server.WriteJSON(
 		w, http.StatusOK,
 		"user deleted",
+	)
+}
+
+func GetUserProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	idStr, err := server.GetRequestParam(r, "id")
+	if err != nil {
+		return server.SendError(
+			w, err, http.StatusBadRequest,
+			"Parameter id not found",
+		)
+	}
+
+	id, err := strconv.ParseUint(*idStr, 10, 64)
+	if err != nil {
+		return server.SendError(
+			w, err, http.StatusBadRequest,
+			"Parameter id is not a valid number",
+		)
+	}
+
+	projectModule, err := s.Storage.GetProjectModule()
+	if err != nil {
+		return server.SendError(
+			w, err, http.StatusInternalServerError,
+			"storage misconfiguration",
+		)
+	}
+
+	projects, err := projectModule.GetByUserId(id)
+	if err != nil {
+		return server.SendError(
+			w, err, http.StatusInternalServerError,
+			"error getting projects",
+		)
+	}
+
+	return server.WriteJSON(
+		w, http.StatusOK,
+		projects,
 	)
 }
