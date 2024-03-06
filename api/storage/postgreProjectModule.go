@@ -98,7 +98,7 @@ func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	return &id, nil
 }
 
-func (s *PostgreProjectModule) Update(p models.Project) error {
+func (s *PostgreProjectModule) Update(p models.UpdateProject) error {
 	_, err := s.db.Exec(`
 		UPDATE projects
 		SET name = $1, semester = $2, company = $3

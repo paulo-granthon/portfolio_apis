@@ -154,13 +154,13 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 		)
 	}
 
-	project := models.NewProject(
+	project := models.NewUpdateProject(
 		id,
-		request.Project.Name,
-		request.Project.Semester,
-		request.Project.Company,
-		request.Project.Summary,
-		request.Project.Url,
+		&request.Project.Name,
+		&request.Project.Semester,
+		&request.Project.Company,
+		&request.Project.Summary,
+		&request.Project.Url,
 	)
 
 	projectModule, err := s.Storage.GetProjectModule()
