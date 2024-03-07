@@ -26,3 +26,8 @@ func NewCreateTeam(
 		Name: name,
 	}
 }
+
+type TeamUser struct {
+	TeamId uint64 `json:"teamId" db:"teamId"`
+	UserId uint64 `json:"userId" db:"userId"`
+}

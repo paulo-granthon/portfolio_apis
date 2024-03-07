@@ -37,7 +37,7 @@ type User struct {
 	Id                 uint64        `json:"id" db:"id"`
 	Name               string        `json:"name" db:"name"`
 	Summary            *string       `json:"summary" db:"summary"`
-	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"yearSemester"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"semesterMatriculed"`
 	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }
 
@@ -73,11 +73,11 @@ func NewRegisterUser(
 }
 
 type CreateUser struct {
-	Name               string        `json:"name"`
-	Password           string        `json:"password"`
-	Summary            *string       `json:"summary"`
-	SemesterMatriculed *YearSemester `json:"semesterMatriculed"`
-	GithubUsername     *string       `json:"githubUsername"`
+	Name               string        `json:"name" db:"name"`
+	Password           string        `json:"password" db:"password"`
+	Summary            *string       `json:"summary" db:"summary"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"semesterMatriculed"`
+	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }
 
 func NewCreateUser(
@@ -100,7 +100,7 @@ type UpdateUser struct {
 	Id                 uint64        `json:"id" db:"id"`
 	Name               *string       `json:"name" db:"name"`
 	Summary            *string       `json:"summary" db:"summary"`
-	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"yearSemester"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"semesterMatriculed"`
 	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }
 
@@ -118,4 +118,13 @@ func NewUpdateUser(
 		SemesterMatriculed: semesterMatriculed,
 		GithubUsername:     githubUsername,
 	}
+}
+
+type FullUser struct {
+	Id                 uint64        `json:"id" db:"id"`
+	Name               string        `json:"name" db:"name"`
+	Password           string        `json:"password" db:"password"`
+	Summary            *string       `json:"summary" db:"summary"`
+	SemesterMatriculed *YearSemester `json:"semesterMatriculed" db:"semesterMatriculed"`
+	GithubUsername     *string       `json:"githubUsername" db:"githubUsername"`
 }

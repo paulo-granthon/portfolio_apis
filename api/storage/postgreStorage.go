@@ -4,14 +4,15 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/jmoiron/sqlx"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 type PostgreStorage struct {
 	postgreProjectModule *PostgreProjectModule
 	postgreUserModule    *PostgreUserModule
 	postgreTeamModule    *PostgreTeamModule
-	db                   *sqlx.DB
+	db                   *gorm.DB
 }
 
 func NewPostgreStorage() (*PostgreStorage, error) {
@@ -22,13 +23,14 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 
 	connectionString := databaseCredentials.GetConnectionString()
 
-	db, err := sqlx.Connect("postgres", connectionString)
+	db, err := gorm.Open(
+		postgres.Open(
+			connectionString,
+		),
+		&gorm.Config{},
+	)
 	if err != nil {
 		log.Fatalln(err)
-	}
-
-	if err := db.Ping(); err != nil {
-		return nil, err
 	}
 
 	postgreProjectModule, err := NewPostgreProjectModule(db)
@@ -77,27 +79,27 @@ func (s *PostgreStorage) GetTeamModule() (TeamStorageModule, error,
 }
 
 func (s *PostgreStorage) Migrate() error {
-	if _, err := s.db.Exec(`
+	rawDB, err := s.db.DB()
+	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting sql.DB from gorm", err)
+		return err
+	}
+
+	if _, err := rawDB.Exec(`
 		CREATE EXTENSION IF NOT EXISTS uint;
+
+		DROP TABLE IF EXISTS users CASCADE;
+		DROP TABLE IF EXISTS teams CASCADE;
+		DROP TABLE IF EXISTS team_users CASCADE;
+		DROP TABLE IF EXISTS projects CASCADE;
 
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
 			summary VARCHAR(200) NULL,
-			yearSemester JSONB NULL,
-			githubUsername VARCHAR(39) NULL,
+			semester_matriculed JSONB NULL,
+			github_username VARCHAR(39) NULL,
 			password VARCHAR(50) NOT NULL
-		);
-
-		CREATE TABLE IF NOT EXISTS projects (
-			id SERIAL PRIMARY KEY,
-			name VARCHAR(50) NOT NULL,
-			semester UINT1 NOT NULL,
-			company VARCHAR(100) NOT NULL,
-			teamId INT NOT NULL,
-			summary TEXT NOT NULL,
-			url VARCHAR(100) NOT NULL,
-			FOREIGN KEY (teamId) REFERENCES teams(id)
 		);
 
 		CREATE TABLE IF NOT EXISTS teams (
@@ -106,26 +108,26 @@ func (s *PostgreStorage) Migrate() error {
 		);
 
 		CREATE TABLE IF NOT EXISTS team_users (
-			teamId INT NOT NULL,
-			userId INT NOT NULL,
-			PRIMARY KEY (teamId, user_id),
-			FOREIGN KEY (teamId) REFERENCES teams(id),
-			FOREIGN KEY (userId) REFERENCES users(id)
+			team_id INT NOT NULL,
+			user_id INT NOT NULL,
+			PRIMARY KEY (team_id, user_id),
+			FOREIGN KEY (team_id) REFERENCES teams(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		);
+
+		CREATE TABLE IF NOT EXISTS projects (
+			id SERIAL PRIMARY KEY,
+			name VARCHAR(50) NOT NULL,
+			semester UINT1 NOT NULL,
+			company VARCHAR(100) NOT NULL,
+			team_id INT NOT NULL,
+			summary TEXT NOT NULL,
+			url VARCHAR(100) NOT NULL,
+			FOREIGN KEY (team_id) REFERENCES teams(id)
 		);
 
 	`); err != nil {
 		fmt.Println("PostgreStorage.Migrate: error executing root migration", err)
-		return err
-	}
-
-	teamModule, err := s.GetTeamModule()
-	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
-		return err
-	}
-
-	if err := teamModule.Migrate(); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
 		return err
 	}
 
@@ -137,6 +139,17 @@ func (s *PostgreStorage) Migrate() error {
 
 	if err := userModule.Migrate(); err != nil {
 		fmt.Println("PostgreStorage.Migrate: error migrating userModule", err)
+		return err
+	}
+
+	teamModule, err := s.GetTeamModule()
+	if err != nil {
+		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
+		return err
+	}
+
+	if err := teamModule.Migrate(); err != nil {
+		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
 		return err
 	}
 
