@@ -62,6 +62,18 @@ func (s *PostgreTeamModule) GetById(id uint64) (*models.Team, error) {
 	return &team, nil
 }
 
+func (s *PostgreTeamModule) GetUsers(id uint64) ([]models.User, error) {
+	var users []models.User
+	subQuery := s.db.
+		Table("team_users").
+		Select("user_id").
+		Where("team_id = ?", id)
+	s.db.
+		Where("id IN (?)", subQuery).
+		Find(&users)
+	return users, nil
+}
+
 func (s *PostgreTeamModule) Create(t models.CreateTeam) (*uint64, error) {
 	team := models.Team{
 		Name: t.Name,
