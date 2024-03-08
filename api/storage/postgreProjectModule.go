@@ -49,10 +49,6 @@ func (s *PostgreProjectModule) Get() ([]models.Project, error) {
 	return projects, nil
 }
 
-// function to get projects from any combination of optional parameters
-// func (s *PostgreProjectModule) GetFilter(models.FilterProject) ([]models.Project, error) {
-// }
-
 func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 	var project models.Project
 	if err := s.db.First(&project, id).Error; err != nil {
