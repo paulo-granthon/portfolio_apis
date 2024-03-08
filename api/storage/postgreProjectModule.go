@@ -74,6 +74,12 @@ func (s *PostgreProjectModule) GetByUserId(id uint64) ([]models.Project, error) 
 	return projects, nil
 }
 
+func (s *PostgreProjectModule) GetByTeamId(id uint64) ([]models.Project, error) {
+	var projects []models.Project
+	s.db.Where("team_id = ?", id).Find(&projects)
+	return projects, nil
+}
+
 func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	project := models.Project{
 		Name:     p.Name,
