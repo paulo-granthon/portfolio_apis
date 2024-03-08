@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"fmt"
 	"models"
 
+	"github.com/ztrue/tracerr"
 	"gorm.io/gorm"
 )
 
@@ -28,21 +28,21 @@ func (s *PostgreTeamModule) Migrate() error {
 			if teamIdToAddMember == nil {
 				teamIdToAddMember = insertedTeamId
 			}
-			return fmt.Errorf("failed to insert team seeds: %w", err)
+			return tracerr.Errorf("failed to insert team seeds: %w", tracerr.Wrap(err))
 		}
 	}
 
 	if teamIdToAddMember == nil {
 		existingTeam, err := s.GetById(1)
 		if err != nil {
-			return fmt.Errorf("no team was inserted neither found in the database: %w", err)
+			return tracerr.Errorf("no team was inserted neither found in the database: %w", tracerr.Wrap(err))
 		}
 
 		teamIdToAddMember = &existingTeam.Id
 	}
 
 	if err := s.AddUsers(*teamIdToAddMember, 1); err != nil {
-		return fmt.Errorf("failed to add users to team: %w", err)
+		return tracerr.Errorf("failed to add users to team: %w", tracerr.Wrap(err))
 	}
 
 	return nil
@@ -57,7 +57,7 @@ func (s *PostgreTeamModule) Get() ([]models.Team, error) {
 func (s *PostgreTeamModule) GetById(id uint64) (*models.Team, error) {
 	var team models.Team
 	if err := s.db.First(&team, &id).Error; err != nil {
-		return nil, fmt.Errorf("failed to get team by id: %w", err)
+		return nil, tracerr.Errorf("failed to get team by id: %w", tracerr.Wrap(err))
 	}
 	return &team, nil
 }
@@ -68,7 +68,7 @@ func (s *PostgreTeamModule) Create(t models.CreateTeam) (*uint64, error) {
 	}
 
 	if err := s.db.Create(&team).Error; err != nil {
-		return nil, fmt.Errorf("failed to create team: %w", err)
+		return nil, tracerr.Errorf("failed to create team: %w", tracerr.Wrap(err))
 	}
 	return &team.Id, nil
 }
@@ -83,7 +83,7 @@ func (s *PostgreTeamModule) AddUsers(teamId uint64, userIds ...uint64) error {
 	}
 
 	if err := s.db.Create(&teamUsers).Error; err != nil {
-		return fmt.Errorf("failed to add users to team: %w", err)
+		return tracerr.Errorf("failed to add users to team: %w", tracerr.Wrap(err))
 	}
 
 	return nil
@@ -99,7 +99,7 @@ func (s *PostgreTeamModule) RemoveUsers(teamId uint64, userIds ...uint64) error 
 	}
 
 	if err := s.db.Delete(&teamUsers).Error; err != nil {
-		return fmt.Errorf("failed to remove users from team: %w", err)
+		return tracerr.Errorf("failed to remove users from team: %w", tracerr.Wrap(err))
 	}
 
 	return nil
@@ -107,14 +107,14 @@ func (s *PostgreTeamModule) RemoveUsers(teamId uint64, userIds ...uint64) error 
 
 func (s *PostgreTeamModule) Update(t models.Team) error {
 	if err := s.db.Model(&models.Team{}).Where("id = ?", t.Id).Updates(&t).Error; err != nil {
-		return fmt.Errorf("failed to update team: %w", err)
+		return tracerr.Errorf("failed to update team: %w", tracerr.Wrap(err))
 	}
 	return nil
 }
 
 func (s *PostgreTeamModule) Delete(id uint64) error {
 	if err := s.db.Delete(&models.Team{}, id).Error; err != nil {
-		return fmt.Errorf("failed to delete team: %w", err)
+		return tracerr.Errorf("failed to delete team: %w", tracerr.Wrap(err))
 	}
 	return nil
 }

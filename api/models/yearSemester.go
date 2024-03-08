@@ -3,7 +3,8 @@ package models
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"fmt"
+
+	"github.com/ztrue/tracerr"
 )
 
 type YearSemester struct {
@@ -28,7 +29,7 @@ func (y YearSemester) Value() (driver.Value, error) {
 func (y *YearSemester) Scan(value interface{}) error {
 	yearSemesterBytes, ok := value.([]byte)
 	if !ok {
-		return fmt.Errorf("yearSemester must be a byte array")
+		return tracerr.Errorf("yearSemester must be a byte array")
 	}
 	return json.Unmarshal(yearSemesterBytes, y)
 }

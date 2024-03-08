@@ -7,6 +7,7 @@ import (
 	"storage"
 
 	"github.com/gorilla/mux"
+	"github.com/ztrue/tracerr"
 )
 
 type Server struct {
@@ -21,7 +22,7 @@ func NewServer(
 	storage storage.Storage,
 ) (*Server, error) {
 	if port < 1 || port > 65535 {
-		return nil, fmt.Errorf("Invalid listen address: %v", port)
+		return nil, tracerr.Errorf("Invalid listen address: %v", port)
 	}
 
 	return &Server{
@@ -49,9 +50,9 @@ func (s *Server) Start() error {
 
 	log.Println("Starting server on", s.port)
 
-	error := http.ListenAndServe(s.port, router)
-	if error != nil {
-		return fmt.Errorf("Error starting server:", error)
+	err := http.ListenAndServe(s.port, router)
+	if err != nil {
+		return tracerr.Errorf("Error starting server: %w", tracerr.Wrap(err))
 	}
 
 	return nil

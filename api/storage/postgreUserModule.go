@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"fmt"
 	"models"
 
+	"github.com/ztrue/tracerr"
 	"gorm.io/gorm"
 )
 
@@ -32,7 +32,7 @@ func (s *PostgreUserModule) Migrate() error {
 
 	for _, p := range exampleUsers {
 		if _, err := s.Create(p); err != nil {
-			return fmt.Errorf("failed to insert user seeds: %w", err)
+			return tracerr.Errorf("failed to insert user seeds: %w", tracerr.Wrap(err))
 		}
 	}
 
@@ -48,7 +48,7 @@ func (s *PostgreUserModule) Get() ([]models.User, error) {
 func (s *PostgreUserModule) GetById(id uint64) (*models.User, error) {
 	var user models.User
 	if err := s.db.First(&user, &id).Error; err != nil {
-		return nil, fmt.Errorf("failed to get user by id: %w", err)
+		return nil, tracerr.Errorf("failed to get user by id: %w", tracerr.Wrap(err))
 	}
 	return &user, nil
 }
@@ -63,7 +63,7 @@ func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	}
 
 	if err := s.db.Table("users").Create(&user).Error; err != nil {
-		return nil, fmt.Errorf("failed to create user: %w", err)
+		return nil, tracerr.Errorf("failed to create user: %w", tracerr.Wrap(err))
 	}
 	return &user.Id, nil
 }
@@ -75,21 +75,21 @@ func (s *PostgreUserModule) Register(p models.RegisterUser) (*uint64, error) {
 	}
 
 	if err := s.db.Create(&user).Error; err != nil {
-		return nil, fmt.Errorf("failed to register user: %w", err)
+		return nil, tracerr.Errorf("failed to register user: %w", tracerr.Wrap(err))
 	}
 	return &user.Id, nil
 }
 
 func (s *PostgreUserModule) Update(p models.UpdateUser) error {
 	if err := s.db.Model(&models.FullUser{}).Where("id = ?", p.Id).Updates(&p).Error; err != nil {
-		return fmt.Errorf("failed to update user: %w", err)
+		return tracerr.Errorf("failed to update user: %w", tracerr.Wrap(err))
 	}
 	return nil
 }
 
 func (s *PostgreUserModule) Delete(id uint64) error {
 	if err := s.db.Delete(&models.FullUser{}, id).Error; err != nil {
-		return fmt.Errorf("failed to delete user: %w", err)
+		return tracerr.Errorf("failed to delete user: %w", tracerr.Wrap(err))
 	}
 	return nil
 }

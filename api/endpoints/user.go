@@ -6,6 +6,8 @@ import (
 	"schemas"
 	"server"
 	"strconv"
+
+	"github.com/ztrue/tracerr"
 )
 
 func UserEndpoints() []server.Endpoint {
@@ -75,7 +77,7 @@ func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	id, err := strconv.ParseUint(*idStr, 10, 64)
 	if err != nil {
 		return server.SendError(
-			w, err, http.StatusBadRequest,
+			w, tracerr.Wrap(err), http.StatusBadRequest,
 			"Parameter id is not a valid number",
 		)
 	}

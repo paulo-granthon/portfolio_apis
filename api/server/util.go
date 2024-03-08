@@ -2,18 +2,17 @@ package server
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/ztrue/tracerr"
 )
 
 func GetRequestParam(r *http.Request, key string) (*string, error) {
 	param := mux.Vars(r)[key]
 
 	if key == "" {
-		return nil, fmt.Errorf("Parameter %s not found", key)
+		return nil, tracerr.Errorf("Parameter %s not found", key)
 	}
 
 	return &param, nil
@@ -40,6 +39,6 @@ func SendError(
 	code int,
 	msg string,
 ) error {
-	log.Println(err)
+	tracerr.PrintSourceColor(err, 1)
 	return WriteJSON(w, code, Error{Error: msg})
 }

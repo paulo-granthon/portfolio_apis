@@ -1,9 +1,7 @@
 package storage
 
 import (
-	"fmt"
-	"log"
-
+	"github.com/ztrue/tracerr"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -18,7 +16,7 @@ type PostgreStorage struct {
 func NewPostgreStorage() (*PostgreStorage, error) {
 	databaseCredentials, err := NewDatabaseCredentials()
 	if err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to create databaseCredentials: %w", tracerr.Wrap(err))
 	}
 
 	connectionString := databaseCredentials.GetConnectionString()
@@ -30,22 +28,22 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		&gorm.Config{},
 	)
 	if err != nil {
-		log.Fatalln(err)
+		return nil, tracerr.Errorf("failed to connect database", tracerr.Wrap(err))
 	}
 
 	postgreProjectModule, err := NewPostgreProjectModule(db)
 	if err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to create postgreProjectModule: %w", tracerr.Wrap(err))
 	}
 
 	postgreUserModule, err := NewPostgreUserModule(db)
 	if err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to create postgreUserModule: %w", tracerr.Wrap(err))
 	}
 
 	postgreTeamModule, err := NewPostgreTeamModule(db)
 	if err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to create postgreTeamModule: %w", tracerr.Wrap(err))
 	}
 
 	return &PostgreStorage{
@@ -58,14 +56,14 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 
 func (s *PostgreStorage) GetProjectModule() (ProjectStorageModule, error) {
 	if s.postgreProjectModule.db == nil {
-		return nil, fmt.Errorf("projectModule not found")
+		return nil, tracerr.Errorf("projectModule not found")
 	}
 	return s.postgreProjectModule, nil
 }
 
 func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 	if s.postgreUserModule.db == nil {
-		return nil, fmt.Errorf("userModule not found")
+		return nil, tracerr.Errorf("userModule not found")
 	}
 	return s.postgreUserModule, nil
 }
@@ -73,7 +71,7 @@ func (s *PostgreStorage) GetUserModule() (UserStorageModule, error) {
 func (s *PostgreStorage) GetTeamModule() (TeamStorageModule, error,
 ) {
 	if s.postgreTeamModule.db == nil {
-		return nil, fmt.Errorf("teamModule not found")
+		return nil, tracerr.Errorf("teamModule not found")
 	}
 	return s.postgreTeamModule, nil
 }
@@ -81,7 +79,8 @@ func (s *PostgreStorage) GetTeamModule() (TeamStorageModule, error,
 func (s *PostgreStorage) Migrate() error {
 	rawDB, err := s.db.DB()
 	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting sql.DB from gorm", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting sql.DB from gorm: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
@@ -127,40 +126,47 @@ func (s *PostgreStorage) Migrate() error {
 		);
 
 	`); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error executing root migration", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error executing root migration: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	userModule, err := s.GetUserModule()
 	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting userModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting userModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	if err := userModule.Migrate(); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error migrating userModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error migrating userModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	teamModule, err := s.GetTeamModule()
 	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting teamModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting teamModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	if err := teamModule.Migrate(); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error migrating teamModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error migrating teamModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	projectModule, err := s.GetProjectModule()
 	if err != nil {
-		fmt.Println("PostgreStorage.Migrate: error getting projectModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting projectModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 
 	if err := projectModule.Migrate(); err != nil {
-		fmt.Println("PostgreStorage.Migrate: error migrating projectModule", err)
+		err = tracerr.Errorf("PostgreStorage.Migrate: error migrating projectModule: %w", err)
+		tracerr.PrintSourceColor(err)
 		return err
 	}
 

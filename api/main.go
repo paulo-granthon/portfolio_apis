@@ -2,33 +2,37 @@ package main
 
 import (
 	"endpoints"
-	"log"
 	"server"
 	"storage"
+
+	"github.com/ztrue/tracerr"
 )
 
 func main() {
-	db, error := storage.NewPostgreStorage()
-	if error != nil {
-		log.Fatal("Error creating database: ", error)
+	db, err := storage.NewPostgreStorage()
+	if err != nil {
+		tracerr.PrintSourceColor(
+			tracerr.Errorf("Error creating database: :%w", tracerr.Wrap(err)),
+		)
 		return
 	}
 
-	server, error := server.NewServer(
+	server, err := server.NewServer(
 		3333,
 		endpoints.CreateEndpoints(),
 		db,
 	)
-
-	if error != nil {
-		log.Fatal("Error creating server: ", error)
+	if err != nil {
+		tracerr.PrintSourceColor(
+			tracerr.Errorf("Error creating server: :%w", tracerr.Wrap(err)),
+		)
 		return
 	}
 
-	err := server.Start()
-
-	if err != nil {
-		log.Fatal("Error starting server: ", err)
+	if err := server.Start(); err != nil {
+		tracerr.PrintSourceColor(
+			tracerr.Errorf("Error starting server: :%w", tracerr.Wrap(err)),
+		)
 		return
 	}
 }

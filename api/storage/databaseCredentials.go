@@ -2,11 +2,11 @@ package storage
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"strconv"
 
 	"github.com/joho/godotenv"
+	"github.com/ztrue/tracerr"
 )
 
 type DatabaseCredentials struct {
@@ -28,13 +28,13 @@ func NewDatabaseCredentials() (*DatabaseCredentials, error) {
 
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatalf("Some error occured. Err: %s", err)
+		return nil, tracerr.Errorf("error loading `.env` file: %w", tracerr.Wrap(err))
 	}
 
 	for i, field := range fields {
 		value, ok := os.LookupEnv(field)
 		if !ok {
-			return nil, fmt.Errorf("missing environment variable %s", field)
+			return nil, tracerr.Errorf("missing environment variable `%s` in `.env` file", field)
 		}
 
 		fields[i] = value
@@ -42,7 +42,7 @@ func NewDatabaseCredentials() (*DatabaseCredentials, error) {
 
 	port, err := strconv.Atoi(fields[3])
 	if err != nil {
-		return nil, fmt.Errorf("invalid port number: `%s`. Error: %s", fields[3], err)
+		return nil, tracerr.Errorf("invalid port number: `%s` in `.env` file: %w", fields[3], tracerr.Wrap(err))
 	}
 
 	return &DatabaseCredentials{

@@ -3,6 +3,8 @@ package server
 import (
 	"fmt"
 	"net/http"
+
+	"github.com/ztrue/tracerr"
 )
 
 type Method struct {
@@ -24,7 +26,7 @@ func (e *Endpoint) getFunc(method string) (Func, error) {
 		}
 		return m.Func, nil
 	}
-	return nil, fmt.Errorf("method %s not allowed", method)
+	return nil, tracerr.Errorf("method %s not allowed", method)
 }
 
 type Func func(s Server, w http.ResponseWriter, r *http.Request) error

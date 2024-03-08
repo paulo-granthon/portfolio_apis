@@ -1,9 +1,9 @@
 package storage
 
 import (
-	"fmt"
 	"models"
 
+	"github.com/ztrue/tracerr"
 	"gorm.io/gorm"
 )
 
@@ -56,7 +56,7 @@ func (s *PostgreProjectModule) Get() ([]models.Project, error) {
 func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 	var project models.Project
 	if err := s.db.First(&project, id).Error; err != nil {
-		return nil, fmt.Errorf("failed to get project by id: %w", err)
+		return nil, tracerr.Errorf("failed to get project by id: %w", tracerr.Wrap(err))
 	}
 	return &project, nil
 }
@@ -85,21 +85,21 @@ func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	}
 
 	if err := s.db.Create(&project).Error; err != nil {
-		return nil, fmt.Errorf("failed to create project: %w", err)
+		return nil, tracerr.Errorf("failed to create project: %w", tracerr.Wrap(err))
 	}
 	return &project.Id, nil
 }
 
 func (s *PostgreProjectModule) Update(p models.UpdateProject) error {
 	if err := s.db.Model(&models.Project{}).Where("id = ?", p.Id).Updates(p).Error; err != nil {
-		return fmt.Errorf("failed to update project: %w", err)
+		return tracerr.Errorf("failed to update project: %w", tracerr.Wrap(err))
 	}
 	return nil
 }
 
 func (s *PostgreProjectModule) Delete(id uint64) error {
 	if err := s.db.Delete(&models.Project{}, id).Error; err != nil {
-		return fmt.Errorf("failed to delete project: %w", err)
+		return tracerr.Errorf("failed to delete project: %w", tracerr.Wrap(err))
 	}
 	return nil
 }
