@@ -27,6 +27,7 @@ type ProjectStorageModule interface {
 	Get() ([]models.Project, error)
 	GetById(uint64) (*models.Project, error)
 	GetByUserId(uint64) ([]models.Project, error)
+	GetByTeamId(uint64) ([]models.Project, error)
 	Create(models.CreateProject) (*uint64, error)
 	Update(models.UpdateProject) error
 	Delete(uint64) error
@@ -46,9 +47,10 @@ type TeamStorageModule interface {
 	Migrate() error
 	Get() ([]models.Team, error)
 	GetById(uint64) (*models.Team, error)
-	Create(models.CreateTeam) (*uint64, error)
+	GetUsers(uint64) ([]models.User, error)
 	AddUsers(uint64, ...uint64) error
 	RemoveUsers(uint64, ...uint64) error
+	Create(models.CreateTeam) (*uint64, error)
 	Update(models.Team) error
 	Delete(uint64) error
 }
