@@ -2,13 +2,14 @@ import * as stylex from "@stylexjs/stylex";
 
 const styles = stylex.create({
   portfolio: {
-    margin: ".5vw",
+    margin: "auto",
+    width: "80%",
   },
   projects: {
     display: "flex",
     flexFlow: "column",
     justifyContent: "center",
-    maxWidth: "80em",
+    width: "80%",
     margin: 'auto',
   },
   projectsHeader: {

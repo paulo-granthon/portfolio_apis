@@ -1,6 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
 
-const profilePictureSize: string | number = "8.75em";
+const profilePictureSize: string | number = "10vw";
 
 const styles = stylex.create({
   card: {

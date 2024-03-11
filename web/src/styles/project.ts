@@ -4,17 +4,18 @@ const styles = stylex.create({
   project: {
     gap: 0,
     padding: 0,
+    width: "100%",
   },
   projectHeader: {
     width: "100%",
     display: "flex",
     alignItems: "center",
+    justifyContent: "space-between",
   },
   projectHeaderTitle: {
     margin: "0.875rem",
   },
   projectHeaderExtra: {
-    margin: "auto",
     width: '50%',
     display: "flex",
     justifyContent: "end",
