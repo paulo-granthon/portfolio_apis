@@ -19,19 +19,21 @@ const styles = stylex.create({
   cardRight: {
     display: "flex",
     flexFlow: "column",
+    width: "100%",
   },
   cardRightHeader: {
     display: "flex",
     flexFlow: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    width: "100%",
   },
   cardRightSemester: {
     display: "flex",
     flexFlow: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    gap: "2rem",
+    width: "50%",
   },
   cardRightSummary: {
     margin: "1.5vw",
