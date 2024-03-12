@@ -65,6 +65,12 @@ func (s *PostgreNoteModule) GetBySkillId(id uint64) ([]models.Note, error) {
 	return notes, nil
 }
 
+func (s *PostgreNoteModule) GetByUserId(id uint64) ([]models.Note, error) {
+	var notes []models.Note
+	s.db.Where("user_id = ?", id).Find(&notes)
+	return notes, nil
+}
+
 func (s *PostgreNoteModule) Create(n models.CreateNote) (*uint64, error) {
 	note := models.Note{
 		SkillId:   n.SkillId,
