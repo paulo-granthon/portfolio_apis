@@ -3,6 +3,7 @@ package storage
 import (
 	"models"
 
+	"github.com/ztrue/tracerr"
 	"gorm.io/gorm"
 )
 
@@ -32,7 +33,7 @@ func (s *PostgreNoteModule) Migrate() error {
 
 	for _, n := range exampleNotes {
 		if _, err := s.Create(n); err != nil {
-			return err
+			return tracerr.Errorf("failed to create note: %w", tracerr.Wrap(err))
 		}
 	}
 
@@ -48,7 +49,7 @@ func (s *PostgreNoteModule) Get() ([]models.Note, error) {
 func (s *PostgreNoteModule) GetById(id uint64) (*models.Note, error) {
 	var note models.Note
 	if err := s.db.First(&note, id).Error; err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to get note by id: %w", tracerr.Wrap(err))
 	}
 	return &note, nil
 }
@@ -78,14 +79,14 @@ func (s *PostgreNoteModule) Create(n models.CreateNote) (*uint64, error) {
 		Content:   n.Content,
 	}
 	if err := s.db.Create(&note).Error; err != nil {
-		return nil, err
+		return nil, tracerr.Errorf("failed to create note: %w", tracerr.Wrap(err))
 	}
 	return &note.Id, nil
 }
 
 func (s *PostgreNoteModule) Delete(id uint64) error {
 	if err := s.db.Delete(&models.Note{}, id).Error; err != nil {
-		return err
+		return tracerr.Errorf("failed to delete note: %w", tracerr.Wrap(err))
 	}
 	return nil
 }
