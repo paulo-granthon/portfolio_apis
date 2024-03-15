@@ -2,10 +2,14 @@ import { ProjectSchema } from "../schemas/project";
 import * as styles from "../styles/project";
 
 interface ProjectProps {
+  userId: number;
   project: ProjectSchema;
 }
 
-export default function Project({ project }: ProjectProps) {
+export default function Project({
+    userId,
+    project,
+}: ProjectProps) {
   return (
     <div {...styles.project}>
       <div {...styles.projectHeader}>

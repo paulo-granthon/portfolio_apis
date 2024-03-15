@@ -21,7 +21,11 @@ export default function ProjectList({ user }: ProjectListProps) {
       <h2 {...styles.projectsHeader}>Projects</h2>
       <div>
         {projects.map((project) => (
-          <Project key={project.name} project={project} />
+          <Project
+              key={project.name}
+              project={project}
+              userId={user.id}
+          />
         ))}
       </div>
     </div>
