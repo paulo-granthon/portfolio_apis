@@ -54,6 +54,30 @@ func (s *PostgreNoteModule) GetById(id uint64) (*models.Note, error) {
 	return &note, nil
 }
 
+func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.Note, error) {
+	var notes []models.Note
+
+	query := s.db.Table("notes")
+
+	if f.Skill != nil {
+		query = query.Where("skill_id = ?", *f.Skill)
+	}
+
+	if f.Project != nil {
+		query = query.Where("project_id = ?", *f.Project)
+	}
+
+	if f.User != nil {
+		query = query.Where("user_id = ?", *f.User)
+	}
+
+	if err := query.Find(&notes).Error; err != nil {
+		return nil, tracerr.Errorf("failed to get notes by filter: %w", tracerr.Wrap(err))
+	}
+
+	return notes, nil
+}
+
 func (s *PostgreNoteModule) GetByProjectId(id uint64) ([]models.Note, error) {
 	var notes []models.Note
 	s.db.Where("project_id = ?", id).Find(&notes)

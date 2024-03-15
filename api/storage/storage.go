@@ -36,6 +36,7 @@ type NoteStorageModule interface {
 	Migrate() error
 	Get() ([]models.Note, error)
 	GetById(uint64) (*models.Note, error)
+	GetFilter(models.NoteFilter) ([]models.Note, error)
 	GetByProjectId(uint64) ([]models.Note, error)
 	GetBySkillId(uint64) ([]models.Note, error)
 	GetByUserId(uint64) ([]models.Note, error)
