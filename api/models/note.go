@@ -44,3 +44,21 @@ func NewCreateNote(
 		Content:   content,
 	}
 }
+
+type NoteFilter struct {
+	Skill *string `json:"skill"`
+	Project *string `json:"project"`
+	User *string `json:"user"`
+}
+
+func NewNoteFilter(
+	skill *string,
+	project *string,
+	user *string,
+) NoteFilter {
+	return NoteFilter{
+		Skill: skill,
+		Project: project,
+		User: user,
+	}
+}
