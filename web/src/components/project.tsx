@@ -1,3 +1,5 @@
+
+import NoteList from "./noteList";
 import { ProjectSchema } from "../schemas/project";
 import * as styles from "../styles/project";
 
@@ -23,6 +25,7 @@ export default function Project({
         <p>{project.url}</p>
       </div>
       <p>{project.summary}</p>
+      <NoteList projectId={project.id} userId={userId} />
     </div>
   );
 }
