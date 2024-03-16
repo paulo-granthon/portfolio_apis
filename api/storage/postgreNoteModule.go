@@ -59,15 +59,15 @@ func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.Note, error
 
 	query := s.db.Table("notes")
 
-	if f.Skill != nil {
+	if f.Skill != nil && *f.Skill != "" {
 		query = query.Where("skill_id = ?", *f.Skill)
 	}
 
-	if f.Project != nil {
+	if f.Project != nil && *f.Project != "" {
 		query = query.Where("project_id = ?", *f.Project)
 	}
 
-	if f.User != nil {
+	if f.User != nil && *f.User != "" {
 		query = query.Where("user_id = ?", *f.User)
 	}
 
