@@ -24,12 +24,12 @@ func (s *PostgreProjectModule) Migrate() error {
 		),
 		models.NewCreateProject(
 			"API2Semestre", 2, "2RP", 1,
-			"Controle de Horas-Extras e Sobreavisos",
+			"Controle de Horas-Extras e Sobreavisos (desktop)",
 			"github.com/projetoKhali/API2Semestre",
 		),
 		models.NewCreateProject(
 			"api3", 3, "2RP", 1,
-			"Controle de Horas-Extras e Sobreavisos",
+			"Controle de Horas-Extras e Sobreavisos (web)",
 			"github.com/projetoKhali/api3",
 		),
 	}
