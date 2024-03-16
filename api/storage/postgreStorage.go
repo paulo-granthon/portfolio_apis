@@ -215,5 +215,31 @@ func (s *PostgreStorage) Migrate() error {
 		return err
 	}
 
+	skillModule, err := s.GetSkillModule()
+	if err != nil {
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting skillModule: %w", err)
+		tracerr.PrintSourceColor(err)
+		return err
+	}
+
+	if err := skillModule.Migrate(); err != nil {
+		err = tracerr.Errorf("PostgreStorage.Migrate: error migrating skillModule: %w", err)
+		tracerr.PrintSourceColor(err)
+		return err
+	}
+
+	noteModule, err := s.GetNoteModule()
+	if err != nil {
+		err = tracerr.Errorf("PostgreStorage.Migrate: error getting noteModule: %w", err)
+		tracerr.PrintSourceColor(err)
+		return err
+	}
+
+	if err := noteModule.Migrate(); err != nil {
+		err = tracerr.Errorf("PostgreStorage.Migrate: error migrating noteModule: %w", err)
+		tracerr.PrintSourceColor(err)
+		return err
+	}
+
 	return nil
 }
