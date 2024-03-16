@@ -118,6 +118,8 @@ func (s *PostgreStorage) Migrate() error {
 		DROP TABLE IF EXISTS teams CASCADE;
 		DROP TABLE IF EXISTS team_users CASCADE;
 		DROP TABLE IF EXISTS projects CASCADE;
+		DROP TABLE IF EXISTS skills CASCADE;
+		DROP TABLE IF EXISTS notes CASCADE;
 
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -150,6 +152,22 @@ func (s *PostgreStorage) Migrate() error {
 			summary TEXT NOT NULL,
 			url VARCHAR(100) NOT NULL,
 			FOREIGN KEY (team_id) REFERENCES teams(id)
+		);
+
+		CREATE TABLE IF NOT EXISTS skills (
+			id SERIAL PRIMARY KEY,
+			name VARCHAR(50) NOT NULL
+		);
+
+		CREATE TABLE IF NOT EXISTS notes (
+			id SERIAL PRIMARY KEY,
+			skill_id INT NOT NULL,
+			project_id INT NOT NULL,
+			user_id INT NOT NULL,
+			content TEXT NOT NULL,
+			FOREIGN KEY (skill_id) REFERENCES skills(id),
+			FOREIGN KEY (project_id) REFERENCES projects(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
 		);
 
 	`); err != nil {
