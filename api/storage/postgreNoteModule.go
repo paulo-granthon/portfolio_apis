@@ -100,6 +100,7 @@ func (s *PostgreNoteModule) Create(n models.CreateNote) (*uint64, error) {
 	note := models.Note{
 		SkillId:   n.SkillId,
 		ProjectId: n.ProjectId,
+		UserID:    n.UserID,
 		Content:   n.Content,
 	}
 	if err := s.db.Create(&note).Error; err != nil {
