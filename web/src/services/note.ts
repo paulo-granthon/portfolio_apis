@@ -19,9 +19,12 @@ export function mapNote(data: any): NoteSchema {
 }
 
 export async function getNotesOfUserProject(
-    userId: number,
-    projectId: number
+  userId: number,
+  projectId: number,
 ): Promise<NoteSchema[]> {
+  if (userId === 0 || projectId === 0) {
+    return [];
+  }
   return fetch(`${API_URL}/notes?user=${userId}&project=${projectId}`)
     .then((response) => response.json())
     .then((data) => mapNotes(data));
