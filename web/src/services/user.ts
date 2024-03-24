@@ -11,11 +11,15 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function mapUsers(data: any): UserSchema[] {
-  return data.map((user: any) => mapUser(user));
+  return data
+    .map((user: any) => mapUser(user))
+    .filter((user: UserSchema | undefined) => !!user);
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-export function mapUser(data: any): UserSchema {
+export function mapUser(data: any): UserSchema | undefined {
+  if (!data) return undefined;
+  if (!data.semesterMatriculed) return undefined;
   return {
     id: data.id,
     name: data.name,
@@ -34,7 +38,7 @@ export async function getUsers(): Promise<UserSchema[]> {
     .then((data) => mapUsers(data));
 }
 
-export async function getUser(id: number): Promise<UserSchema> {
+export async function getUser(id: number): Promise<UserSchema | undefined> {
   return fetch(API_URL + "/users/" + id)
     .then((response) => response.json())
     .then((data) => mapUser(data));
