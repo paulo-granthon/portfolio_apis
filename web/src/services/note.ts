@@ -4,11 +4,14 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function mapNotes(data: any): NoteSchema[] {
-  return data.map((note: any) => mapNote(note));
+  return data
+    .map((note: any) => mapNote(note))
+    .filter((note: NoteSchema | undefined) => !!note);
 }
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
-export function mapNote(data: any): NoteSchema {
+export function mapNote(data: any): NoteSchema | undefined {
+  if (!data) return undefined;
   return {
     id: data.id,
     skill: data.skill,
