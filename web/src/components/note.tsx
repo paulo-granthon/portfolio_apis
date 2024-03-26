@@ -8,7 +8,12 @@ interface NoteProps {
 export default function Note({ note }: NoteProps) {
   return (
     <div {...styles.note}>
-      <p {...styles.title}>{note.skill}</p>
+      {note.skill ? (
+        <p {...styles.title}>{note.skill}</p>
+      ) : (
+        <p {...styles.title}>[Skill Undefined]</p>
+      )}
+
       <p {...styles.content}>{note.content}</p>
     </div>
   );
