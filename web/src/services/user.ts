@@ -11,6 +11,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function mapUsers(data: any): UserSchema[] {
+  if (!data || !!data.Error) return [];
   return data
     .map((user: any) => mapUser(user))
     .filter((user: UserSchema | undefined) => !!user);

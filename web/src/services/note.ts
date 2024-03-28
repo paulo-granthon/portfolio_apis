@@ -4,6 +4,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 /* eslint-disable  @typescript-eslint/no-explicit-any */
 export function mapNotes(data: any): NoteSchema[] {
+  if (!data || !!data.Error) return [];
   return data
     .map((note: any) => mapNote(note))
     .filter((note: NoteSchema | undefined) => !!note);
