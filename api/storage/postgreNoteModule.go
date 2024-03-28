@@ -54,25 +54,45 @@ func (s *PostgreNoteModule) GetById(id uint64) (*models.Note, error) {
 	return &note, nil
 }
 
-func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.Note, error) {
-	var notes []models.Note
+func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.NoteDetail, error) {
+	var notes []models.NoteDetail
 
-	query := s.db.Table("notes")
+	query := s.db.
+		Table("notes").
+		Select(`
+			notes.id,
+			notes.content,
+			users.name AS user,
+			skills.name AS skill,
+			projects.name AS project
+		`).
+		Joins("JOIN skills ON notes.skill_id = skills.id").
+		Joins("JOIN projects ON notes.project_id = projects.id").
+		Joins("JOIN users ON notes.user_id = users.id")
 
 	if f.Skill != nil && *f.Skill != "" {
-		query = query.Where("skill_id = ?", *f.Skill)
+		query = query.Where("notes.skill_id = ?", *f.Skill)
 	}
 
 	if f.Project != nil && *f.Project != "" {
-		query = query.Where("project_id = ?", *f.Project)
+		query = query.Where("notes.project_id = ?", *f.Project)
 	}
 
 	if f.User != nil && *f.User != "" {
-		query = query.Where("user_id = ?", *f.User)
+		query = query.Where("notes.user_id = ?", *f.User)
 	}
 
-	if err := query.Find(&notes).Error; err != nil {
+	result, err := query.Rows()
+	if err != nil {
 		return nil, tracerr.Errorf("failed to get notes by filter: %w", tracerr.Wrap(err))
+	}
+
+	for result.Next() {
+		var note models.NoteDetail
+		if err := result.Scan(&note.Id, &note.Content, &note.User, &note.Skill, &note.Project); err != nil {
+			return nil, tracerr.Errorf("failed to scan note: %w", tracerr.Wrap(err))
+		}
+		notes = append(notes, note)
 	}
 
 	return notes, nil
