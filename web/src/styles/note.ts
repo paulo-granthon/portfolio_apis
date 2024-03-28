@@ -5,10 +5,11 @@ const styles = stylex.create({
     color: "white",
   },
   note: {
-    color: "white",
+    display: "flex",
+    gap: "4rem",
   },
   title: {
-    colo: "white",
+    fontWeight: "bold",
   },
   content: {
     color: "white",
