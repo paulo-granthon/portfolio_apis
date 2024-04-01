@@ -22,9 +22,9 @@ export default function Project({
         </div>
       </div>
       <div {...styles.projectSubHeader}>
+        <p>{project.summary}</p>
         <p>{project.url}</p>
       </div>
-      <p>{project.summary}</p>
       <NoteList projectId={project.id} userId={userId} />
     </div>
   );
