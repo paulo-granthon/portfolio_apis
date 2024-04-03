@@ -4,6 +4,7 @@ export interface ProjectSchema {
   semester: number;
   company: string;
   summary: string;
+  description: string;
   url: string;
 }
 
