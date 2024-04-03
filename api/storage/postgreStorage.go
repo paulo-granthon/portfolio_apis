@@ -150,6 +150,7 @@ func (s *PostgreStorage) Migrate() error {
 			company VARCHAR(100) NOT NULL,
 			team_id INT NOT NULL,
 			summary TEXT NOT NULL,
+			description VARCHAR(500) NOT NULL,
 			url VARCHAR(100) NOT NULL,
 			FOREIGN KEY (team_id) REFERENCES teams(id)
 		);

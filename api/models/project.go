@@ -1,13 +1,14 @@
 package models
 
 type Project struct {
-	Id       uint64 `json:"id" db:"id"`
-	Name     string `json:"name" db:"name"`
-	Semester uint8  `json:"semester" db:"semester"`
-	Company  string `json:"company" db:"company"`
-	TeamId   uint64 `json:"teamId" db:"teamId"`
-	Summary  string `json:"summary" db:"summary"`
-	Url      string `json:"url" db:"url"`
+	Id          uint64 `json:"id" db:"id"`
+	Name        string `json:"name" db:"name"`
+	Semester    uint8  `json:"semester" db:"semester"`
+	Company     string `json:"company" db:"company"`
+	TeamId      uint64 `json:"teamId" db:"teamId"`
+	Summary     string `json:"summary" db:"summary"`
+	Description string `json:"description" db:"description"`
+	Url         string `json:"url" db:"url"`
 }
 
 func NewProject(
@@ -17,26 +18,29 @@ func NewProject(
 	company string,
 	teamId uint64,
 	summary string,
+	description string,
 	url string,
 ) Project {
 	return Project{
-		Id:       id,
-		Name:     name,
-		Semester: semester,
-		Company:  company,
-		TeamId:   teamId,
-		Summary:  summary,
-		Url:      url,
+		Id:          id,
+		Name:        name,
+		Semester:    semester,
+		Company:     company,
+		TeamId:      teamId,
+		Summary:     summary,
+		Description: description,
+		Url:         url,
 	}
 }
 
 type CreateProject struct {
-	Name     string `json:"name" db:"name"`
-	Semester uint8  `json:"semester" db:"semester"`
-	Company  string `json:"company" db:"company"`
-	TeamId   uint64 `json:"teamId" db:"teamId"`
-	Summary  string `json:"summary" db:"summary"`
-	Url      string `json:"url" db:"url"`
+	Name        string `json:"name" db:"name"`
+	Semester    uint8  `json:"semester" db:"semester"`
+	Company     string `json:"company" db:"company"`
+	TeamId      uint64 `json:"teamId" db:"teamId"`
+	Summary     string `json:"summary" db:"summary"`
+	Description string `json:"description" db:"description"`
+	Url         string `json:"url" db:"url"`
 }
 
 func NewCreateProject(
@@ -44,27 +48,30 @@ func NewCreateProject(
 	semester uint8,
 	company string,
 	teamId uint64,
-	Summary string,
-	Url string,
+	summary string,
+	description string,
+	url string,
 ) CreateProject {
 	return CreateProject{
-		Name:     name,
-		Semester: semester,
-		Company:  company,
-		TeamId:   teamId,
-		Summary:  Summary,
-		Url:      Url,
+		Name:        name,
+		Semester:    semester,
+		Company:     company,
+		TeamId:      teamId,
+		Summary:     summary,
+		Description: description,
+		Url:         url,
 	}
 }
 
 type UpdateProject struct {
-	Id       uint64  `json:"id" db:"id"`
-	Name     *string `json:"name" db:"name"`
-	Semester *uint8  `json:"semester" db:"semester"`
-	Company  *string `json:"company" db:"company"`
-	TeamId   *uint64 `json:"teamId" db:"teamId"`
-	Summary  *string `json:"summary" db:"summary"`
-	Url      *string `json:"url" db:"url"`
+	Id          uint64  `json:"id" db:"id"`
+	Name        *string `json:"name" db:"name"`
+	Semester    *uint8  `json:"semester" db:"semester"`
+	Company     *string `json:"company" db:"company"`
+	TeamId      *uint64 `json:"teamId" db:"teamId"`
+	Summary     *string `json:"summary" db:"summary"`
+	Description *string `json:"description" db:"description"`
+	Url         *string `json:"url" db:"url"`
 }
 
 func NewUpdateProject(
@@ -74,27 +81,30 @@ func NewUpdateProject(
 	company *string,
 	teamId *uint64,
 	summary *string,
+	description *string,
 	url *string,
 ) UpdateProject {
 	return UpdateProject{
-		Id:       id,
-		Name:     name,
-		Semester: semester,
-		Company:  company,
-		TeamId:   teamId,
-		Summary:  summary,
-		Url:      url,
+		Id:          id,
+		Name:        name,
+		Semester:    semester,
+		Company:     company,
+		TeamId:      teamId,
+		Summary:     summary,
+		Description: description,
+		Url:         url,
 	}
 }
 
 type FilterProject struct {
-	Id       *uint64 `json:"id" db:"id"`
-	Name     *string `json:"name" db:"name"`
-	Semester *uint8  `json:"semester" db:"semester"`
-	Company  *string `json:"company" db:"company"`
-	TeamId   *uint64 `json:"teamId" db:"teamId"`
-	Summary  *string `json:"summary" db:"summary"`
-	Url      *string `json:"url" db:"url"`
+	Id          *uint64 `json:"id" db:"id"`
+	Name        *string `json:"name" db:"name"`
+	Semester    *uint8  `json:"semester" db:"semester"`
+	Company     *string `json:"company" db:"company"`
+	TeamId      *uint64 `json:"teamId" db:"teamId"`
+	Summary     *string `json:"summary" db:"summary"`
+	Description *string `json:"description" db:"description"`
+	Url         *string `json:"url" db:"url"`
 }
 
 func NewFilterProject(
@@ -104,15 +114,17 @@ func NewFilterProject(
 	company *string,
 	teamId *uint64,
 	summary *string,
+	description *string,
 	url *string,
 ) FilterProject {
 	return FilterProject{
-		Id:       id,
-		Name:     name,
-		Semester: semester,
-		Company:  company,
-		TeamId:   teamId,
-		Summary:  summary,
-		Url:      url,
+		Id:          id,
+		Name:        name,
+		Semester:    semester,
+		Company:     company,
+		TeamId:      teamId,
+		Summary:     summary,
+		Description: description,
+		Url:         url,
 	}
 }

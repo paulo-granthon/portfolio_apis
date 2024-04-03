@@ -20,16 +20,19 @@ func (s *PostgreProjectModule) Migrate() error {
 		models.NewCreateProject(
 			"Khali", 1, "FATEC", 1,
 			"Avaliação 360",
+			"A plataforma Khali permite a implementação do método de Avaliação 360° na Instituição de Ensino fictícia PBLTeX. Este projeto de API do 1º Semestre de Banco de Dados da Fatec - São José dos Campos possibilita uma abordagem abrangente na avaliação dos diversos aspectos da instituição, promovendo uma análise holística e aprimorando processos de gestão e desenvolvimento.",
 			"github.com/taniacruzz/Khali",
 		),
 		models.NewCreateProject(
 			"API2Semestre", 2, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos (desktop)",
+			"A API desenvolvida no 2° semestre do curso de Banco de Dados na Fatec - SJC proporciona um sistema desktop especializado no registro de horas extras e sobreavisos pelos colaboradores, com funcionalidades de controle tanto para gestores (PO) quanto para administradores (RH e Financeiro). Essa solução oferece uma plataforma integrada e eficiente para gerenciamento de tempo e recursos humanos, contribuindo para uma gestão mais eficaz e transparente dentro da organização.",
 			"github.com/projetoKhali/API2Semestre",
 		),
 		models.NewCreateProject(
 			"api3", 3, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos (web)",
+			"Sistema desenvolvido para auxiliar na gestão eficiente das horas trabalhadas pelos colaboradores de uma empresa. Ele automatiza a identificação e classificação de horas extras e sobreavisos, simplificando os processos de controle para os departamentos pessoal e financeiro.",
 			"github.com/projetoKhali/api3",
 		),
 	}
@@ -78,12 +81,13 @@ func (s *PostgreProjectModule) GetByTeamId(id uint64) ([]models.Project, error) 
 
 func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	project := models.Project{
-		Name:     p.Name,
-		Semester: p.Semester,
-		Company:  p.Company,
-		TeamId:   p.TeamId,
-		Summary:  p.Summary,
-		Url:      p.Url,
+		Name:        p.Name,
+		Semester:    p.Semester,
+		Company:     p.Company,
+		TeamId:      p.TeamId,
+		Summary:     p.Summary,
+		Description: p.Description,
+		Url:         p.Url,
 	}
 
 	if err := s.db.Create(&project).Error; err != nil {
