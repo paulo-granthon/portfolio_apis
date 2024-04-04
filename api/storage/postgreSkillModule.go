@@ -16,7 +16,10 @@ func NewPostgreSkillModule(db *gorm.DB) (*PostgreSkillModule, error) {
 
 func (s *PostgreSkillModule) Migrate() error {
 	exampleSkills := []models.CreateSkill{
+		models.NewCreateSkill("Scrum"),
 		models.NewCreateSkill("Python"),
+		models.NewCreateSkill("TKinter"),
+		models.NewCreateSkill("Análise de Dados"),
 		models.NewCreateSkill("Java"),
 		models.NewCreateSkill("Spring"),
 	}

@@ -22,11 +22,11 @@ func (s *PostgreNoteModule) Migrate() error {
 			"Teste de nota 1",
 		),
 		models.NewCreateNote(
-			2, 2, 1,
+			5, 2, 1,
 			"Teste de nota 2",
 		),
 		models.NewCreateNote(
-			3, 3, 1,
+			6, 3, 1,
 			"Teste de nota 3",
 		),
 	}
