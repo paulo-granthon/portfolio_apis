@@ -19,6 +19,7 @@ type StorageModule[T any, TCreate any, TUpdate any] interface {
 	Migrate() error
 	Get() ([]T, error)
 	GetById(uint64) (*T, error)
+	GetByName(string) (*T, error)
 	Create(TCreate) (*uint64, error)
 	Update(TUpdate) error
 	Delete(uint64) error
@@ -28,6 +29,7 @@ type SkillStorageModule interface {
 	Migrate() error
 	Get() ([]models.Skill, error)
 	GetById(uint64) (*models.Skill, error)
+	GetByName(string) (*models.Skill, error)
 	Create(models.CreateSkill) (*uint64, error)
 	Delete(uint64) error
 }
@@ -48,6 +50,7 @@ type ProjectStorageModule interface {
 	Migrate() error
 	Get() ([]models.Project, error)
 	GetById(uint64) (*models.Project, error)
+	GetByName(string) (*models.Project, error)
 	GetByUserId(uint64) ([]models.Project, error)
 	GetByTeamId(uint64) ([]models.Project, error)
 	Create(models.CreateProject) (*uint64, error)
@@ -59,6 +62,7 @@ type UserStorageModule interface {
 	Migrate() error
 	Get() ([]models.User, error)
 	GetById(uint64) (*models.User, error)
+	GetByName(string) (*models.User, error)
 	Create(models.CreateUser) (*uint64, error)
 	Register(models.RegisterUser) (*uint64, error)
 	Update(models.UpdateUser) error

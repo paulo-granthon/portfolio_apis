@@ -53,6 +53,14 @@ func (s *PostgreUserModule) GetById(id uint64) (*models.User, error) {
 	return &user, nil
 }
 
+func (s *PostgreUserModule) GetByName(name string) (*models.User, error) {
+	var user models.User
+	if err := s.db.Where("name = ?", name).First(&user).Error; err != nil {
+		return nil, tracerr.Errorf("failed to get user by name: %w", tracerr.Wrap(err))
+	}
+	return &user, nil
+}
+
 func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	user := models.FullUser{
 		Name:               p.Name,

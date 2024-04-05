@@ -60,6 +60,14 @@ func (s *PostgreProjectModule) GetById(id uint64) (*models.Project, error) {
 	return &project, nil
 }
 
+func (s *PostgreProjectModule) GetByName(name string) (*models.Project, error) {
+	var project models.Project
+	if err := s.db.Where("name = ?", name).First(&project).Error; err != nil {
+		return nil, tracerr.Errorf("failed to get project by name: %w", tracerr.Wrap(err))
+	}
+	return &project, nil
+}
+
 func (s *PostgreProjectModule) GetByUserId(id uint64) ([]models.Project, error) {
 	var projects []models.Project
 	subQuery := s.db.

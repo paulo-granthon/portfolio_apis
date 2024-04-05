@@ -47,6 +47,14 @@ func (s *PostgreSkillModule) GetById(id uint64) (*models.Skill, error) {
 	return &skill, nil
 }
 
+func (s *PostgreSkillModule) GetByName(name string) (*models.Skill, error) {
+	var skill models.Skill
+	if err := s.db.Where("name = ?", name).First(&skill).Error; err != nil {
+		return nil, err
+	}
+	return &skill, nil
+}
+
 func (s *PostgreSkillModule) Create(sk models.CreateSkill) (*uint64, error) {
 	skill := models.Skill{Name: sk.Name}
 	if err := s.db.Create(&skill).Error; err != nil {
