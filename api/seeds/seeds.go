@@ -19,7 +19,7 @@ func Run() error {
 		return tracerr.Errorf("failed to run seeds: failed to create service: %w", tracerr.Wrap(err))
 	}
 
-	rawDB, err := s.db.DB()
+	rawDB, err := storage.GetRawDB()
 	if err != nil {
 		err = tracerr.Errorf("PostgreStorage.Migrate: error getting sql.DB from gorm: %w", err)
 		tracerr.PrintSourceColor(err)

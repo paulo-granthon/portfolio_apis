@@ -1,6 +1,8 @@
 package storage
 
 import (
+	"database/sql"
+
 	"github.com/ztrue/tracerr"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -101,4 +103,8 @@ func (s *PostgreStorage) GetNoteModule() (NoteStorageModule, error) {
 		return nil, tracerr.Errorf("noteModule not found")
 	}
 	return s.postgreNoteModule, nil
+}
+
+func (s *PostgreStorage) GetRawDB() (*sql.DB, error) {
+	return s.db.DB()
 }
