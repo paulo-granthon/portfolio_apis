@@ -258,28 +258,23 @@ func NoteMigrate(
 	storage storage.Storage,
 	service service.Service,
 ) error {
-	noteMOdule, err := storage.GetNoteModule()
-	if err != nil {
-		return tracerr.Errorf("failed to get note module: %w", tracerr.Wrap(err))
-	}
-
-	exampleNotes := []models.CreateNote{
-		models.NewCreateNote(
-			1, 1, 1,
+	exampleNotes := []models.CreateNoteByNames{
+		models.NewCreateNoteByNames(
+			"Python", "API2Semestre", "paulo-granthon",
 			"Teste de nota 1",
 		),
-		models.NewCreateNote(
-			5, 2, 1,
+		models.NewCreateNoteByNames(
+			"Java", "api3", "paulo-granthon",
 			"Teste de nota 2",
 		),
-		models.NewCreateNote(
-			6, 3, 1,
+		models.NewCreateNoteByNames(
+			"Spring", "api3", "paulo-granthon",
 			"Teste de nota 3",
 		),
 	}
 
 	for _, n := range exampleNotes {
-		if _, err := noteMOdule.Create(n); err != nil {
+		if _, err := service.NoteService.Create(n); err != nil {
 			return tracerr.Errorf("failed to create note: %w", tracerr.Wrap(err))
 		}
 	}
