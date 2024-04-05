@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"service"
 	"storage"
 
 	"github.com/gorilla/mux"
@@ -13,6 +14,7 @@ import (
 type Server struct {
 	port      string
 	endpoints []Endpoint
+	Service   service.Service
 	Storage   storage.Storage
 }
 

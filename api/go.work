@@ -6,5 +6,6 @@ use (
 	./models
 	./schemas
 	./server
+	./service
 	./storage
 )
