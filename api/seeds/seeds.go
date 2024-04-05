@@ -92,23 +92,23 @@ func Run() error {
 		return err
 	}
 
-	if err := UserMigrate(storage); err != nil {
+	if err := UserMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate user: %w", tracerr.Wrap(err))
 	}
 
-	if err := TeamMigrate(storage); err != nil {
+	if err := TeamMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate team: %w", tracerr.Wrap(err))
 	}
 
-	if err := ProjectMigrate(storage); err != nil {
+	if err := ProjectMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate project: %w", tracerr.Wrap(err))
 	}
 
-	if err := SkillMigrate(storage); err != nil {
+	if err := SkillMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate skill: %w", tracerr.Wrap(err))
 	}
 
-	if err := NoteMigrate(storage); err != nil {
+	if err := NoteMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate note: %w", tracerr.Wrap(err))
 	}
 
