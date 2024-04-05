@@ -15,30 +15,6 @@ func NewPostgreUserModule(db *gorm.DB) (*PostgreUserModule, error) {
 	return &PostgreUserModule{db: db}, nil
 }
 
-func (s *PostgreUserModule) Migrate() error {
-	summary := "Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer"
-	yearSemesterMatriculed := models.NewYearSemester(uint16(2022), uint8(2))
-	githubUsername := "paulo-granthon"
-
-	exampleUsers := []models.CreateUser{
-		models.NewCreateUser(
-			"Paulo Granthon",
-			"123456",
-			&summary,
-			&yearSemesterMatriculed,
-			&githubUsername,
-		),
-	}
-
-	for _, p := range exampleUsers {
-		if _, err := s.Create(p); err != nil {
-			return tracerr.Errorf("failed to insert user seeds: %w", tracerr.Wrap(err))
-		}
-	}
-
-	return nil
-}
-
 func (s *PostgreUserModule) Get() ([]models.User, error) {
 	var users []models.User
 	s.db.Find(&users)

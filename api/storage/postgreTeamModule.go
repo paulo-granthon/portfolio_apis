@@ -15,39 +15,6 @@ func NewPostgreTeamModule(db *gorm.DB) (*PostgreTeamModule, error) {
 	return &PostgreTeamModule{db: db}, nil
 }
 
-func (s *PostgreTeamModule) Migrate() error {
-	exampleTeams := []models.CreateTeam{
-		models.NewCreateTeam("Khali"),
-	}
-
-	var teamIdToAddMember *uint64
-
-	for _, p := range exampleTeams {
-		insertedTeamId, err := s.Create(p)
-		if err != nil {
-			if teamIdToAddMember == nil {
-				teamIdToAddMember = insertedTeamId
-			}
-			return tracerr.Errorf("failed to insert team seeds: %w", tracerr.Wrap(err))
-		}
-	}
-
-	if teamIdToAddMember == nil {
-		existingTeam, err := s.GetById(1)
-		if err != nil {
-			return tracerr.Errorf("no team was inserted neither found in the database: %w", tracerr.Wrap(err))
-		}
-
-		teamIdToAddMember = &existingTeam.Id
-	}
-
-	if err := s.AddUsers(*teamIdToAddMember, 1); err != nil {
-		return tracerr.Errorf("failed to add users to team: %w", tracerr.Wrap(err))
-	}
-
-	return nil
-}
-
 func (s *PostgreTeamModule) Get() ([]models.Team, error) {
 	var teams []models.Team
 	s.db.Find(&teams)

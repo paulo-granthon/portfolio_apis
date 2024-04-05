@@ -15,31 +15,6 @@ func NewPostgreNoteModule(db *gorm.DB) (*PostgreNoteModule, error) {
 	return &PostgreNoteModule{db: db}, nil
 }
 
-func (s *PostgreNoteModule) Migrate() error {
-	exampleNotes := []models.CreateNote{
-		models.NewCreateNote(
-			1, 1, 1,
-			"Teste de nota 1",
-		),
-		models.NewCreateNote(
-			5, 2, 1,
-			"Teste de nota 2",
-		),
-		models.NewCreateNote(
-			6, 3, 1,
-			"Teste de nota 3",
-		),
-	}
-
-	for _, n := range exampleNotes {
-		if _, err := s.Create(n); err != nil {
-			return tracerr.Errorf("failed to create note: %w", tracerr.Wrap(err))
-		}
-	}
-
-	return nil
-}
-
 func (s *PostgreNoteModule) Get() ([]models.Note, error) {
 	var notes []models.Note
 	s.db.Find(&notes)

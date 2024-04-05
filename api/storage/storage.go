@@ -7,7 +7,6 @@ import (
 )
 
 type Storage interface {
-	Migrate() error
 	GetProjectModule() (ProjectStorageModule, error)
 	GetUserModule() (UserStorageModule, error)
 	GetTeamModule() (TeamStorageModule, error)
@@ -16,7 +15,6 @@ type Storage interface {
 }
 
 type StorageModule[T any, TCreate any, TUpdate any] interface {
-	Migrate() error
 	Get() ([]T, error)
 	GetById(uint64) (*T, error)
 	GetByName(string) (*T, error)
@@ -26,7 +24,6 @@ type StorageModule[T any, TCreate any, TUpdate any] interface {
 }
 
 type SkillStorageModule interface {
-	Migrate() error
 	Get() ([]models.Skill, error)
 	GetById(uint64) (*models.Skill, error)
 	GetByName(string) (*models.Skill, error)
@@ -35,7 +32,6 @@ type SkillStorageModule interface {
 }
 
 type NoteStorageModule interface {
-	Migrate() error
 	Get() ([]models.Note, error)
 	GetById(uint64) (*models.Note, error)
 	GetFilter(models.NoteFilter) ([]models.NoteDetail, error)
@@ -47,7 +43,6 @@ type NoteStorageModule interface {
 }
 
 type ProjectStorageModule interface {
-	Migrate() error
 	Get() ([]models.Project, error)
 	GetById(uint64) (*models.Project, error)
 	GetByName(string) (*models.Project, error)
@@ -59,7 +54,6 @@ type ProjectStorageModule interface {
 }
 
 type UserStorageModule interface {
-	Migrate() error
 	Get() ([]models.User, error)
 	GetById(uint64) (*models.User, error)
 	GetByName(string) (*models.User, error)
@@ -70,7 +64,6 @@ type UserStorageModule interface {
 }
 
 type TeamStorageModule interface {
-	Migrate() error
 	Get() ([]models.Team, error)
 	GetById(uint64) (*models.Team, error)
 	GetUsers(uint64) ([]models.User, error)

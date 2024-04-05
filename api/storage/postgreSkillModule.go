@@ -14,25 +14,6 @@ func NewPostgreSkillModule(db *gorm.DB) (*PostgreSkillModule, error) {
 	return &PostgreSkillModule{db: db}, nil
 }
 
-func (s *PostgreSkillModule) Migrate() error {
-	exampleSkills := []models.CreateSkill{
-		models.NewCreateSkill("Scrum"),
-		models.NewCreateSkill("Python"),
-		models.NewCreateSkill("TKinter"),
-		models.NewCreateSkill("Análise de Dados"),
-		models.NewCreateSkill("Java"),
-		models.NewCreateSkill("Spring"),
-	}
-
-	for _, sk := range exampleSkills {
-		if _, err := s.Create(sk); err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
 func (s *PostgreSkillModule) Get() ([]models.Skill, error) {
 	var skills []models.Skill
 	s.db.Find(&skills)
