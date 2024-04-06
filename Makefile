@@ -99,6 +99,11 @@ database-up:
 database-down:
 	@docker-compose down
 
+# Migrate database
+database-migrate:
+	@make database-up
+	@cd $(BACKEND_DIR) && go run main.go seed
+
 # Recreate and start the database container
 database-recreate:
 	@make database-down
@@ -130,6 +135,7 @@ fs: frontend-setup
 fc: frontend-clean
 
 du: database-up
+dm: database-migrate
 dd: database-down
 dr: database-recreate
 
@@ -162,5 +168,5 @@ dr: database-recreate
 	md mp ms mc \
 	fd fp fb fs fc \
 	bt bd bp bs bc \
-	du dd dr \
+	du dm dd dr \
 	ac

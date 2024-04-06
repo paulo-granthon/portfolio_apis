@@ -10,6 +10,7 @@
     "web-prod": "make fp",
     "setup": "yarn",
     "db-up": "docker-compose up -d",
+    "db-migrate": "make dm",
     "db-down": "docker-compose down"
   },
   "repository": "https://github.com/paulo-granthon/portfolio_apis.git",
