@@ -32,7 +32,7 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		&gorm.Config{},
 	)
 	if err != nil {
-		return nil, tracerr.Errorf("failed to connect database", tracerr.Wrap(err))
+		return nil, tracerr.Errorf("failed to connect database: %w", tracerr.Wrap(err))
 	}
 
 	postgreProjectModule, err := NewPostgreProjectModule(db)
