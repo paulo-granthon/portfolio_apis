@@ -2,6 +2,9 @@ package main
 
 import (
 	"endpoints"
+	"flag"
+	"fmt"
+	"seeds"
 	"server"
 	"storage"
 
@@ -9,6 +12,10 @@ import (
 )
 
 func main() {
+	if handleArgs() {
+		return
+	}
+
 	db, err := storage.NewPostgreStorage()
 	if err != nil {
 		tracerr.PrintSourceColor(
@@ -35,4 +42,29 @@ func main() {
 		)
 		return
 	}
+}
+
+func handleArgs() bool {
+	flag.Parse()
+	args := flag.Args()
+
+	if len(args) < 1 {
+		return false
+	}
+
+	switch args[0] {
+	case "seed":
+		err := seeds.Run()
+		if err != nil {
+			tracerr.PrintSourceColor(
+				tracerr.Errorf("Error seeding database: %w", tracerr.Wrap(err)),
+			)
+		}
+
+		fmt.Println("Seeding complete")
+	default:
+		fmt.Printf("Unrecognized flag %v\n", args[0])
+	}
+
+	return true
 }
