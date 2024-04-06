@@ -12,7 +12,7 @@ func main() {
 	db, err := storage.NewPostgreStorage()
 	if err != nil {
 		tracerr.PrintSourceColor(
-			tracerr.Errorf("Error creating database: :%w", tracerr.Wrap(err)),
+			tracerr.Errorf("Error creating database: %w", tracerr.Wrap(err)),
 		)
 		return
 	}
@@ -24,14 +24,14 @@ func main() {
 	)
 	if err != nil {
 		tracerr.PrintSourceColor(
-			tracerr.Errorf("Error creating server: :%w", tracerr.Wrap(err)),
+			tracerr.Errorf("Error creating server: %w", tracerr.Wrap(err)),
 		)
 		return
 	}
 
 	if err := server.Start(); err != nil {
 		tracerr.PrintSourceColor(
-			tracerr.Errorf("Error starting server: :%w", tracerr.Wrap(err)),
+			tracerr.Errorf("Error starting server: %w", tracerr.Wrap(err)),
 		)
 		return
 	}
