@@ -15,39 +15,49 @@ export async function getProjects(): Promise<ProjectSchema[]> {
 export async function getProjectsOfUser(
   userId: number,
 ): Promise<ProjectSchema[]> {
-  return fetch(API_URL + "/users/" + userId + "/projects")
-    .then((response) => response.json())
-    .then((data) => data);
+  return userId
+    ? fetch(API_URL + "/users/" + userId + "/projects")
+        .then((response) => response.json())
+        .then((data) => data)
+    : undefined;
 }
 
 export async function getProject(id: number): Promise<ProjectSchema> {
-  return fetch(API_URL + "/projects/" + id)
-    .then((response) => response.json())
-    .then((data) => data);
+  return id
+    ? fetch(API_URL + "/projects/" + id)
+        .then((response) => response.json())
+        .then((data) => data)
+    : undefined;
 }
 
 export async function createProject(project: PostProjectSchema) {
-  return fetch(API_URL + "/projects", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(project),
-  });
+  return project
+    ? fetch(API_URL + "/projects", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(project),
+      })
+    : undefined;
 }
 
 export async function updateProject(id: number, project: UpdateProjectSchema) {
-  return fetch(API_URL + "/projects/" + id, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(project),
-  });
+  return !!id && !!project
+    ? fetch(API_URL + "/projects/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(project),
+      })
+    : undefined;
 }
 
 export async function deleteProject(id: number) {
-  return fetch(API_URL + "/projects/" + id, {
-    method: "DELETE",
-  });
+  return id
+    ? fetch(API_URL + "/projects/" + id, {
+        method: "DELETE",
+      })
+    : undefined;
 }
