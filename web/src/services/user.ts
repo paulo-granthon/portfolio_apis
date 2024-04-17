@@ -40,39 +40,47 @@ export async function getUsers(): Promise<UserSchema[]> {
 }
 
 export async function getUser(id: number): Promise<UserSchema | undefined> {
-  return fetch(API_URL + "/users/" + id)
-    .then((response) => response.json())
-    .then((data) => mapUser(data));
+  return id
+    ? fetch(API_URL + "/users/" + id)
+        .then((response) => response.json())
+        .then((data) => mapUser(data))
+    : undefined;
 }
 
-export async function registerUser(payload: RegisterUserSchema) {
-  return fetch(API_URL + "/register", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
+export async function registerUser(user: RegisterUserSchema) {
+  return user
+    ? fetch(API_URL + "/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+    : undefined;
 }
 
 export async function createUser(user: PostUserSchema) {
-  return fetch(API_URL + "/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
+  return user
+    ? fetch(API_URL + "/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+    : undefined;
 }
 
 export async function updateUser(id: number, user: UpdateUserSchema) {
-  return fetch(API_URL + "/users/" + id, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(user),
-  });
+  return !!id && !!user
+    ? fetch(API_URL + "/users/" + id, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      })
+    : undefined;
 }
 
 export async function deleteUser(id: number) {
