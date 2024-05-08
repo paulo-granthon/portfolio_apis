@@ -36,6 +36,7 @@ func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.NoteDetail,
 		Table("notes").
 		Select(`
 			notes.id,
+			notes.title,
 			notes.content,
 			users.name AS user,
 			skills.name AS skill,
@@ -64,7 +65,14 @@ func (s *PostgreNoteModule) GetFilter(f models.NoteFilter) ([]models.NoteDetail,
 
 	for result.Next() {
 		var note models.NoteDetail
-		if err := result.Scan(&note.Id, &note.Content, &note.User, &note.Skill, &note.Project); err != nil {
+		if err := result.Scan(
+			&note.Id,
+			&note.Title,
+			&note.Content,
+			&note.User,
+			&note.Skill,
+			&note.Project,
+		); err != nil {
 			return nil, tracerr.Errorf("failed to scan note: %w", tracerr.Wrap(err))
 		}
 		notes = append(notes, note)
@@ -96,6 +104,7 @@ func (s *PostgreNoteModule) Create(n models.CreateNote) (*uint64, error) {
 		SkillId:   n.SkillId,
 		ProjectId: n.ProjectId,
 		UserId:    n.UserId,
+		Title:     n.Title,
 		Content:   n.Content,
 	}
 	if err := s.db.Create(&note).Error; err != nil {

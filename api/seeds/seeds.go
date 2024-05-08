@@ -80,6 +80,7 @@ func Run() error {
 			skill_id INT NOT NULL,
 			project_id INT NOT NULL,
 			user_id INT NOT NULL,
+			title VARCHAR(50) NOT NULL,
 			content TEXT NOT NULL,
 			FOREIGN KEY (skill_id) REFERENCES skills(id),
 			FOREIGN KEY (project_id) REFERENCES projects(id),
@@ -261,15 +262,15 @@ func NoteMigrate(
 	exampleNotes := []models.CreateNoteByNames{
 		models.NewCreateNoteByNames(
 			"Python", "API2Semestre", "paulo-granthon",
-			"Teste de nota 1",
+			"Teste de titulo 1", "Teste de conteúdo 1",
 		),
 		models.NewCreateNoteByNames(
 			"Java", "api3", "paulo-granthon",
-			"Teste de nota 2",
+			"Teste de titulo 2", "Teste de conteúdo 2",
 		),
 		models.NewCreateNoteByNames(
 			"Spring", "api3", "paulo-granthon",
-			"Teste de nota 3",
+			"Teste de titulo 3", "Teste de conteúdo 3",
 		),
 	}
 

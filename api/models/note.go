@@ -5,6 +5,7 @@ type Note struct {
 	SkillId   uint64 `json:"skillId" db:"skillId"`
 	ProjectId uint64 `json:"projectId" db:"projectId"`
 	UserId    uint64 `json:"userId" db:"userId"`
+	Title     string `json:"title" db:"title"`
 	Content   string `json:"content" db:"content"`
 }
 
@@ -13,6 +14,7 @@ func NewNote(
 	skillId uint64,
 	projectId uint64,
 	userId uint64,
+	title string,
 	content string,
 ) Note {
 	return Note{
@@ -20,6 +22,7 @@ func NewNote(
 		SkillId:   skillId,
 		ProjectId: projectId,
 		UserId:    userId,
+		Title:     title,
 		Content:   content,
 	}
 }
@@ -29,6 +32,7 @@ type NoteDetail struct {
 	Skill   string `json:"skill"`
 	Project string `json:"project"`
 	User    string `json:"user"`
+	Title   string `json:"title" db:"title"`
 	Content string `json:"content" db:"content"`
 }
 
@@ -37,6 +41,7 @@ func NewNoteDetail(
 	skill string,
 	project string,
 	user string,
+	title string,
 	content string,
 ) NoteDetail {
 	return NoteDetail{
@@ -44,6 +49,7 @@ func NewNoteDetail(
 		Skill:   skill,
 		Project: project,
 		User:    user,
+		Title:   title,
 		Content: content,
 	}
 }
@@ -52,6 +58,7 @@ type CreateNote struct {
 	SkillId   uint64 `json:"skillId" db:"skillId"`
 	ProjectId uint64 `json:"projectId" db:"projectId"`
 	UserId    uint64 `json:"userId" db:"userId"`
+	Title     string `json:"title" db:"title"`
 	Content   string `json:"content" db:"content"`
 }
 
@@ -59,12 +66,14 @@ func NewCreateNote(
 	skillId uint64,
 	projectId uint64,
 	userId uint64,
+	title string,
 	content string,
 ) CreateNote {
 	return CreateNote{
 		SkillId:   skillId,
 		ProjectId: projectId,
 		UserId:    userId,
+		Title:     title,
 		Content:   content,
 	}
 }
@@ -73,6 +82,7 @@ type CreateNoteByNames struct {
 	Skill   string `json:"skill"`
 	Project string `json:"project"`
 	User    string `json:"user"`
+	Title   string `json:"title"`
 	Content string `json:"content"`
 }
 
@@ -80,12 +90,14 @@ func NewCreateNoteByNames(
 	skill string,
 	project string,
 	user string,
+	title string,
 	content string,
 ) CreateNoteByNames {
 	return CreateNoteByNames{
 		Skill:   skill,
 		Project: project,
 		User:    user,
+		Title:   title,
 		Content: content,
 	}
 }
