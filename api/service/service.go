@@ -7,16 +7,16 @@ import (
 )
 
 type Service struct {
-	NoteService *NoteService
+	ContributionService *ContributionService
 }
 
 func NewService(s storage.Storage) (*Service, error) {
-	noteService, err := NewNoteService(s)
+	contributionService, err := NewContributionService(s)
 	if err != nil {
-		return nil, tracerr.Errorf("failed to create note service: %v", err)
+		return nil, tracerr.Errorf("failed to create contribution service: %v", err)
 	}
 
 	return &Service{
-		NoteService: noteService,
+		ContributionService: contributionService,
 	}, nil
 }

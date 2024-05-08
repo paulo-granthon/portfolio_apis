@@ -1,6 +1,6 @@
 package models
 
-type Note struct {
+type Contribution struct {
 	Id        uint64 `json:"id" db:"id"`
 	SkillId   uint64 `json:"skillId" db:"skillId"`
 	ProjectId uint64 `json:"projectId" db:"projectId"`
@@ -9,15 +9,15 @@ type Note struct {
 	Content   string `json:"content" db:"content"`
 }
 
-func NewNote(
+func NewContribution(
 	id uint64,
 	skillId uint64,
 	projectId uint64,
 	userId uint64,
 	title string,
 	content string,
-) Note {
-	return Note{
+) Contribution {
+	return Contribution{
 		Id:        id,
 		SkillId:   skillId,
 		ProjectId: projectId,
@@ -27,7 +27,7 @@ func NewNote(
 	}
 }
 
-type NoteDetail struct {
+type ContributionDetail struct {
 	Id      uint64 `json:"id" db:"id"`
 	Skill   string `json:"skill"`
 	Project string `json:"project"`
@@ -36,15 +36,15 @@ type NoteDetail struct {
 	Content string `json:"content" db:"content"`
 }
 
-func NewNoteDetail(
+func NewContributionDetail(
 	id uint64,
 	skill string,
 	project string,
 	user string,
 	title string,
 	content string,
-) NoteDetail {
-	return NoteDetail{
+) ContributionDetail {
+	return ContributionDetail{
 		Id:      id,
 		Skill:   skill,
 		Project: project,
@@ -54,7 +54,7 @@ func NewNoteDetail(
 	}
 }
 
-type CreateNote struct {
+type CreateContribution struct {
 	SkillId   uint64 `json:"skillId" db:"skillId"`
 	ProjectId uint64 `json:"projectId" db:"projectId"`
 	UserId    uint64 `json:"userId" db:"userId"`
@@ -62,14 +62,14 @@ type CreateNote struct {
 	Content   string `json:"content" db:"content"`
 }
 
-func NewCreateNote(
+func NewCreateContribution(
 	skillId uint64,
 	projectId uint64,
 	userId uint64,
 	title string,
 	content string,
-) CreateNote {
-	return CreateNote{
+) CreateContribution {
+	return CreateContribution{
 		SkillId:   skillId,
 		ProjectId: projectId,
 		UserId:    userId,
@@ -78,7 +78,7 @@ func NewCreateNote(
 	}
 }
 
-type CreateNoteByNames struct {
+type CreateContributionByNames struct {
 	Skill   string `json:"skill"`
 	Project string `json:"project"`
 	User    string `json:"user"`
@@ -86,14 +86,14 @@ type CreateNoteByNames struct {
 	Content string `json:"content"`
 }
 
-func NewCreateNoteByNames(
+func NewCreateContributionByNames(
 	skill string,
 	project string,
 	user string,
 	title string,
 	content string,
-) CreateNoteByNames {
-	return CreateNoteByNames{
+) CreateContributionByNames {
+	return CreateContributionByNames{
 		Skill:   skill,
 		Project: project,
 		User:    user,
@@ -102,18 +102,18 @@ func NewCreateNoteByNames(
 	}
 }
 
-type NoteFilter struct {
+type ContributionFilter struct {
 	Skill   *string `json:"skill"`
 	Project *string `json:"project"`
 	User    *string `json:"user"`
 }
 
-func NewNoteFilter(
+func NewContributionFilter(
 	skill *string,
 	project *string,
 	user *string,
-) NoteFilter {
-	return NoteFilter{
+) ContributionFilter {
+	return ContributionFilter{
 		Skill:   skill,
 		Project: project,
 		User:    user,

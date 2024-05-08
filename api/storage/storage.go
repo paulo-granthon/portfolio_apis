@@ -11,7 +11,7 @@ type Storage interface {
 	GetUserModule() (UserStorageModule, error)
 	GetTeamModule() (TeamStorageModule, error)
 	GetSkillModule() (SkillStorageModule, error)
-	GetNoteModule() (NoteStorageModule, error)
+	GetContributionModule() (ContributionStorageModule, error)
 }
 
 type StorageModule[T any, TCreate any, TUpdate any] interface {
@@ -31,14 +31,14 @@ type SkillStorageModule interface {
 	Delete(uint64) error
 }
 
-type NoteStorageModule interface {
-	Get() ([]models.Note, error)
-	GetById(uint64) (*models.Note, error)
-	GetFilter(models.NoteFilter) ([]models.NoteDetail, error)
-	GetByProjectId(uint64) ([]models.Note, error)
-	GetBySkillId(uint64) ([]models.Note, error)
-	GetByUserId(uint64) ([]models.Note, error)
-	Create(models.CreateNote) (*uint64, error)
+type ContributionStorageModule interface {
+	Get() ([]models.Contribution, error)
+	GetById(uint64) (*models.Contribution, error)
+	GetFilter(models.ContributionFilter) ([]models.ContributionDetail, error)
+	GetByProjectId(uint64) ([]models.Contribution, error)
+	GetBySkillId(uint64) ([]models.Contribution, error)
+	GetByUserId(uint64) ([]models.Contribution, error)
+	Create(models.CreateContribution) (*uint64, error)
 	Delete(uint64) error
 }
 

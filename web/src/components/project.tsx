@@ -1,5 +1,5 @@
 
-import NoteList from "./noteList";
+import ContributionList from "./contributionList";
 import { ProjectSchema } from "../schemas/project";
 import * as styles from "../styles/project";
 
@@ -26,7 +26,7 @@ export default function Project({
         <a href={`https://${project.url}`}>{project.url}</a>
       </div>
       <p>{project.description}</p>
-      <NoteList projectId={project.id} userId={userId} />
+      <ContributionList projectId={project.id} userId={userId} />
     </div>
   );
 }

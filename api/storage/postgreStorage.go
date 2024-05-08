@@ -13,7 +13,7 @@ type PostgreStorage struct {
 	postgreUserModule    *PostgreUserModule
 	postgreTeamModule    *PostgreTeamModule
 	postgreSkillModule   *PostgreSkillModule
-	postgreNoteModule    *PostgreNoteModule
+	postgreContributionModule    *PostgreContributionModule
 	db                   *gorm.DB
 }
 
@@ -55,9 +55,9 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		return nil, tracerr.Errorf("failed to create postgreSkillModule: %w", tracerr.Wrap(err))
 	}
 
-	postgreNoteModule, err := NewPostgreNoteModule(db)
+	postgreContributionModule, err := NewPostgreContributionModule(db)
 	if err != nil {
-		return nil, tracerr.Errorf("failed to create postgreNoteModule: %w", tracerr.Wrap(err))
+		return nil, tracerr.Errorf("failed to create postgreContributionModule: %w", tracerr.Wrap(err))
 	}
 
 	return &PostgreStorage{
@@ -65,7 +65,7 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		postgreUserModule:    postgreUserModule,
 		postgreTeamModule:    postgreTeamModule,
 		postgreSkillModule:   postgreSkillModule,
-		postgreNoteModule:    postgreNoteModule,
+		postgreContributionModule:    postgreContributionModule,
 		db:                   db,
 	}, nil
 }
@@ -98,11 +98,11 @@ func (s *PostgreStorage) GetSkillModule() (SkillStorageModule, error) {
 	return s.postgreSkillModule, nil
 }
 
-func (s *PostgreStorage) GetNoteModule() (NoteStorageModule, error) {
-	if s.postgreNoteModule.db == nil {
-		return nil, tracerr.Errorf("noteModule not found")
+func (s *PostgreStorage) GetContributionModule() (ContributionStorageModule, error) {
+	if s.postgreContributionModule.db == nil {
+		return nil, tracerr.Errorf("contributionModule not found")
 	}
-	return s.postgreNoteModule, nil
+	return s.postgreContributionModule, nil
 }
 
 func (s *PostgreStorage) GetRawDB() (*sql.DB, error) {

@@ -34,7 +34,7 @@ func Run() error {
 		DROP TABLE IF EXISTS team_users CASCADE;
 		DROP TABLE IF EXISTS projects CASCADE;
 		DROP TABLE IF EXISTS skills CASCADE;
-		DROP TABLE IF EXISTS notes CASCADE;
+		DROP TABLE IF EXISTS contributions CASCADE;
 
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -75,7 +75,7 @@ func Run() error {
 			name VARCHAR(50) NOT NULL
 		);
 
-		CREATE TABLE IF NOT EXISTS notes (
+		CREATE TABLE IF NOT EXISTS contributions (
 			id SERIAL PRIMARY KEY,
 			skill_id INT NOT NULL,
 			project_id INT NOT NULL,
@@ -109,8 +109,8 @@ func Run() error {
 		return tracerr.Errorf("failed to run seeds: failed to migrate skill: %w", tracerr.Wrap(err))
 	}
 
-	if err := NoteMigrate(storage, *service); err != nil {
-		return tracerr.Errorf("failed to run seeds: failed to migrate note: %w", tracerr.Wrap(err))
+	if err := ContributionMigrate(storage, *service); err != nil {
+		return tracerr.Errorf("failed to run seeds: failed to migrate contribution: %w", tracerr.Wrap(err))
 	}
 
 	return nil
@@ -255,28 +255,28 @@ func SkillMigrate(
 	return nil
 }
 
-func NoteMigrate(
+func ContributionMigrate(
 	storage storage.Storage,
 	service service.Service,
 ) error {
-	exampleNotes := []models.CreateNoteByNames{
-		models.NewCreateNoteByNames(
+	exampleContributions := []models.CreateContributionByNames{
+		models.NewCreateContributionByNames(
 			"Python", "API2Semestre", "paulo-granthon",
 			"Teste de titulo 1", "Teste de conteúdo 1",
 		),
-		models.NewCreateNoteByNames(
+		models.NewCreateContributionByNames(
 			"Java", "api3", "paulo-granthon",
 			"Teste de titulo 2", "Teste de conteúdo 2",
 		),
-		models.NewCreateNoteByNames(
+		models.NewCreateContributionByNames(
 			"Spring", "api3", "paulo-granthon",
 			"Teste de titulo 3", "Teste de conteúdo 3",
 		),
 	}
 
-	for _, n := range exampleNotes {
-		if _, err := service.NoteService.Create(n); err != nil {
-			return tracerr.Errorf("failed to create note: %w", tracerr.Wrap(err))
+	for _, n := range exampleContributions {
+		if _, err := service.ContributionService.Create(n); err != nil {
+			return tracerr.Errorf("failed to create contribution: %w", tracerr.Wrap(err))
 		}
 	}
 

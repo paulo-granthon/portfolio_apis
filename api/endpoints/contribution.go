@@ -6,19 +6,19 @@ import (
 	"server"
 )
 
-func NoteEndpoints() []server.Endpoint {
+func ContributionEndpoints() []server.Endpoint {
 	return []server.Endpoint{
 		{
-			Path: "/notes",
+			Path: "/contributions",
 			Methods: []server.Method{
-				server.NewMethod("GET", GetNotesFilter),
+				server.NewMethod("GET", GetContributionsFilter),
 			},
 		},
 	}
 }
 
-func GetNotesFilter(s server.Server, w http.ResponseWriter, r *http.Request) error {
-	noteModule, err := s.Storage.GetNoteModule()
+func GetContributionsFilter(s server.Server, w http.ResponseWriter, r *http.Request) error {
+	contributionModule, err := s.Storage.GetContributionModule()
 	if err != nil {
 		return server.SendError(
 			w, err, http.StatusInternalServerError,
@@ -30,7 +30,7 @@ func GetNotesFilter(s server.Server, w http.ResponseWriter, r *http.Request) err
 	project := r.URL.Query().Get("project")
 	user := r.URL.Query().Get("user")
 
-	notes, err := noteModule.GetFilter(models.NoteFilter{
+	contributions, err := contributionModule.GetFilter(models.ContributionFilter{
 		Skill:   &skill,
 		Project: &project,
 		User:    &user,
@@ -38,12 +38,12 @@ func GetNotesFilter(s server.Server, w http.ResponseWriter, r *http.Request) err
 	if err != nil {
 		return server.SendError(
 			w, err, http.StatusInternalServerError,
-			"error getting notes",
+			"error getting contributions",
 		)
 	}
 
 	return server.WriteJSON(
 		w, http.StatusOK,
-		notes,
+		contributions,
 	)
 }
