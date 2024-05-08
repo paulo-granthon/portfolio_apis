@@ -37,6 +37,14 @@ func (s *PostgreUserModule) GetByName(name string) (*models.User, error) {
 	return &user, nil
 }
 
+func (s *PostgreUserModule) GetByUsername(username string) (*models.User, error) {
+	var user models.User
+	if err := s.db.Where("github_username = ?", username).First(&user).Error; err != nil {
+		return nil, tracerr.Errorf("failed to get user by github username: %w", tracerr.Wrap(err))
+	}
+	return &user, nil
+}
+
 func (s *PostgreUserModule) Create(p models.CreateUser) (*uint64, error) {
 	user := models.FullUser{
 		Name:               p.Name,
