@@ -59,9 +59,9 @@ func (s *NoteService) Create(n models.CreateNoteByNames) (*uint64, error) {
 	}
 
 	userStorage := *s.userStorage
-	user, err := userStorage.GetByName(n.User)
+	user, err := userStorage.GetByUsername(n.User)
 	if err != nil {
-		return nil, tracerr.Errorf("failed to create note: failed to get user by name: %w", tracerr.Wrap(err))
+		return nil, tracerr.Errorf("failed to create note: failed to get user by github username: %w", tracerr.Wrap(err))
 	}
 
 	note := models.CreateNote{
