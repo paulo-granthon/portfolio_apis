@@ -39,16 +39,10 @@ func (s *PostgreContributionModule) GetFilter(f models.ContributionFilter) ([]mo
 			contributions.title,
 			contributions.content,
 			users.name AS user,
-			skills.name AS skill,
 			projects.name AS project
 		`).
-		Joins("JOIN skills ON contributions.skill_id = skills.id").
 		Joins("JOIN projects ON contributions.project_id = projects.id").
 		Joins("JOIN users ON contributions.user_id = users.id")
-
-	if f.Skill != nil && *f.Skill != "" {
-		query = query.Where("contributions.skill_id = ?", *f.Skill)
-	}
 
 	if f.Project != nil && *f.Project != "" {
 		query = query.Where("contributions.project_id = ?", *f.Project)
@@ -70,7 +64,6 @@ func (s *PostgreContributionModule) GetFilter(f models.ContributionFilter) ([]mo
 			&contribution.Title,
 			&contribution.Content,
 			&contribution.User,
-			&contribution.Skill,
 			&contribution.Project,
 		); err != nil {
 			return nil, tracerr.Errorf("failed to scan contribution: %w", tracerr.Wrap(err))
@@ -87,12 +80,6 @@ func (s *PostgreContributionModule) GetByProjectId(id uint64) ([]models.Contribu
 	return contributions, nil
 }
 
-func (s *PostgreContributionModule) GetBySkillId(id uint64) ([]models.Contribution, error) {
-	var contributions []models.Contribution
-	s.db.Where("skill_id = ?", id).Find(&contributions)
-	return contributions, nil
-}
-
 func (s *PostgreContributionModule) GetByUserId(id uint64) ([]models.Contribution, error) {
 	var contributions []models.Contribution
 	s.db.Where("user_id = ?", id).Find(&contributions)
@@ -101,7 +88,6 @@ func (s *PostgreContributionModule) GetByUserId(id uint64) ([]models.Contributio
 
 func (s *PostgreContributionModule) Create(n models.CreateContribution) (*uint64, error) {
 	contribution := models.Contribution{
-		SkillId:   n.SkillId,
 		ProjectId: n.ProjectId,
 		UserId:    n.UserId,
 		Title:     n.Title,

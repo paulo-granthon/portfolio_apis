@@ -35,6 +35,7 @@ func Run() error {
 		DROP TABLE IF EXISTS projects CASCADE;
 		DROP TABLE IF EXISTS skills CASCADE;
 		DROP TABLE IF EXISTS contributions CASCADE;
+		DROP TABLE IF EXISTS contribution_skills CASCADE;
 
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -77,16 +78,21 @@ func Run() error {
 
 		CREATE TABLE IF NOT EXISTS contributions (
 			id SERIAL PRIMARY KEY,
-			skill_id INT NOT NULL,
 			project_id INT NOT NULL,
 			user_id INT NOT NULL,
 			title VARCHAR(50) NOT NULL,
 			content TEXT NOT NULL,
-			FOREIGN KEY (skill_id) REFERENCES skills(id),
 			FOREIGN KEY (project_id) REFERENCES projects(id),
 			FOREIGN KEY (user_id) REFERENCES users(id)
 		);
 
+		CREATE TABLE IF NOT EXISTS contribution_skills (
+			contribution_id INT NOT NULL,
+			skill_id INT NOT NULL,
+			PRIMARY KEY (contribution_id, skill_id),
+			FOREIGN KEY (contribution_id) REFERENCES contributions(id),
+			FOREIGN KEY (skill_id) REFERENCES skills(id)
+		);
 	`); err != nil {
 		err = tracerr.Errorf("PostgreStorage.Migrate: error executing root migration: %w", err)
 		tracerr.PrintSourceColor(err)
@@ -261,15 +267,15 @@ func ContributionMigrate(
 ) error {
 	exampleContributions := []models.CreateContributionByNames{
 		models.NewCreateContributionByNames(
-			"Python", "API2Semestre", "paulo-granthon",
+			"API2Semestre", "paulo-granthon",
 			"Teste de titulo 1", "Teste de conteúdo 1",
 		),
 		models.NewCreateContributionByNames(
-			"Java", "api3", "paulo-granthon",
+			"api3", "paulo-granthon",
 			"Teste de titulo 2", "Teste de conteúdo 2",
 		),
 		models.NewCreateContributionByNames(
-			"Spring", "api3", "paulo-granthon",
+			"api3", "paulo-granthon",
 			"Teste de titulo 3", "Teste de conteúdo 3",
 		),
 	}

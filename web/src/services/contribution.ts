@@ -15,7 +15,7 @@ export function mapContribution(data: any): ContributionSchema | undefined {
   if (!data) return undefined;
   return {
     id: data.id,
-    skill: data.skill,
+    title: data.title,
     projectId: data.projectId,
     userId: data.userId,
     content: data.content,

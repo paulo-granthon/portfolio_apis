@@ -8,12 +8,11 @@ interface ContributionProps {
 export default function Contribution({ contribution }: ContributionProps) {
   return (
     <div {...styles.contribution}>
-      {contribution.skill ? (
-        <p {...styles.title}>{contribution.skill}</p>
+      {contribution.title ? (
+        <p {...styles.title}>{contribution.title}</p>
       ) : (
-        <p {...styles.title}>[Skill Undefined]</p>
+        <p {...styles.title}>[Untitled]</p>
       )}
-
       <p {...styles.content}>{contribution.content}</p>
     </div>
   );

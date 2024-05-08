@@ -1,8 +1,8 @@
 export interface ContributionSchema {
   id: number;
-  skill: string;
   projectId: number;
   userId: number;
+  title: string;
   content: string;
 }
 

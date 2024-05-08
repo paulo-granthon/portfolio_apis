@@ -26,12 +26,10 @@ func GetContributionsFilter(s server.Server, w http.ResponseWriter, r *http.Requ
 		)
 	}
 
-	skill := r.URL.Query().Get("skill")
 	project := r.URL.Query().Get("project")
 	user := r.URL.Query().Get("user")
 
 	contributions, err := contributionModule.GetFilter(models.ContributionFilter{
-		Skill:   &skill,
 		Project: &project,
 		User:    &user,
 	})
