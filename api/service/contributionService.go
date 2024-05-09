@@ -54,6 +54,7 @@ func (s *ContributionService) Create(n models.CreateContributionByNames) (*uint6
 	contribution := models.CreateContribution{
 		ProjectId: project.Id,
 		UserId:    user.Id,
+		Title:     n.Title,
 		Content:   n.Content,
 	}
 
