@@ -9,12 +9,12 @@ import (
 )
 
 type PostgreStorage struct {
-	postgreProjectModule *PostgreProjectModule
-	postgreUserModule    *PostgreUserModule
-	postgreTeamModule    *PostgreTeamModule
-	postgreSkillModule   *PostgreSkillModule
-	postgreContributionModule    *PostgreContributionModule
-	db                   *gorm.DB
+	postgreProjectModule      *PostgreProjectModule
+	postgreUserModule         *PostgreUserModule
+	postgreTeamModule         *PostgreTeamModule
+	postgreSkillModule        *PostgreSkillModule
+	postgreContributionModule *PostgreContributionModule
+	db                        *gorm.DB
 }
 
 func NewPostgreStorage() (*PostgreStorage, error) {
@@ -61,12 +61,12 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 	}
 
 	return &PostgreStorage{
-		postgreProjectModule: postgreProjectModule,
-		postgreUserModule:    postgreUserModule,
-		postgreTeamModule:    postgreTeamModule,
-		postgreSkillModule:   postgreSkillModule,
-		postgreContributionModule:    postgreContributionModule,
-		db:                   db,
+		postgreProjectModule:      postgreProjectModule,
+		postgreUserModule:         postgreUserModule,
+		postgreTeamModule:         postgreTeamModule,
+		postgreSkillModule:        postgreSkillModule,
+		postgreContributionModule: postgreContributionModule,
+		db:                        db,
 	}, nil
 }
 
