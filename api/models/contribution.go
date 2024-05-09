@@ -70,10 +70,11 @@ func NewCreateContribution(
 }
 
 type CreateContributionByNames struct {
-	Project string `json:"project"`
-	User    string `json:"user"`
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Project string   `json:"project"`
+	User    string   `json:"user"`
+	Title   string   `json:"title"`
+	Content string   `json:"content"`
+	Skills  []string `json:"skills"`
 }
 
 func NewCreateContributionByNames(
@@ -81,12 +82,14 @@ func NewCreateContributionByNames(
 	user string,
 	title string,
 	content string,
+	skills []string,
 ) CreateContributionByNames {
 	return CreateContributionByNames{
 		Project: project,
 		User:    user,
 		Title:   title,
 		Content: content,
+		Skills:  skills,
 	}
 }
 

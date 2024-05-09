@@ -269,14 +269,17 @@ func ContributionMigrate(
 		models.NewCreateContributionByNames(
 			"API2Semestre", "paulo-granthon",
 			"Teste de titulo 1", "Teste de conteúdo 1",
+			[]string{"Python"},
 		),
 		models.NewCreateContributionByNames(
 			"api3", "paulo-granthon",
 			"Teste de titulo 2", "Teste de conteúdo 2",
+			[]string{"Java"},
 		),
 		models.NewCreateContributionByNames(
 			"api3", "paulo-granthon",
 			"Teste de titulo 3", "Teste de conteúdo 3",
+			[]string{"Spring"},
 		),
 	}
 

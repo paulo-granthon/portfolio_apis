@@ -37,6 +37,8 @@ type ContributionStorageModule interface {
 	GetFilter(models.ContributionFilter) ([]models.ContributionDetail, error)
 	GetByProjectId(uint64) ([]models.Contribution, error)
 	GetByUserId(uint64) ([]models.Contribution, error)
+	AddSkills(uint64, ...uint64) error
+	RemoveSkills(uint64, ...uint64) error
 	Create(models.CreateContribution) (*uint64, error)
 	Delete(uint64) error
 }

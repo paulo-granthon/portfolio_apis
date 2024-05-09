@@ -11,6 +11,7 @@ type ContributionService struct {
 	contributionStorage *storage.ContributionStorageModule
 	projectStorage      *storage.ProjectStorageModule
 	userStorage         *storage.UserStorageModule
+	skillStorage        *storage.SkillStorageModule
 }
 
 func NewContributionService(
@@ -31,10 +32,16 @@ func NewContributionService(
 		return nil, tracerr.Errorf("failed to create contribution service: failed to get UserModule from storage: %w", tracerr.Wrap(err))
 	}
 
+	skillStorage, err := storage.GetSkillModule()
+	if err != nil {
+		return nil, tracerr.Errorf("failed to create contribution service: failed to get SkillModule from storage: %w", tracerr.Wrap(err))
+	}
+
 	return &ContributionService{
 		contributionStorage: &contributionstorage,
 		projectStorage:      &projectStorage,
 		userStorage:         &userStorage,
+		skillStorage:        &skillStorage,
 	}, nil
 }
 
@@ -63,6 +70,19 @@ func (s *ContributionService) Create(n models.CreateContributionByNames) (*uint6
 	id, err := contributionStorage.Create(contribution)
 	if err != nil {
 		return nil, tracerr.Errorf("failed to create contribution: %w", tracerr.Wrap(err))
+	}
+
+	skillStorage := *s.skillStorage
+
+	for _, skill := range n.Skills {
+		skill, err := skillStorage.GetByName(skill)
+		if err != nil {
+			return nil, tracerr.Errorf("failed to create contribution: failed to get skill by name: %w", tracerr.Wrap(err))
+		}
+
+		if err := contributionStorage.AddSkills(*id, skill.Id); err != nil {
+			return nil, tracerr.Errorf("failed to create contribution: failed to add skill to contribution: %w", tracerr.Wrap(err))
+		}
 	}
 
 	return id, nil

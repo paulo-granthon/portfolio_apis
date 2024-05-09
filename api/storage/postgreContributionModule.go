@@ -86,6 +86,38 @@ func (s *PostgreContributionModule) GetByUserId(id uint64) ([]models.Contributio
 	return contributions, nil
 }
 
+func (s *PostgreContributionModule) AddSkills(id uint64, skills ...uint64) error {
+	var contributionSkills []models.ContributionSkill
+	for _, skillId := range skills {
+		contributionSkills = append(contributionSkills, models.ContributionSkill{
+			ContributionId: id,
+			SkillId:        skillId,
+		})
+	}
+
+	if err := s.db.Create(&contributionSkills).Error; err != nil {
+		return tracerr.Errorf("failed to add skills to contribution: %w", tracerr.Wrap(err))
+	}
+
+	return nil
+}
+
+func (s *PostgreContributionModule) RemoveSkills(id uint64, skills ...uint64) error {
+	var contributionSkills []models.ContributionSkill
+	for _, skillId := range skills {
+		contributionSkills = append(contributionSkills, models.ContributionSkill{
+			ContributionId: id,
+			SkillId:        skillId,
+		})
+	}
+
+	if err := s.db.Delete(&contributionSkills).Error; err != nil {
+		return tracerr.Errorf("failed to remove skills from contribution: %w", tracerr.Wrap(err))
+	}
+
+	return nil
+}
+
 func (s *PostgreContributionModule) Create(n models.CreateContribution) (*uint64, error) {
 	contribution := models.Contribution{
 		ProjectId: n.ProjectId,
