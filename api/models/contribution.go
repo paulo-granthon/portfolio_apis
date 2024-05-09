@@ -104,3 +104,8 @@ func NewContributionFilter(
 		User:    user,
 	}
 }
+
+type ContributionSkill struct {
+	ContributionId uint64 `json:"contributionId" db:"contributionId"`
+	SkillId        uint64 `json:"skillId" db:"skillId"`
+}
