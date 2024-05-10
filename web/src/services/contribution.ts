@@ -19,6 +19,7 @@ export function mapContribution(data: any): ContributionSchema | undefined {
     projectId: data.projectId,
     userId: data.userId,
     content: data.content,
+    skills: data.skills,
   };
 }
 

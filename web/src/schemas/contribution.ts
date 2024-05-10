@@ -4,6 +4,7 @@ export interface ContributionSchema {
   userId: number;
   title: string;
   content: string;
+  skills: string[];
 }
 
 export type PostContributionSchema = Omit<ContributionSchema, "id">;

@@ -13,6 +13,11 @@ export default function Contribution({ contribution }: ContributionProps) {
       ) : (
         <p {...styles.title}>[Untitled]</p>
       )}
+      {contribution.skills?.map((skill, index) => (
+        <p key={index} >
+          {skill}
+        </p>
+      ))}
       <p {...styles.content}>{contribution.content}</p>
     </div>
   );
