@@ -87,3 +87,35 @@ func (s *ContributionService) Create(n models.CreateContributionByNames) (*uint6
 
 	return id, nil
 }
+
+func (s *ContributionService) GetFilter(
+	project *string,
+	user *string,
+) ([]models.ContributionDetail, error) {
+	contributionStorage := *s.contributionStorage
+
+	contributions, err := contributionStorage.GetFilter(models.ContributionFilter{
+		Project: project,
+		User:    user,
+	})
+	if err != nil {
+		return nil, tracerr.Errorf("failed to get contributions: %w", tracerr.Wrap(err))
+	}
+
+	skillStorage := *s.skillStorage
+	for i, c := range contributions {
+		skills, err := skillStorage.GetByContributionId(c.Id)
+		if err != nil {
+			return nil, tracerr.Errorf("failed to get contributions: failed to get skills of Contribution: %w", tracerr.Wrap(err))
+		}
+
+		skillsNames := make([]string, len(skills))
+		for i, s := range skills {
+			skillsNames[i] = s.Name
+		}
+
+		contributions[i].Skills = skillsNames
+	}
+
+	return contributions, nil
+}
