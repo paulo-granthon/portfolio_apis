@@ -14,14 +14,15 @@ import (
 type Server struct {
 	port      string
 	endpoints []Endpoint
-	Service   service.Service
 	Storage   storage.Storage
+	Service   service.Service
 }
 
 func NewServer(
 	port int,
 	endpoints []Endpoint,
 	storage storage.Storage,
+	service service.Service,
 ) (*Server, error) {
 	if port < 1 || port > 65535 {
 		return nil, tracerr.Errorf("Invalid listen address: %v", port)
@@ -31,6 +32,7 @@ func NewServer(
 		port:      fmt.Sprintf(":%v", port),
 		endpoints: endpoints,
 		Storage:   storage,
+		Service:   service,
 	}, nil
 }
 

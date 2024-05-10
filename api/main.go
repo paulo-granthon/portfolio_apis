@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"seeds"
 	"server"
+	"service"
 	"storage"
 
 	"github.com/ztrue/tracerr"
@@ -24,10 +25,19 @@ func main() {
 		return
 	}
 
+	service, err := service.NewService(db)
+	if err != nil {
+		tracerr.PrintSourceColor(
+			tracerr.Errorf("Error creating service: %w", tracerr.Wrap(err)),
+		)
+		return
+	}
+
 	server, err := server.NewServer(
 		3333,
 		endpoints.CreateEndpoints(),
 		db,
+		*service,
 	)
 	if err != nil {
 		tracerr.PrintSourceColor(
