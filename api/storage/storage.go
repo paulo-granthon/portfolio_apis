@@ -27,6 +27,7 @@ type SkillStorageModule interface {
 	Get() ([]models.Skill, error)
 	GetById(uint64) (*models.Skill, error)
 	GetByName(string) (*models.Skill, error)
+	GetByContributionId(uint64) ([]models.Skill, error)
 	Create(models.CreateSkill) (*uint64, error)
 	Delete(uint64) error
 }

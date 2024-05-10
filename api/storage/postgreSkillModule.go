@@ -36,6 +36,17 @@ func (s *PostgreSkillModule) GetByName(name string) (*models.Skill, error) {
 	return &skill, nil
 }
 
+func (s *PostgreSkillModule) GetByContributionId(id uint64) ([]models.Skill, error) {
+	var skills []models.Skill
+	s.db.
+		Table("skills").
+		Select("skills.*").
+		Joins("JOIN contribution_skills ON skills.id = contribution_skills.skill_id").
+		Where("contribution_skills.contribution_id = ?", id).
+		Scan(&skills)
+	return skills, nil
+}
+
 func (s *PostgreSkillModule) Create(sk models.CreateSkill) (*uint64, error) {
 	skill := models.Skill{Name: sk.Name}
 	if err := s.db.Create(&skill).Error; err != nil {
