@@ -25,11 +25,12 @@ func NewContribution(
 }
 
 type ContributionDetail struct {
-	Id      uint64 `json:"id" db:"id"`
-	Project string `json:"project"`
-	User    string `json:"user"`
-	Title   string `json:"title" db:"title"`
-	Content string `json:"content" db:"content"`
+	Id      uint64   `json:"id" db:"id"`
+	Project string   `json:"project"`
+	User    string   `json:"user"`
+	Title   string   `json:"title" db:"title"`
+	Content string   `json:"content" db:"content"`
+	Skills  []string `json:"skills"`
 }
 
 func NewContributionDetail(
@@ -38,6 +39,7 @@ func NewContributionDetail(
 	user string,
 	title string,
 	content string,
+	skills []string,
 ) ContributionDetail {
 	return ContributionDetail{
 		Id:      id,
@@ -45,6 +47,7 @@ func NewContributionDetail(
 		User:    user,
 		Title:   title,
 		Content: content,
+		Skills:  skills,
 	}
 }
 
