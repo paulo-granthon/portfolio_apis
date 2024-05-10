@@ -1,7 +1,6 @@
 package endpoints
 
 import (
-	"models"
 	"net/http"
 	"server"
 )
@@ -18,21 +17,15 @@ func ContributionEndpoints() []server.Endpoint {
 }
 
 func GetContributionsFilter(s server.Server, w http.ResponseWriter, r *http.Request) error {
-	contributionModule, err := s.Storage.GetContributionModule()
-	if err != nil {
-		return server.SendError(
-			w, err, http.StatusInternalServerError,
-			"storage misconfiguration",
-		)
-	}
-
 	project := r.URL.Query().Get("project")
 	user := r.URL.Query().Get("user")
 
-	contributions, err := contributionModule.GetFilter(models.ContributionFilter{
-		Project: &project,
-		User:    &user,
-	})
+	constributionService := s.Service.ContributionService
+
+	contributions, err := constributionService.GetFilter(
+		&project,
+		&user,
+	)
 	if err != nil {
 		return server.SendError(
 			w, err, http.StatusInternalServerError,
