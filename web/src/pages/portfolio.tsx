@@ -5,15 +5,23 @@ import ProjectList from "../components/projectList";
 import { UserSchema } from "../schemas/user";
 import { getUser } from "../services/user";
 import * as styles from "../styles/portfolio";
+import generateMarkdown from "../turndown/generateMarkdown";
 
 export default function Portfolio() {
   const [user, setUser] = useState<UserSchema | undefined>();
 
   const params = useParams<{ userId: string }>();
 
+  const handleGenerateMarkdown = () => {
+    const markdown = generateMarkdown();
+    console.log(markdown);
+  };
+
   useEffect(() => {
     const id = params.userId ? parseInt(params.userId, 10) : undefined;
     if (!id) return;
+
+    setTimeout(() => handleGenerateMarkdown, 1000);
 
     getUser(id).then((user) => setUser(user));
   }, [params.userId]);
