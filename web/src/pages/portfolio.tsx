@@ -14,7 +14,7 @@ export default function Portfolio() {
 
   const handleGenerateMarkdown = () => {
     const markdown = generateMarkdown();
-    console.log(markdown);
+    console.log(`Markdown:\n\n${markdown}`);
   };
 
   useEffect(() => {
