@@ -993,6 +993,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/turndown@npm:^5.0.4":
+  version: 5.0.4
+  resolution: "@types/turndown@npm:5.0.4"
+  checksum: 10c0/8e61d87dc662b05fced9182d60b1f7a42417b6eb8b8c5bc236017d9b1980d2909aab18a945cba82d4c49827799031bf2e89d95f0e86b241c4fb011a844572478
+  languageName: node
+  linkType: hard
+
 "@typescript-eslint/eslint-plugin@npm:^7.0.2":
   version: 7.7.0
   resolution: "@typescript-eslint/eslint-plugin@npm:7.7.0"
@@ -3265,6 +3272,7 @@ __metadata:
     "@stylexjs/stylex": "npm:^0.5.1"
     "@types/react": "npm:^18.2.56"
     "@types/react-dom": "npm:^18.2.19"
+    "@types/turndown": "npm:^5.0.4"
     "@typescript-eslint/eslint-plugin": "npm:^7.0.2"
     "@typescript-eslint/parser": "npm:^7.0.2"
     "@vitejs/plugin-react-swc": "npm:^3.5.0"
