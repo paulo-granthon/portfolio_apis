@@ -1,8 +1,7 @@
 ---
 version: '3.8'
 services:
-  portfolio-apis-postgres:
-    container_name: portfolio-apis-postgres
+  db:
     restart: unless-stopped
     build:
       context: .
