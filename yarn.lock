@@ -6,11 +6,11 @@ __metadata:
   cacheKey: 10c0
 
 "@babel/runtime@npm:^7.21.0":
-  version: 7.24.0
-  resolution: "@babel/runtime@npm:7.24.0"
+  version: 7.24.6
+  resolution: "@babel/runtime@npm:7.24.6"
   dependencies:
     regenerator-runtime: "npm:^0.14.0"
-  checksum: 10c0/3495eed727bf4a4f84c35bb51ab53317ae38f4bbc3b1d0a8303751f9dfa0ce6f5fb2afced72b76c3dd0d8bb2ccb84787559a4dee9886291a36b26f02f0f759b4
+  checksum: 10c0/224ad205de33ea28979baaec89eea4c4d4e9482000dd87d15b97859365511cdd4d06517712504024f5d33a5fb9412f9b91c96f1d923974adf9359e1575cde049
   languageName: node
   linkType: hard
 
