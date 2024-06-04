@@ -21,7 +21,7 @@ export default function Portfolio() {
     const id = params.userId ? parseInt(params.userId, 10) : undefined;
     if (!id) return;
 
-    setTimeout(handleGenerateMarkdown, 100);
+    setTimeout(handleGenerateMarkdown, 500);
 
     getUser(id).then((user) => setUser(user));
   }, [params.userId]);
