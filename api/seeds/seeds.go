@@ -273,8 +273,9 @@ func ContributionMigrate(
 		),
 		models.NewCreateContributionByNames(
 			"api3", "paulo-granthon",
-			"Teste de titulo 2", "Teste de conteúdo 2",
-			[]string{"Java"},
+			"Inclusão das entidades iniciais",
+			"Adicionei as entidades: User, Client, Appointment, PayRateRule, e os enums necessários. Essa contribuição foi composta por uma revisão do código JavFX do semestre anterior para garantir a compatibilidade com a arquitetura do terceiro semestre. Alguns pontos foram atualizados para seguir a nova arquitetura.",
+			[]string{"Java", "Spring"},
 		),
 		models.NewCreateContributionByNames(
 			"api3", "paulo-granthon",
