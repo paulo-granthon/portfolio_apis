@@ -3,8 +3,11 @@ import * as stylex from "@stylexjs/stylex";
 const styles = stylex.create({
   project: {
     gap: 0,
-    padding: 0,
     width: "100%",
+    border: "1px solid black",
+    borderRadius: "8px",
+    padding: "0.5em",
+    margin: "0.5em",
   },
   projectHeader: {
     width: "100%",

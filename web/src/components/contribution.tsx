@@ -8,16 +8,20 @@ interface ContributionProps {
 export default function Contribution({ contribution }: ContributionProps) {
   return (
     <div {...styles.contribution}>
-      {contribution.title ? (
-        <p {...styles.title}>{contribution.title}</p>
-      ) : (
-        <p {...styles.title}>[Untitled]</p>
-      )}
-      {contribution.skills?.map((skill, index) => (
-        <p key={index} >
-          {skill}
-        </p>
-      ))}
+      <div {...styles.contributionHeader}>
+        {contribution.title ? (
+          <h4 {...styles.title}>{contribution.title}</h4>
+        ) : (
+          <h4 {...styles.title}>[Untitled]</h4>
+        )}
+        <div {...styles.skills}>
+          {contribution.skills?.map((skill, index) => (
+            <code {...styles.skill} key={index}>
+              {skill}
+            </code>
+          ))}
+        </div>
+      </div>
       <p {...styles.content}>{contribution.content}</p>
     </div>
   );
