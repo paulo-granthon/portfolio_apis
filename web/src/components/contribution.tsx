@@ -17,7 +17,7 @@ export default function Contribution({ contribution }: ContributionProps) {
         <div {...styles.skills}>
           {contribution.skills?.map((skill, index) => (
             <code {...styles.skill} key={index}>
-              {skill}
+              {skill + " "}
             </code>
           ))}
         </div>
