@@ -38,7 +38,6 @@ export default function User({ user }: UserProps) {
         <div {...userStyles.cardRightHeader}>
           <h2>{user.name}</h2>
           <div {...userStyles.cardRightSemester}>
-            <p>{userInitialSemester}</p>
             <p>Semestre Atual: {userCurrentSemester}</p>
           </div>
         </div>
