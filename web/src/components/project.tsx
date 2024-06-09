@@ -1,4 +1,3 @@
-
 import ContributionList from "./contributionList";
 import { ProjectSchema } from "../schemas/project";
 import * as styles from "../styles/project";
@@ -8,10 +7,7 @@ interface ProjectProps {
   project: ProjectSchema;
 }
 
-export default function Project({
-    userId,
-    project,
-}: ProjectProps) {
+export default function Project({ userId, project }: ProjectProps) {
   return (
     <div {...styles.project}>
       <div {...styles.projectHeader}>
