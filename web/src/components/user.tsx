@@ -29,7 +29,7 @@ export default function User({ user }: UserProps) {
     <div {...userStyles.card}>
       <div {...userStyles.cardLeft}>
         <img
-          alt="GitHub Profile Picture"
+          alt="GitHub Profile Picture 128px"
           src={userGithubProfileUrl}
           {...userStyles.cardLeftPicture}
         />
