@@ -19,17 +19,20 @@ const styles = stylex.create({
     margin: "0.875rem",
   },
   projectHeaderExtra: {
-    width: '50%',
+    width: "50%",
     display: "flex",
     justifyContent: "end",
     textAlign: "center",
+  },
+  projectHeaderHiddenLabel: {
+    display: "none",
   },
   projectHeaderExtraItem: {
     margin: "auto",
   },
   projectSubHeader: {
-      margin: 0,
-      padding: 0,
+    margin: 0,
+    padding: 0,
   },
 });
 
@@ -40,4 +43,7 @@ export const projectHeaderTitle = stylex.props(styles.projectHeaderTitle);
 export const projectHeaderExtra = stylex.props(styles.projectHeaderExtra);
 export const projectHeaderExtraItem = stylex.props(
   styles.projectHeaderExtraItem,
+);
+export const projectHeaderHiddenLabel = stylex.props(
+  styles.projectHeaderHiddenLabel,
 );
