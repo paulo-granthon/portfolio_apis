@@ -14,13 +14,14 @@ export default function Contribution({ contribution }: ContributionProps) {
         ) : (
           <h4 {...styles.title}>[Untitled]</h4>
         )}
-        <div {...styles.skills}>
+        <p {...styles.skills}>
+          <b {...styles.base.hidden}>Conhecimentos exercitados: </b>
           {contribution.skills?.map((skill, index) => (
             <code {...styles.skill} key={index}>
               {skill + " "}
             </code>
           ))}
-        </div>
+        </p>
       </div>
       <p {...styles.content}>{contribution.content}</p>
     </div>
