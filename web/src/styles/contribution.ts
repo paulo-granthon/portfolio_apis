@@ -1,4 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
+import * as base from "./base";
+export { base };
 
 const styles = stylex.create({
   contributions: {

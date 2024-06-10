@@ -1,4 +1,6 @@
 import * as stylex from "@stylexjs/stylex";
+import * as base from "./base";
+export { base };
 
 const profilePictureSize: string | number = "10vw";
 
