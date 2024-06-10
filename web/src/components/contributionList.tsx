@@ -25,9 +25,15 @@ export default function ContributionList({
     <div {...styles.contributions}>
       <h3 {...styles.contributionsTitle}>Contribuições</h3>
       <div {...styles.contributionList}>
-        {contributions.map((contribution) => (
-          <Contribution key={contribution.id} contribution={contribution} />
-        ))}
+        {!!contributions && !!contributions.length ? (
+          <>
+            {contributions.map((contribution) => (
+              <Contribution key={contribution.id} contribution={contribution} />
+            ))}
+          </>
+        ) : (
+          <p>Nenhuma contribuição especificada</p>
+        )}
       </div>
     </div>
   );
