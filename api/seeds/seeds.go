@@ -80,7 +80,7 @@ func Run() error {
 			id SERIAL PRIMARY KEY,
 			project_id INT NOT NULL,
 			user_id INT NOT NULL,
-			title VARCHAR(50) NOT NULL,
+			title VARCHAR(100) NOT NULL,
 			content TEXT NOT NULL,
 			FOREIGN KEY (project_id) REFERENCES projects(id),
 			FOREIGN KEY (user_id) REFERENCES users(id)
@@ -250,6 +250,11 @@ func SkillMigrate(
 		models.NewCreateSkill("Análise de Dados"),
 		models.NewCreateSkill("Java"),
 		models.NewCreateSkill("Spring"),
+		models.NewCreateSkill("Docker"),
+		models.NewCreateSkill("Bash"),
+		models.NewCreateSkill("Batch"),
+		models.NewCreateSkill("TypeScript"),
+		models.NewCreateSkill("React"),
 	}
 
 	for _, sk := range exampleSkills {
@@ -279,8 +284,43 @@ func ContributionMigrate(
 		),
 		models.NewCreateContributionByNames(
 			"api3", "paulo-granthon",
-			"Teste de titulo 3", "Teste de conteúdo 3",
-			[]string{"Spring"},
+			"Dockerização do projeto", "Efetuei a dockerização do projeto, criando arquivos Dockerfile e docker-compose.yml para facilitar a execução do projeto em qualquer ambiente. Ao todo foram incluidos 3 containers no `docker-compose` principal do projeto: um para o banco de dados, um para o back-end e um para o front-end. Para o back-end e front-end, foram criados arquivos `Dockerfile` específicos para cada um, com as dependências necessárias para a execução do projeto.",
+			[]string{"Docker", "Bash", "Batch"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Sistema de permissões de acesso às telas", "Implementei um sistema de permissões de acesso às telas do sistema, baseado em regras de acesso por perfil de usuário. As permissões de acesso são definidas pelo perfil do usuário e também por uma análise dos dados do usuário. Por exemplo, o usuário de nível Colaborador, só pode efetuar apontamentos caso pertença a um ResultCenter, caso contrário não faz sentido possuir acesso à tela de apontamentos.",
+			[]string{"Java", "Spring", "TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Tela de Apontamentos", "Desenvolvi da tela de apontamentos do sistema, incluindo o formulário que permite ao usuário registrar as horas trabalhadas e os sobreavisos, assim como a tabela responsável pela listagem dos apontamentos efetuados previamente. A tela se comunica com o back-end através das funções service do front-end. ",
+			[]string{"TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Backend e tela de Clientes", "Desenvolvi a tela de Clientes do sistema, incluindo o formulário que permite ao usuário cadastrar novos clientes e a tabela responsável pela listagem dos clientes cadastrados. A tela se comunica com o back-end através das funções service do front-end. ",
+			[]string{"TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Componentes personalizado de Dropdown", "Desenvolvi componentes personalizados de Dropdown que integram com o funcionamento das telas para disponibilizar abstrações, facilitando a implementação de novas funcionalidades.",
+			[]string{"TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Componente de LookUpTextField", "Desenvolvi o componente `LookUpTextField`, que permite a pesquisa em uma lista e reduzindo a quantidade de opções exibidas ao usuário ao selecionar um valor dentro de uma lista finita. A pesquisa é realizada em tempo real, filtrando os resultados conforme o usuário digita. O componente foi utilizado em diversas telas do sistema aonde a seleção de um valor existente entre muitos disponíveis é necessária.",
+			[]string{"TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Componentes de Célula de Tabela Editável e Célula de Tabela Botão", "Desenvolvi o componente `EditableTableCell`, que permite a edição de células de uma tabela diretamente na célula, sem a necessidade de abrir um formulário de edição. O componente `ButtonTableCell` foi desenvolvido para permitir a inclusão de botões em células de uma tabela, facilitando a execução de ações específicas como exibir detalhes, editar ou excluir um registro.",
+			[]string{"TypeScript", "React"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Fluxo de inclusão de usuários à ResultCenter", "Desenvolvi o fluxo de inclusão de usuários à ResultCenter, permitindo que um usuário seja vinculado a uma ResultCenter. Para isso, foi desenvolvido o `MemberController` no back-end, responsável pela definição dos endpoints utilizados durante a associação, desassociação e listagem de membros de uma ResultCenter. No front-end, durante a criação de um `ResultCenter` é possível utilizar a `LookUpTextField` para a pesquisa de usuários existentes para a associação. Os usuários podem ser incluídos ou excluídos de uma lista temporária de membros, que é persistida ao concluir o registro.",
+			[]string{"Java", "Spring", "TypeScript", "React"},
 		),
 	}
 
