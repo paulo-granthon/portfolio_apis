@@ -5,4 +5,5 @@ use (
 	../models
 	../service
 	../storage
+    ../docs
 )

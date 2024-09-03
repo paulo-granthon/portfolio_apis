@@ -9,4 +9,5 @@ use (
 	./service
 	./storage
 	./seeds
+    ./docs
 )

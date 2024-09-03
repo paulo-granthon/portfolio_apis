@@ -9,6 +9,10 @@ import (
 
 	"github.com/gorilla/mux"
 	"github.com/ztrue/tracerr"
+
+	_ "docs"
+
+	httpSwagger "github.com/swaggo/http-swagger" // http-swagger middleware
 )
 
 type Server struct {
@@ -51,6 +55,11 @@ func (s *Server) Start() error {
 		// allowing all methods to allow custom response when method is not allowed
 		).Methods("OPTIONS", "GET", "POST", "PUT", "DELETE")
 	}
+
+	router.
+		PathPrefix("/swagger").Handler(httpSwagger.Handler(
+		httpSwagger.URL("doc.json"),
+	)).Methods("GET")
 
 	log.Println("Starting server on", s.port)
 
