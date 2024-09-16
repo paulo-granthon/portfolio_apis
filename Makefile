@@ -15,13 +15,13 @@ all-prod: all-setup mono-prod
 # Setup the whole project
 all-setup:
 	@make mono-setup
-	@make backend-build
-	@make frontend-setup
+	@make back-build
+	@make front-setup
 
 # Clean the whole project's temporary files
 all-clean:
-	@make backend-clean
-	@make frontend-clean
+	@make back-clean
+	@make front-clean
 	@make mono-clean
 
 ### Mono Repository only commands
@@ -45,48 +45,48 @@ mono-clean:
 ### Frontend commands
 
 # Run frontend in development mode
-frontend-dev:
+front-dev:
 	@cd $(FRONTEND_DIR) && yarn dev
 
 # Run frontend in production mode
-frontend-prod:
-	@make frontend-build
+front-prod:
+	@make front-build
 	@cd $(FRONTEND_DIR) && yarn prod
 
 # Setup frontend dependencies
-frontend-setup:
+front-setup:
 	@cd $(FRONTEND_DIR) && yarn
 
 # Build frontend for production
-frontend-build:
+front-build:
 	@cd $(FRONTEND_DIR) && yarn build
 
 # Clean frontend's temporary files and production build
-frontend-clean:
+front-clean:
 	@cd $(FRONTEND_DIR) && rm -rf node_modules
 	@cd $(FRONTEND_DIR) && rm -rf dist
 
 ### Backend commands
 
 # Run backend tests
-backend-test:
+back-test:
 	@go test -C ./api/ -v
 
 # Run backend in development mode
-backend-dev:
+back-dev:
 	@cd $(BACKEND_DIR) && ./stop.bash && air
 
 # Run backend in production mode
-backend-prod:
-	@make backend-build
+back-prod:
+	@make back-build
 	@./bin/api/main
 
 # Build backend for production
-backend-build:
+back-build:
 	@go build -C ./api/ -o ../bin/api/main -tags prod
 
 # Clean backend production build
-backend-clean:
+back-clean:
 	@rm -rf bin
 
 ### Database commands
@@ -122,17 +122,17 @@ mp: mono-prod
 ms: mono-setup
 mc: mono-clean
 
-bt: backend-test
-bd: backend-dev
-bp: backend-prod
-bs: backend-build
-bc: backend-clean
+bt: back-test
+bd: back-dev
+bp: back-prod
+bs: back-build
+bc: back-clean
 
-fd: frontend-dev
-fp: frontend-prod
-fb: frontend-build
-fs: frontend-setup
-fc: frontend-clean
+fd: front-dev
+fp: front-prod
+fb: front-build
+fs: front-setup
+fc: front-clean
 
 du: database-up
 dm: database-migrate
@@ -152,17 +152,17 @@ dr: database-recreate
 	mono-setup \
 	mono-clean \
 	\
-	backend-test \
-	backend-dev \
-	backend-prod \
-	backend-build \
-	backend-clean \
+	back-test \
+	back-dev \
+	back-prod \
+	back-build \
+	back-clean \
 	\
-	frontend-dev \
-	frontend-prod \
-	frontend-setup \
-	frontend-build \
-	frontend-clean \
+	front-dev \
+	front-prod \
+	front-setup \
+	front-build \
+	front-clean \
 	\
 	a ad as \
 	md mp ms mc \
