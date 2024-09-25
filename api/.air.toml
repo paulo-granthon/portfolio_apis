@@ -5,9 +5,15 @@ tmp_dir = "../bin"
 [build]
   args_bin = []
   bin = "../bin/api/main"
-  cmd = "go build -o ../bin/api/main ."
+  cmd = "swag init && go build -o ../bin/api/main ."
   delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  exclude_dir = [
+    "assets",
+    "tmp",
+    "vendor",
+    "testdata",
+    "docs"
+  ]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false
