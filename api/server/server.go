@@ -44,10 +44,6 @@ func (s *Server) Start() error {
 	router := mux.NewRouter()
 
 	for _, endpoint := range s.endpoints {
-		methods := []string{}
-		for _, method := range endpoint.Methods {
-			methods = append(methods, method.Method)
-		}
 
 		router.HandleFunc(
 			endpoint.Path,
