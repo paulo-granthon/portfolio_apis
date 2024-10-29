@@ -1,0 +1,17 @@
+# ditor configuration, see http://editorconfig.org
+root = true
+
+[*]
+# End of line and encoding
+end_of_line = lf
+charset = utf-8
+
+# Default indentation style and size
+indent_style = space
+indent_size = 2
+
+# Trim trailing whitespaces
+trim_trailing_whitespace = true
+
+[*.md]
+trim_trailing_whitespace = false
