@@ -42,6 +42,13 @@ func UserEndpoints() []server.Endpoint {
 	}
 }
 
+// GetUsers godoc
+// @Summary get all users
+// @Tags    user
+// @Produce json
+// @Success 200  {array}  models.User
+// @Failure 500  {object}  error
+// @Router  /users [get]
 func GetUsers(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	userModule, err := s.Storage.GetUserModule()
 	if err != nil {
@@ -65,6 +72,16 @@ func GetUsers(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	)
 }
 
+// GetUser godoc
+// @Summary get user by id
+// @Tags    user
+// @Produce json
+// @Param   id     path     int     true  "user id"
+// @Success 200  {object}  models.User
+// @Failure 400  {object}  error
+// @Failure 404  {object}  error
+// @Failure 500  {object}  error
+// @Router  /users/{id} [get]
 func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
@@ -104,6 +121,16 @@ func GetUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	)
 }
 
+// RegisterUser godoc
+// @Summary register a new user
+// @Tags    user
+// @Accept json
+// @Produce json
+// @Param   user body schemas.RegisterUserRequest true "user"
+// @Success 201  {object}  schemas.RegisterUserResponse
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /register [post]
 func RegisterUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.RegisterUserRequest
 	if err := server.ReadJSON(r, &request.Payload); err != nil {
@@ -140,6 +167,16 @@ func RegisterUser(s server.Server, w http.ResponseWriter, r *http.Request) error
 	)
 }
 
+// CreateUser godoc
+// @Summary create a new user
+// @Tags    user
+// @Accept json
+// @Produce json
+// @Param   user body schemas.CreateUserRequest true "user"
+// @Success 201  {object}  schemas.CreateUserResponse
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /users [post]
 func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	var request schemas.CreateUserRequest
 	if err := server.ReadJSON(r, &request.User); err != nil {
@@ -179,6 +216,16 @@ func CreateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	)
 }
 
+// UpdateUser godoc
+// @Summary update a user
+// @Tags    user
+// @Produce json
+// @Param   id     path     int     true  "user id"
+// @Param   user    body     schemas.UpdateUserRequest  true  "user"
+// @Success 200  {string}  string
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /users/{id} [put]
 func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
@@ -233,6 +280,15 @@ func UpdateUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	)
 }
 
+// DeleteUser godoc
+// @Summary delete a user
+// @Tags    user
+// @Produce json
+// @Param   id     path     int     true  "user id"
+// @Success 200  {string}  string
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /users/{id} [delete]
 func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
@@ -272,6 +328,15 @@ func DeleteUser(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	)
 }
 
+// GetUserProjects godoc
+// @Summary get projects of an user
+// @Tags    user
+// @Produce json
+// @Param   id     path     int     true  "user id"
+// @Success 200  {array}  models.Project
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /users/{id}/projects [get]
 func GetUserProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {

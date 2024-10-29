@@ -16,6 +16,15 @@ func ContributionEndpoints() []server.Endpoint {
 	}
 }
 
+// GetContributionsFilter godoc
+// @Summary get contributions of an user and/or project
+// @Tags    contribution
+// @Produce json
+// @Param   project    query     string  false  "project search by project"
+// @Param   user       query     string  false  "user search by user"
+// @Success 200  {array}  models.ContributionDetail
+// @Failure 500  {object}  error
+// @Router  /contributions [get]
 func GetContributionsFilter(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	project := r.URL.Query().Get("project")
 	user := r.URL.Query().Get("user")

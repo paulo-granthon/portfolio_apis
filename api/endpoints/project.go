@@ -28,6 +28,13 @@ func ProjectEndpoints() []server.Endpoint {
 	}
 }
 
+// GetProjects godoc
+// @Summary get all projects
+// @Tags    project
+// @Produce json
+// @Success 200  {array}  models.Project
+// @Failure 500  {object}  error
+// @Router  /projects [get]
 func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	projectModule, err := s.Storage.GetProjectModule()
 	if err != nil {
@@ -51,6 +58,15 @@ func GetProjects(s server.Server, w http.ResponseWriter, r *http.Request) error 
 	)
 }
 
+// GetProject godoc
+// @Summary get a project by id
+// @Tags    project
+// @Produce json
+// @Param   id     path     string  true  "project id"
+// @Success 200  {object}  models.Project
+// @Failure 404  {object}  error
+// @Failure 500  {object}  error
+// @Router  /projects/{id} [get]
 func GetProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
@@ -131,6 +147,17 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	)
 }
 
+// UpdateProject godoc
+// @Summary update a project
+// @Tags    project
+// @Produce json
+// @Param   id     path     string  true  "project id"
+// @Param   project    body     schemas.UpdateProjectRequest  true  "project"
+// @Success 200  {string}  string
+// @Failure 400  {object}  error
+// @Failure 404  {object}  error
+// @Failure 500  {object}  error
+// @Router  /projects/{id} [put]
 func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
@@ -188,6 +215,15 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	)
 }
 
+// DeleteProject godoc
+// @Summary delete a project
+// @Tags    project
+// @Produce json
+// @Param   id     path     string  true  "project id"
+// @Success 200  {string}  string
+// @Failure 400  {object}  error
+// @Failure 500  {object}  error
+// @Router  /projects/{id} [delete]
 func DeleteProject(s server.Server, w http.ResponseWriter, r *http.Request) error {
 	idStr, err := server.GetRequestParam(r, "id")
 	if err != nil {
