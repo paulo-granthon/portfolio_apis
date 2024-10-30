@@ -14,11 +14,11 @@ export default function Project({ userId, project }: ProjectProps) {
         <h3 {...styles.projectHeaderTitle}>{project.name}</h3>
         <div {...styles.projectHeaderExtra}>
           <p {...styles.projectHeaderExtraItem}>
-            <b {...styles.hidden}>Empresa: </b>
+            <b {...styles.base.hidden}>Empresa: </b>
             {project.company}
           </p>
           <p {...styles.projectHeaderExtraItem}>
-            <b {...styles.hidden}>Semestre: </b>
+            <b {...styles.base.hidden}>Semestre: </b>
             {project.semester}º Sem
           </p>
         </div>
