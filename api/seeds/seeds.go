@@ -62,6 +62,7 @@ func Run() error {
 		CREATE TABLE IF NOT EXISTS projects (
 			id SERIAL PRIMARY KEY,
 			name VARCHAR(50) NOT NULL,
+			image VARCHAR(200) NULL,
 			semester UINT1 NOT NULL,
 			company VARCHAR(100) NOT NULL,
 			team_id INT NOT NULL,
@@ -204,21 +205,29 @@ func ProjectMigrate(
 		return tracerr.Errorf("failed to get project module: %w", tracerr.Wrap(err))
 	}
 
+	strPtr := func(s string) *string { return &s }
+
 	exampleProjects := []models.CreateProject{
 		models.NewCreateProject(
-			"Khali", 1, "FATEC", 1,
+			"Khali",
+			strPtr("https://raw.githubusercontent.com/projetoKhali/api3/refs/heads/main/docs/Banners/Api.png"),
+			1, "FATEC", 1,
 			"Avaliação 360",
 			"A plataforma Khali permite a implementação do método de Avaliação 360° na Instituição de Ensino fictícia PBLTeX. Este projeto de API do 1º Semestre de Banco de Dados da Fatec - São José dos Campos possibilita uma abordagem abrangente na avaliação dos diversos aspectos da instituição, promovendo uma análise holística e aprimorando processos de gestão e desenvolvimento.",
 			"github.com/taniacruzz/Khali",
 		),
 		models.NewCreateProject(
-			"API2Semestre", 2, "2RP", 1,
+			"API2Semestre",
+			strPtr("https://raw.githubusercontent.com/projetoKhali/API2Semestre/refs/heads/main/Docs/Banners/Novobanner.png"),
+			2, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos (desktop)",
 			"A API desenvolvida no 2° semestre do curso de Banco de Dados na Fatec - SJC proporciona um sistema desktop especializado no registro de horas extras e sobreavisos pelos colaboradores, com funcionalidades de controle tanto para gestores (PO) quanto para administradores (RH e Financeiro). Essa solução oferece uma plataforma integrada e eficiente para gerenciamento de tempo e recursos humanos, contribuindo para uma gestão mais eficaz e transparente dentro da organização.",
 			"github.com/projetoKhali/API2Semestre",
 		),
 		models.NewCreateProject(
-			"api3", 3, "2RP", 1,
+			"api3",
+			strPtr("https://user-images.githubusercontent.com/111442399/194777358-24905c4f-e62b-414d-8754-b3ccaf878547.png"),
+			3, "2RP", 1,
 			"Controle de Horas-Extras e Sobreavisos (web)",
 			"Sistema desenvolvido para auxiliar na gestão eficiente das horas trabalhadas pelos colaboradores de uma empresa. Ele automatiza a identificação e classificação de horas extras e sobreavisos, simplificando os processos de controle para os departamentos pessoal e financeiro.",
 			"github.com/projetoKhali/api3",

@@ -117,6 +117,7 @@ func CreateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 
 	project := models.NewCreateProject(
 		request.Project.Name,
+		request.Project.Image,
 		request.Project.Semester,
 		request.Project.Company,
 		request.Project.TeamId,
@@ -186,6 +187,7 @@ func UpdateProject(s server.Server, w http.ResponseWriter, r *http.Request) erro
 	project := models.NewUpdateProject(
 		id,
 		&request.Project.Name,
+		request.Project.Image,
 		&request.Project.Semester,
 		&request.Project.Company,
 		&request.Project.TeamId,

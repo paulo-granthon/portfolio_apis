@@ -59,6 +59,7 @@ func (s *PostgreProjectModule) GetByTeamId(id uint64) ([]models.Project, error) 
 func (s *PostgreProjectModule) Create(p models.CreateProject) (*uint64, error) {
 	project := models.Project{
 		Name:        p.Name,
+		Image:       p.Image,
 		Semester:    p.Semester,
 		Company:     p.Company,
 		TeamId:      p.TeamId,

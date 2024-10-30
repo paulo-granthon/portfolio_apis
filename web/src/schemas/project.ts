@@ -1,6 +1,7 @@
 export interface ProjectSchema {
   id: number;
   name: string;
+  image: string;
   semester: number;
   company: string;
   summary: string;
