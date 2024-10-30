@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import Contribution from "../components/contribution";
-import { ContributionSchema } from "../schemas/contribution";
-import * as styles from "../styles/contribution";
-import { getContributionsOfUserProject } from "../services/contribution";
+import { useEffect, useState } from 'react';
+import Contribution from '../components/contribution';
+import { ContributionSchema } from '../schemas/contribution';
+import * as styles from '../styles/contribution';
+import { getContributionsOfUserProject } from '../services/contribution';
 
 interface ContributionListProps {
   projectId: number;
@@ -16,7 +16,7 @@ export default function ContributionList({
   const [contributions, setContributions] = useState<ContributionSchema[]>([]);
 
   useEffect(() => {
-    getContributionsOfUserProject(userId, projectId).then((contributions) =>
+    getContributionsOfUserProject(userId, projectId).then(contributions =>
       setContributions(contributions),
     );
   }, [projectId, userId]);
@@ -27,7 +27,7 @@ export default function ContributionList({
       <div {...styles.contributionList}>
         {!!contributions && !!contributions.length ? (
           <>
-            {contributions.map((contribution) => (
+            {contributions.map(contribution => (
               <Contribution key={contribution.id} contribution={contribution} />
             ))}
           </>

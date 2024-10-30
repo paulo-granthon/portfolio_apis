@@ -1,9 +1,9 @@
-import TurndownService from "turndown";
+import TurndownService from 'turndown';
 
 const imageRegex = /!\[(.*)\]\((.*)\)/g;
 
 export default function generateMarkdown() {
-  const rootElement = document.getElementById("root");
+  const rootElement = document.getElementById('root');
   if (rootElement) {
     const htmlString = rootElement.innerHTML;
 
@@ -15,7 +15,7 @@ export default function generateMarkdown() {
 
     return processMarkdown(markdown);
   }
-  return "";
+  return '';
 }
 
 function processMarkdown(markdown: string) {
@@ -33,14 +33,14 @@ function processImages(markdown: string): string {
 
   if (!imageMarkdown) return markdown;
 
-  imageMarkdown.forEach((image) => {
+  imageMarkdown.forEach(image => {
     const imageAlt = image.match(/!\[(.*)\]/);
     const imageSrc = image.match(/\((.*)\)/);
     if (imageAlt && imageSrc) {
       let imageAltText = imageAlt[1];
 
       const imageHeight = imageAltText.match(/(\d+)px/);
-      imageAltText = imageAltText.replace(/\s*(\d+)px/, "");
+      imageAltText = imageAltText.replace(/\s*(\d+)px/, '');
 
       const imageSrcText = imageSrc[1];
 

@@ -1,6 +1,6 @@
-import ContributionList from "./contributionList";
-import { ProjectSchema } from "../schemas/project";
-import * as styles from "../styles/project";
+import ContributionList from './contributionList';
+import { ProjectSchema } from '../schemas/project';
+import * as styles from '../styles/project';
 
 interface ProjectProps {
   userId: number;

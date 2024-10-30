@@ -1,4 +1,4 @@
-import { YearSemester } from "./yearSemester";
+import { YearSemester } from './yearSemester';
 
 export interface UserSchema {
   id: number;
@@ -8,13 +8,13 @@ export interface UserSchema {
   githubUsername: string;
 }
 
-export type PostUserSchema = Partial<Omit<UserSchema, "id">> &
-  Pick<UserSchema, "name"> & {
+export type PostUserSchema = Partial<Omit<UserSchema, 'id'>> &
+  Pick<UserSchema, 'name'> & {
     password: string;
   };
 
-export type RegisterUserSchema = Pick<UserSchema, "name"> & {
+export type RegisterUserSchema = Pick<UserSchema, 'name'> & {
   password: string;
 };
 
-export type UpdateUserSchema = Omit<UserSchema, "id">;
+export type UpdateUserSchema = Omit<UserSchema, 'id'>;

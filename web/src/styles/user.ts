@@ -1,44 +1,44 @@
-import * as stylex from "@stylexjs/stylex";
-import * as base from "./base";
+import * as stylex from '@stylexjs/stylex';
+import * as base from './base';
 export { base };
 
-const profilePictureSize: string | number = "10vw";
+const profilePictureSize: string | number = '10vw';
 
 const styles = stylex.create({
   card: {
-    display: "flex",
-    flexFlow: "row",
-    gap: "1.25vw",
+    display: 'flex',
+    flexFlow: 'row',
+    gap: '1.25vw',
   },
   cardLeft: {
-    margin: "1.5vw",
+    margin: '1.5vw',
   },
   cardLeftPicture: {
     width: profilePictureSize,
     height: profilePictureSize,
-    borderRadius: "50%",
+    borderRadius: '50%',
   },
   cardRight: {
-    display: "flex",
-    flexFlow: "column",
-    width: "100%",
+    display: 'flex',
+    flexFlow: 'column',
+    width: '100%',
   },
   cardRightHeader: {
-    display: "flex",
-    flexFlow: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
   },
   cardRightSemester: {
-    display: "flex",
-    flexFlow: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "50%",
+    display: 'flex',
+    flexFlow: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '50%',
   },
   cardRightSummary: {
-    margin: "1.5vw",
+    margin: '1.5vw',
   },
 });
 

@@ -1,56 +1,56 @@
-import * as stylex from "@stylexjs/stylex";
-import * as base from "./base";
+import * as stylex from '@stylexjs/stylex';
+import * as base from './base';
 export { base };
 
 const styles = stylex.create({
   contributions: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   contributionsTitle: {
-    textAlign: "center",
+    textAlign: 'center',
     margin: 0,
   },
   contributionList: {
-    display: "flex",
-    flexDirection: "column",
+    display: 'flex',
+    flexDirection: 'column',
   },
   contribution: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: "0.5em",
-    margin: "0.5em",
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    padding: '0.5em',
+    margin: '0.5em',
     gap: 0,
-    border: "1px solid black",
-    borderRadius: "8px",
+    border: '1px solid black',
+    borderRadius: '8px',
   },
   contributionHeader: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    border: "1px solid black",
-    borderRadius: "8px",
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    border: '1px solid black',
+    borderRadius: '8px',
     gap: 0,
   },
   title: {
     margin: 0,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   skills: {
-    display: "flex",
-    flexDirection: "row",
-    margin: "0.5rem",
-    gap: "4rem",
+    display: 'flex',
+    flexDirection: 'row',
+    margin: '0.5rem',
+    gap: '4rem',
   },
   skill: {
-    borderRadius: "4px",
-    height: "fit-content",
+    borderRadius: '4px',
+    height: 'fit-content',
   },
   content: {
-    color: "black",
+    color: 'black',
   },
 });
 

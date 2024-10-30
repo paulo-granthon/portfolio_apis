@@ -9,6 +9,6 @@ export interface ProjectSchema {
   url: string;
 }
 
-export type PostProjectSchema = Omit<ProjectSchema, "id">;
+export type PostProjectSchema = Omit<ProjectSchema, 'id'>;
 
-export type UpdateProjectSchema = Omit<ProjectSchema, "id">;
+export type UpdateProjectSchema = Omit<ProjectSchema, 'id'>;

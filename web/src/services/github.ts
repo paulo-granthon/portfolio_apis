@@ -1,19 +1,19 @@
-const API_URL = "https://api.github.com";
+const API_URL = 'https://api.github.com';
 
 export async function getProfilePicture(
   username: string,
 ): Promise<string | undefined> {
   if (!username || !username.length) {
-    throw new Error("username validation failed");
+    throw new Error('username validation failed');
   }
 
   const githubToken = import.meta.env.VITE_GITHUB_TOKEN;
 
   if (!githubToken || !githubToken.length) {
-    throw new Error("undefined github access token");
+    throw new Error('undefined github access token');
   }
 
-  const user = await fetch(API_URL + "/users/" + username).then((response) =>
+  const user = await fetch(API_URL + '/users/' + username).then(response =>
     response.json(),
   );
 

@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
-import { UserSchema } from "../schemas/user";
-import { getProfilePicture } from "../services/github";
-import * as userStyles from "../styles/user";
+import { useEffect, useState } from 'react';
+import { UserSchema } from '../schemas/user';
+import { getProfilePicture } from '../services/github';
+import * as userStyles from '../styles/user';
 
 interface UserProps {
   user: UserSchema;
 }
 
 export default function User({ user }: UserProps) {
-  const [userGithubProfileUrl, setUserGithubProfileUrl] = useState<string>("");
+  const [userGithubProfileUrl, setUserGithubProfileUrl] = useState<string>('');
 
-  const userInitialSemester = user.semesterMatriculed.toString();
+  // const userInitialSemester = user.semesterMatriculed.toString();
   const userCurrentSemester = user.semesterMatriculed
     .currentSemester()
     .toString();
 
   useEffect(() => {
-    getProfilePicture("paulo-granthon").then(
+    getProfilePicture('paulo-granthon').then(
       (user_avatar_url: string | undefined) => {
         if (user_avatar_url && user_avatar_url.length) {
           setUserGithubProfileUrl(user_avatar_url);

@@ -7,6 +7,6 @@ export interface ContributionSchema {
   skills: string[];
 }
 
-export type PostContributionSchema = Omit<ContributionSchema, "id">;
+export type PostContributionSchema = Omit<ContributionSchema, 'id'>;
 
-export type UpdateContributionSchema = Omit<ContributionSchema, "id">;
+export type UpdateContributionSchema = Omit<ContributionSchema, 'id'>;

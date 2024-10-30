@@ -1,36 +1,36 @@
-import * as stylex from "@stylexjs/stylex";
-import * as base from "./base";
+import * as stylex from '@stylexjs/stylex';
+import * as base from './base';
 export { base };
 
 const styles = stylex.create({
   project: {
     gap: 0,
-    width: "100%",
-    border: "1px solid black",
-    borderRadius: "8px",
-    padding: "0.5em",
-    margin: "0.5em",
+    width: '100%',
+    border: '1px solid black',
+    borderRadius: '8px',
+    padding: '0.5em',
+    margin: '0.5em',
   },
   projectHeader: {
-    width: "100%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   projectHeaderTitle: {
-    margin: "0.875rem",
+    margin: '0.875rem',
   },
   projectHeaderExtra: {
-    width: "50%",
-    display: "flex",
-    justifyContent: "end",
-    textAlign: "center",
+    width: '50%',
+    display: 'flex',
+    justifyContent: 'end',
+    textAlign: 'center',
   },
   projectHeaderHiddenLabel: {
-    display: "none",
+    display: 'none',
   },
   projectHeaderExtraItem: {
-    margin: "auto",
+    margin: 'auto',
   },
   projectSubHeader: {
     margin: 0,

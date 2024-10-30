@@ -3,9 +3,9 @@ import {
   RegisterUserSchema,
   PostUserSchema,
   UpdateUserSchema,
-} from "../schemas/user";
+} from '../schemas/user';
 
-import { YearSemester } from "../schemas/yearSemester";
+import { YearSemester } from '../schemas/yearSemester';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -34,25 +34,25 @@ export function mapUser(data: any): UserSchema | undefined {
 }
 
 export async function getUsers(): Promise<UserSchema[]> {
-  return fetch(API_URL + "/users")
-    .then((response) => response.json())
-    .then((data) => mapUsers(data));
+  return fetch(API_URL + '/users')
+    .then(response => response.json())
+    .then(data => mapUsers(data));
 }
 
 export async function getUser(id: number): Promise<UserSchema | undefined> {
   return id
-    ? fetch(API_URL + "/users/" + id)
-        .then((response) => response.json())
-        .then((data) => mapUser(data))
+    ? fetch(API_URL + '/users/' + id)
+        .then(response => response.json())
+        .then(data => mapUser(data))
     : undefined;
 }
 
 export async function registerUser(user: RegisterUserSchema) {
   return user
-    ? fetch(API_URL + "/register", {
-        method: "POST",
+    ? fetch(API_URL + '/register', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       })
@@ -61,10 +61,10 @@ export async function registerUser(user: RegisterUserSchema) {
 
 export async function createUser(user: PostUserSchema) {
   return user
-    ? fetch(API_URL + "/users", {
-        method: "POST",
+    ? fetch(API_URL + '/users', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       })
@@ -73,10 +73,10 @@ export async function createUser(user: PostUserSchema) {
 
 export async function updateUser(id: number, user: UpdateUserSchema) {
   return !!id && !!user
-    ? fetch(API_URL + "/users/" + id, {
-        method: "PUT",
+    ? fetch(API_URL + '/users/' + id, {
+        method: 'PUT',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify(user),
       })
@@ -84,7 +84,7 @@ export async function updateUser(id: number, user: UpdateUserSchema) {
 }
 
 export async function deleteUser(id: number) {
-  return fetch(API_URL + "/users/" + id, {
-    method: "DELETE",
+  return fetch(API_URL + '/users/' + id, {
+    method: 'DELETE',
   });
 }

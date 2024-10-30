@@ -1,5 +1,5 @@
-import { ContributionSchema } from "../schemas/contribution";
-import * as styles from "../styles/contribution";
+import { ContributionSchema } from '../schemas/contribution';
+import * as styles from '../styles/contribution';
 
 interface ContributionProps {
   contribution: ContributionSchema;
@@ -20,7 +20,7 @@ export default function Contribution({ contribution }: ContributionProps) {
             <>
               {contribution.skills?.map((skill, index) => (
                 <code {...styles.skill} key={index}>
-                  {skill + " "}
+                  {skill + ' '}
                 </code>
               ))}
             </>

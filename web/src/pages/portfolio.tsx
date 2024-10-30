@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import User from "../components/user";
-import ProjectList from "../components/projectList";
-import { UserSchema } from "../schemas/user";
-import { getUser } from "../services/user";
-import * as styles from "../styles/portfolio";
-import generateMarkdown from "../turndown/generateMarkdown";
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import User from '../components/user';
+import ProjectList from '../components/projectList';
+import { UserSchema } from '../schemas/user';
+import { getUser } from '../services/user';
+import * as styles from '../styles/portfolio';
+import generateMarkdown from '../turndown/generateMarkdown';
 
 export default function Portfolio() {
   const [user, setUser] = useState<UserSchema | undefined>();
@@ -23,7 +23,7 @@ export default function Portfolio() {
 
     setTimeout(handleGenerateMarkdown, 500);
 
-    getUser(id).then((user) => setUser(user));
+    getUser(id).then(user => setUser(user));
   }, [params.userId]);
 
   return (

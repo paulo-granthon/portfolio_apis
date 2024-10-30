@@ -1,4 +1,4 @@
-import { ContributionSchema } from "../schemas/contribution";
+import { ContributionSchema } from '../schemas/contribution';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -31,6 +31,6 @@ export async function getContributionsOfUserProject(
     return [];
   }
   return fetch(`${API_URL}/contributions?user=${userId}&project=${projectId}`)
-    .then((response) => response.json())
-    .then((data) => mapContributions(data));
+    .then(response => response.json())
+    .then(data => mapContributions(data));
 }
