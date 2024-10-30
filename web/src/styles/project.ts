@@ -11,6 +11,14 @@ const styles = stylex.create({
     padding: '0.5em',
     margin: '0.5em',
   },
+  projectImageContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+  projectImage: {
+    maxWidth: '100%',
+    maxHeight: '320px',
+  },
   projectHeader: {
     width: '100%',
     display: 'flex',
@@ -39,6 +47,8 @@ const styles = stylex.create({
 });
 
 export const project = stylex.props(styles.project);
+export const projectImageContainer = stylex.props(styles.projectImageContainer);
+export const projectImage = stylex.props(styles.projectImage);
 export const projectHeader = stylex.props(styles.projectHeader);
 export const projectSubHeader = stylex.props(styles.projectSubHeader);
 export const projectHeaderTitle = stylex.props(styles.projectHeaderTitle);

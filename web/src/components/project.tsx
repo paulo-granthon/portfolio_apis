@@ -10,6 +10,13 @@ interface ProjectProps {
 export default function Project({ userId, project }: ProjectProps) {
   return (
     <div {...styles.project}>
+      <div {...styles.projectImageContainer}>
+        <img
+          {...styles.projectImage}
+          src={project.image}
+          alt={`${project.name} Image`}
+        />
+      </div>
       <div {...styles.projectHeader}>
         <h3 {...styles.projectHeaderTitle}>{project.name}</h3>
         <div {...styles.projectHeaderExtra}>
