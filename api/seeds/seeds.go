@@ -1,10 +1,9 @@
 package seeds
 
 import (
-	"models"
-	"service"
-	"storage"
-
+	"github.com/paulo-granthon/portfolio_apis/models"
+	"github.com/paulo-granthon/portfolio_apis/service"
+	"github.com/paulo-granthon/portfolio_apis/storage"
 	"github.com/ztrue/tracerr"
 )
 

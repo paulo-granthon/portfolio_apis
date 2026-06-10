@@ -1,9 +1,8 @@
 package storage
 
 import (
-	"models"
-
 	_ "github.com/lib/pq"
+	"github.com/paulo-granthon/portfolio_apis/models"
 )
 
 type Storage interface {

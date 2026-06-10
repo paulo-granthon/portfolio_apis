@@ -1,6 +1,6 @@
 package schemas
 
-import "models"
+import "github.com/paulo-granthon/portfolio_apis/models"
 
 type GetUserRequest struct {
 	Id uint64 `json:"id"`

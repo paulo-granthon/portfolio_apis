@@ -1,8 +1,7 @@
 package service
 
 import (
-	"storage"
-
+	"github.com/paulo-granthon/portfolio_apis/storage"
 	"github.com/ztrue/tracerr"
 )
 

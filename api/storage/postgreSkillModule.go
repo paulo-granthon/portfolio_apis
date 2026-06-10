@@ -1,8 +1,7 @@
 package storage
 
 import (
-	"models"
-
+	"github.com/paulo-granthon/portfolio_apis/models"
 	"gorm.io/gorm"
 )
 

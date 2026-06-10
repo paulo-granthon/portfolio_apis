@@ -1,7 +1,7 @@
 package endpoints
 
 import (
-	"server"
+	"github.com/paulo-granthon/portfolio_apis/server"
 )
 
 func CreateEndpoints() []server.Endpoint {

@@ -2,7 +2,7 @@
 # Performs automatic database migration when the seeds file is modified
 
 SEEDS_FILE="./api/seeds/seeds.go"
-COMMAND="make dm"
+COMMAND="yarn nx run api:seed"
 
 GREEN='\033[0;32m'
 NC='\033[0m'

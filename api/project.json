@@ -1,0 +1,42 @@
+{
+  "name": "api",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "targets": {
+    "swagger": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "inputs": ["{projectRoot}/**/*.go", "!{projectRoot}/docs/**/*"],
+      "outputs": [
+        "{projectRoot}/docs/docs.go",
+        "{projectRoot}/docs/swagger.json",
+        "{projectRoot}/docs/swagger.yaml"
+      ],
+      "options": { "command": "swag init", "cwd": "api" }
+    },
+    "build": { "dependsOn": ["swagger"] },
+    "serve": { "dependsOn": ["swagger"] },
+    "markdown": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["swagger"],
+      "options": {
+        "command": "go run . markdown {args.user} {args.out}",
+        "cwd": "api",
+        "forwardAllArgs": false
+      }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["swagger"],
+      "options": { "command": "go run . seed", "cwd": "api" }
+    },
+    "db-up": {
+      "executor": "nx:run-commands",
+      "options": { "command": "docker compose up -d" }
+    },
+    "db-down": {
+      "executor": "nx:run-commands",
+      "options": { "command": "docker compose down" }
+    }
+  }
+}
