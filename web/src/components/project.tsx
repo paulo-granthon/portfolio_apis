@@ -1,13 +1,12 @@
 import ContributionList from './contributionList';
-import { ProjectSchema } from '../schemas/project';
+import { PortfolioProjectSchema } from '../schemas/portfolio';
 import * as styles from '../styles/project';
 
 interface ProjectProps {
-  userId: number;
-  project: ProjectSchema;
+  project: PortfolioProjectSchema;
 }
 
-export default function Project({ userId, project }: ProjectProps) {
+export default function Project({ project }: ProjectProps) {
   return (
     <div {...styles.project}>
       <div {...styles.projectImageContainer}>
@@ -35,7 +34,7 @@ export default function Project({ userId, project }: ProjectProps) {
         <a href={`https://${project.url}`}>{project.url}</a>
       </div>
       <p>{project.description}</p>
-      <ContributionList projectId={project.id} userId={userId} />
+      <ContributionList contributions={project.contributions} />
     </div>
   );
 }

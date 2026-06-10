@@ -11,6 +11,7 @@ func CreateEndpoints() []server.Endpoint {
 		UserEndpoints(),
 		TeamEndpoints(),
 		ContributionEndpoints(),
+		PortfolioEndpoints(),
 	)
 }
 

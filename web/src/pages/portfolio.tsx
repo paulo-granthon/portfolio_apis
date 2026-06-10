@@ -2,39 +2,34 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import User from '../components/user';
 import ProjectList from '../components/projectList';
-import { UserSchema } from '../schemas/user';
-import { getUser } from '../services/user';
+import { PortfolioSchema } from '../schemas/portfolio';
+import { getPortfolio, portfolioMarkdownUrl } from '../services/portfolio';
 import * as styles from '../styles/portfolio';
-import generateMarkdown from '../turndown/generateMarkdown';
 
 export default function Portfolio() {
-  const [user, setUser] = useState<UserSchema | undefined>();
+  const [portfolio, setPortfolio] = useState<PortfolioSchema | undefined>();
 
   const params = useParams<{ userId: string }>();
-
-  const handleGenerateMarkdown = () => {
-    const markdown = generateMarkdown();
-    console.log(`Markdown:\n\n${markdown}`);
-  };
 
   useEffect(() => {
     const id = params.userId ? parseInt(params.userId, 10) : undefined;
     if (!id) return;
 
-    setTimeout(handleGenerateMarkdown, 500);
-
-    getUser(id).then(user => setUser(user));
+    getPortfolio(id).then(portfolio => setPortfolio(portfolio));
   }, [params.userId]);
 
   return (
     <>
-      {user ? (
+      {portfolio ? (
         <div>
           <div {...styles.portfolio}>
             <h1>Portfolio</h1>
+            <a href={portfolioMarkdownUrl(portfolio.user.id)} download>
+              Download Markdown
+            </a>
           </div>
-          <User user={user} />
-          <ProjectList user={user} />
+          <User user={portfolio.user} />
+          <ProjectList projects={portfolio.projects} />
         </div>
       ) : (
         <p>Usuário não encontrado</p>
