@@ -2,16 +2,14 @@ package server
 
 import (
 	"fmt"
+	"github.com/gorilla/mux"
+	"github.com/paulo-granthon/portfolio_apis/service"
+	"github.com/paulo-granthon/portfolio_apis/storage"
+	"github.com/ztrue/tracerr"
 	"log"
 	"net/http"
-	"service"
-	"storage"
 
-	"github.com/gorilla/mux"
-	"github.com/ztrue/tracerr"
-
-	_ "docs"
-
+	_ "github.com/paulo-granthon/portfolio_apis/docs"
 	httpSwagger "github.com/swaggo/http-swagger" // http-swagger middleware
 )
 

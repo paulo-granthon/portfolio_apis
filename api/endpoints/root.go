@@ -1,8 +1,8 @@
 package endpoints
 
 import (
+	"github.com/paulo-granthon/portfolio_apis/server"
 	"net/http"
-	"server"
 )
 
 func RootEndpoints() []server.Endpoint {

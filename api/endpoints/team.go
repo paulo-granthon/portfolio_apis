@@ -1,10 +1,10 @@
 package endpoints
 
 import (
-	"models"
+	"github.com/paulo-granthon/portfolio_apis/models"
+	"github.com/paulo-granthon/portfolio_apis/schemas"
+	"github.com/paulo-granthon/portfolio_apis/server"
 	"net/http"
-	"schemas"
-	"server"
 	"strconv"
 )
 

@@ -19,7 +19,7 @@ export async function getProjectsOfUser(
     ? fetch(API_URL + '/users/' + userId + '/projects')
         .then(response => response.json())
         .then(data => data)
-    : undefined;
+    : Promise.resolve([]);
 }
 
 export async function getProject(id: number): Promise<ProjectSchema> {
@@ -27,7 +27,7 @@ export async function getProject(id: number): Promise<ProjectSchema> {
     ? fetch(API_URL + '/projects/' + id)
         .then(response => response.json())
         .then(data => data)
-    : undefined;
+    : Promise.reject(new Error('Project id is required'));
 }
 
 export async function createProject(project: PostProjectSchema) {
