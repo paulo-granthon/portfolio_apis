@@ -1,8 +1,8 @@
-import { ContributionSchema } from '../schemas/contribution';
+import { PortfolioContributionSchema } from '../schemas/portfolio';
 import * as styles from '../styles/contribution';
 
 interface ContributionProps {
-  contribution: ContributionSchema;
+  contribution: PortfolioContributionSchema;
 }
 
 export default function Contribution({ contribution }: ContributionProps) {

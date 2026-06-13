@@ -1,8 +1,7 @@
 package storage
 
 import (
-	"models"
-
+	"github.com/paulo-granthon/portfolio_apis/models"
 	"gorm.io/gorm"
 )
 
@@ -43,6 +42,7 @@ func (s *PostgreSkillModule) GetByContributionId(id uint64) ([]models.Skill, err
 		Select("skills.*").
 		Joins("JOIN contribution_skills ON skills.id = contribution_skills.skill_id").
 		Where("contribution_skills.contribution_id = ?", id).
+		Order("skills.name").
 		Scan(&skills)
 	return skills, nil
 }

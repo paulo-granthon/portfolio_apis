@@ -1,23 +1,18 @@
 {
   "name": "portfolio_apis",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "concurrently \"yarn api-dev\" \"yarn web-dev\"",
-    "api-dev": "make bd",
-    "web-dev": "make fd",
-    "prod": "concurrently \"yarn api-prod\" \"yarn web-prod\"",
-    "api-prod": "make bp",
-    "web-prod": "make fp",
-    "setup": "yarn",
-    "db-up": "docker-compose up -d",
-    "db-migrate": "make dm",
-    "db-down": "docker-compose down"
-  },
+  "private": true,
+  "workspaces": [
+    "web"
+  ],
   "repository": "https://github.com/paulo-granthon/portfolio_apis.git",
   "author": "Paulo Granthon <paulo.granthon@fatec.sp.gov.br>",
   "license": "MIT",
-  "dependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "packageManager": "yarn@4.1.1"
+  "packageManager": "yarn@4.1.1",
+  "devDependencies": {
+    "@nx-go/nx-go": "^4.0.0",
+    "@nx/react": "^22.7.5",
+    "@nx/vite": "^22.7.5",
+    "nx": "^22.7.5"
+  }
 }
