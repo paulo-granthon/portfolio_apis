@@ -20,9 +20,9 @@
       "executor": "nx:run-commands",
       "dependsOn": ["swagger"],
       "options": {
-        "command": "go run . markdown {args.user} {args.out}",
+        "command": "go run . markdown",
         "cwd": "api",
-        "forwardAllArgs": false
+        "forwardAllArgs": true
       }
     },
     "seed": {

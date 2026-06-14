@@ -14,6 +14,10 @@ func RenderMarkdown(portfolio models.Portfolio) string {
 
 	fmt.Fprintf(&b, "# Portfólio — %s\n", portfolio.User.Name)
 
+	if u := portfolio.User.GithubUsername; u != nil && *u != "" {
+		fmt.Fprintf(&b, "\n![%s](https://github.com/%s.png?size=200)\n", portfolio.User.Name, *u)
+	}
+
 	if portfolio.User.SemesterMatriculed != nil {
 		m := portfolio.User.SemesterMatriculed
 		fmt.Fprintf(&b, "\nMatriculado em %d/%dº semestre.\n", m.Year, m.Semester)

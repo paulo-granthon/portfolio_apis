@@ -23,11 +23,13 @@ func sampleProject(semester uint8, name string) models.Project {
 func TestRenderMarkdown_StructureAndOrder(t *testing.T) {
 	image := "https://example.com/banner.png"
 	summary := "A backend developer."
+	github := "paulo-granthon"
 	portfolio := models.Portfolio{
 		User: models.User{
 			Name:               "Paulo Granthon",
 			Summary:            &summary,
 			SemesterMatriculed: &models.YearSemester{Year: 2022, Semester: 2},
+			GithubUsername:     &github,
 		},
 		Projects: []models.PortfolioProject{
 			{
@@ -45,6 +47,7 @@ func TestRenderMarkdown_StructureAndOrder(t *testing.T) {
 
 	for _, want := range []string{
 		"# Portfólio — Paulo Granthon",
+		"![Paulo Granthon](https://github.com/paulo-granthon.png?size=200)",
 		"Matriculado em 2022/2º semestre.",
 		"A backend developer.",
 		"## 1º Semestre — Khali",
