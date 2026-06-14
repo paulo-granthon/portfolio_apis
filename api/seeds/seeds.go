@@ -224,7 +224,7 @@ func ProjectMigrate(
 	exampleProjects := []models.CreateProject{
 		models.NewCreateProject(
 			"Khali",
-			strPtr("https://user-images.githubusercontent.com/111442399/202913933-0357e3d5-1376-48ee-8190-2903ce77ff0c.png"),
+			strPtr("https://user-images.githubusercontent.com/111442399/194777358-24905c4f-e62b-414d-8754-b3ccaf878547.png"),
 			1, "FATEC", 1,
 			"Plataforma desktop para aplicação do método de Avaliação 360°.",
 			"Aplicação desktop em Python (Tkinter) que viabiliza a Avaliação 360° entre alunos e instrutores da instituição de ensino fictícia PBLTeX, voltada a cursos com metodologia PBL. Gerencia cadastro e autenticação de usuários, grupos, times e papéis, organiza Sprints com períodos avaliativos, coleta avaliações com feedback obrigatório para notas baixas e gera dashboards de desempenho individual, por time e por grupo, com persistência em arquivos CSV.",
@@ -299,13 +299,14 @@ func SkillMigrate(
 		// Languages
 		"Python", "Java", "TypeScript", "Go", "Rust", "SQL", "CSS",
 		// Frameworks & libraries
-		"Tkinter", "matplotlib", "JavaFX", "Spring", "React", "Vue", "Flask",
-		"Actix-web", "Ent ORM", "Pydantic",
+		"Tkinter", "matplotlib", "JavaFX", "FXML", "Maven", "Spring", "React",
+		"React Native", "Expo", "Vue", "Vue Router", "Flask", "Actix-web",
+		"Ent ORM", "SeaORM", "Pydantic", "Jest", "ESLint", "Prettier",
 		// Data
 		"JDBC", "JPA", "PostgreSQL", "MongoDB",
 		// Concepts
-		"JWT", "REST", "Autenticação", "Controle de Acesso", "Componentização",
-		"Paginação", "UI/UX",
+		"JWT", "REST", "Autenticação", "Controle de Acesso", "Criptografia",
+		"Fernet", "Componentização", "Paginação", "UI/UX", "Refatoração", "DevOps",
 	}
 
 	for _, name := range skillNames {
@@ -345,8 +346,8 @@ func ContributionMigrate(
 		),
 		models.NewCreateContributionByNames(
 			"Khali", "paulo-granthon",
-			"KML - Khali Markdown Language (motor de UI declarativa)",
-			"Criei a `Khali Markdown Language` (KML), uma linguagem de marcação própria para descrever telas do Tkinter de forma declarativa, com sistema de Tags (`module`, `loop`, `img`, `id`) e parsing que gera os componentes da interface. Implementei comparações entre KML e Tkinter puro, o `ModulesManager` para resolução de módulos e o sistema de IDs de tags, reduzindo a repetição de código de interface ao longo do projeto.",
+			"KML - Khali Markdown Language (protótipo de UI declarativa)",
+			"Prototipei a `Khali Markdown Language` (KML), uma linguagem de marcação própria, em estilo XML, para descrever telas do Tkinter de forma declarativa: criei o parser e o sistema de Tags (`window`, `module`, `frame`, `label`, `entry`, `button`, `img`, `loop`, `id`) que são interpretados recursivamente e convertidos nos widgets correspondentes. Cheguei a renderizar alguns componentes com sucesso e validei a abordagem comparando KML com Tkinter puro, mas a exploração não foi adotada na versão final do produto, nenhuma tela exposta ao usuário acabou construída com KML. Ainda assim, foi um exercício relevante de design de linguagem e parsing.",
 			[]string{"Python", "Tkinter"},
 		),
 		models.NewCreateContributionByNames(
@@ -372,6 +373,25 @@ func ContributionMigrate(
 			"Integração geral, refatorações e correções de bugs",
 			"Atuei de forma transversal integrando back-end e front-end (login, home e avaliação) e fui responsável por grande volume de refatorações e correções de bugs ao longo das quatro Sprints, incluindo merges de múltiplas branches da equipe, correções no `CSVHandler`, em referências de papéis, em seletores de Sprint do perfil, em dropdowns e em casos de dados nulos nos dashboards. Mantive o README e abri o PR de fechamento, consolidando a branch principal e a documentação.",
 			[]string{"Python", "Git"},
+		),
+
+		models.NewCreateContributionByNames(
+			"Khali", "paulo-granthon",
+			"Front.Core - design system e helpers de UI em Tkinter",
+			"Construí o módulo `Front/Core.py`, a fundação visual e funcional de toda a interface. Centralizei a paleta de cores do projeto e expus funções genéricas que abstraem a verbosidade do Tkinter (`criar_frame`, `criar_label`, `criar_button`, `criar_entry`), além de helpers avançados como `bind_entry_placeholder` (texto-fantasma que some ao focar o campo), `create_dropdown` (menus integrados ao sistema de eventos para atualizações reativas) e `bind_edit_label` (transforma labels em campos editáveis ao clicar). Isso deu consistência de estilo e layout a todas as telas e eliminou boilerplate de interface repetido em toda a base de código.",
+			[]string{"Python", "Tkinter", "Componentização", "UI/UX", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"Khali", "paulo-granthon",
+			"Componente de área rolável (Scrollbar) com Canvas",
+			"Implementei o `Front/Scrollbar.py`, um container rolável montado sobre a combinação Canvas + Frame + Scrollbar do Tkinter. Inseri o conteúdo no Canvas via `create_window` e usei o evento `<Configure>` para ajustar dinamicamente largura/altura e recalcular a `scrollregion` conforme o conteúdo muda. Sincronizei a barra de rolagem (`yview`/`yscrollcommand`) e adicionei suporte à roda do mouse com binding global ativado ao entrar no frame e removido ao sair, integrado ao sistema de eventos para desabilitar a rolagem quando submódulos abrem.",
+			[]string{"Python", "Tkinter", "Componentização", "UI/UX"},
+		),
+		models.NewCreateContributionByNames(
+			"Khali", "paulo-granthon",
+			"ModulesManager e seletor de módulos da Home",
+			"Desenvolvi o sistema de módulos carregados dentro da Home (`ModulesManager` + `home_front`), incluindo o seletor de módulos estilizado, a verificação de permissões por papel (`role_id`) e o tratamento de casos de grupo nulo. Esse sistema permite que diferentes telas (lista de usuários, avaliação, dashboards, edição de times) sejam plugadas como módulos dentro da janela principal de forma condicional ao perfil do usuário.",
+			[]string{"Python", "Tkinter", "Controle de Acesso", "Componentização"},
 		),
 
 		// ----------------------------------------------------------------
@@ -412,6 +432,43 @@ func ContributionMigrate(
 			"Componente genérico reutilizável de busca e seleção (LookupTextField)",
 			"Desenvolvi o componente genérico `LookupTextField` (PR #115), uma caixa de pesquisa e seleção reutilizável para padronizar buscas em diferentes telas do sistema, em vez de múltiplas soluções customizadas. Também implementei a tela de Listagem e contribuí na reestruturação do sistema de arquivos do projeto e na atualização do diagrama de entidades.",
 			[]string{"Java", "JavaFX", "Componentização", "UI/UX"},
+		),
+
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Reestruturação para o padrão Maven e configuração do módulo JavaFX",
+			"Liderei a reorganização completa do sistema de arquivos do projeto (PRs #52 e #84), migrando para o layout convencional do Maven com `pom.xml` e `src/main/java/module-info.java` para configurar dependências externas e a compatibilidade com o JavaFX. Realoquei todo o código Java para `src/main/java/org/openjfx/API2Semestre/` e os FXML para `src/main/resources/`, removi arquivos legados e limpei artefatos de build no `.gitignore`. Essa base garantiu compatibilidade com o NetBeans e um build padronizado para todo o time.",
+			[]string{"Maven", "JavaFX", "Java", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Sistema de configuração de telas via tags FXML customizadas",
+			"No PR #62 (alto impacto), implementei tags FXML customizadas e específicas do projeto para o gerenciamento da configuração de telas (ViewConfig), criando uma abordagem padronizada para a montagem da interface, e acoplei a ela o tratamento de permissões de visualização por papel. Conduzi também a refatoração de pastas seguindo convenções Java. O trabalho foi reconhecido pelo time como de alta qualidade e serviu de base para as demais telas.",
+			[]string{"JavaFX", "FXML", "Java", "Controle de Acesso", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Macro reutilizável de células editáveis em tabelas e edição de Verbas",
+			"Criei `view.macros.TableMacros.enableEditableCells`, uma macro que torna editável qualquer coluna de qualquer tabela, recebendo parâmetros para validação, atualização de itens e exibição (PR #131). Sobre essa abstração, entreguei a edição de Verbas na tela de Parametrização, e a mesma macro passou a sustentar a edição nas telas de Usuários, Centros de Resultado e Clientes, garantindo consistência e reduzindo duplicação em todo o sistema.",
+			[]string{"JavaFX", "Java", "Componentização"},
+		),
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Tela de Listagem e Aprovação com filtros dinâmicos por coluna",
+			"No PR #67 (alto impacto, resolvendo seis issues), construí a listagem dinâmica de apontamentos em tabela, com seleção de linhas e filtragem textual por coluna via macros (`AppointmentFilter`, `AppointmentWrapper`), e a tela de Aprovação com checkboxes para aprovar/rejeitar apontamentos e popups de feedback. Refatorei o `buildTable`, corrigi o `collaboratorSelect` na criação de apontamentos e integrei tudo à camada de persistência, atravessando os controllers e os FXML.",
+			[]string{"JavaFX", "Java", "Componentização", "Controle de Acesso"},
+		),
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Modelagem inicial do domínio de apontamentos",
+			"No PR #25 entreguei as classes de modelo fundamentais do domínio: `Appointment.java`, que armazena as informações dos registros de apontamento, e o enum `AppointmentType`, que distingue Hora-Extra e Sobreaviso. Essa estrutura serviu de base para toda a gestão de apontamentos do sistema de controle de horas.",
+			[]string{"Java", "Modelagem de Dados"},
+		),
+		models.NewCreateContributionByNames(
+			"API2Semestre", "paulo-granthon",
+			"Otimização do acesso ao banco com reuso de conexões",
+			"No PR #146 (consolidando 25 commits) conduzi melhorias de performance no acesso ao banco, adicionando reuso de conexão em `Appointments.java` e otimizações em `QueryLibs` e `SQLConnector`. Junto disso, corrigi o cálculo de soma de `TotalHours`, acessores do Dashboard e Expedient, a formatação de relatórios e fiz o debugging de diversas telas, além de limpar imports e TODOs obsoletos.",
+			[]string{"Java", "JDBC", "SQL", "Refatoração"},
 		),
 
 		// ----------------------------------------------------------------
@@ -496,6 +553,25 @@ func ContributionMigrate(
 			[]string{"CSS", "React", "TypeScript", "UI/UX"},
 		),
 
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Documentação interativa da API com Swagger (SpringFox)",
+			"Integrei o SpringFox ao back-end Spring Boot para gerar documentação interativa da API, adicionando as dependências `springfox-boot-starter`/`springfox-swagger2` ao `pom.xml` e criando a classe `SpringFoxConfig` (PR #68). Isso disponibilizou uma Swagger UI navegável documentando automaticamente todos os endpoints REST (apontamentos, usuários, clientes, centros de resultado, parametrização), facilitando o consumo pelo front-end e os testes manuais.",
+			[]string{"Java", "Spring", "Swagger", "REST"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Componente genérico de lista editável de itens (SchemaList)",
+			"Criei o componente reutilizável `SchemaList` em React+TypeScript, usado para gerenciar coleções dinâmicas de itens dentro de formulários (por exemplo, a lista de membros ao criar um Centro de Resultado). O componente abstrai a adição, exibição e remoção de itens tipados por schema, padronizando o tratamento de listas dinâmicas e servindo de base para fluxos de cadastro com múltiplas entradas.",
+			[]string{"React", "TypeScript", "Componentização", "UI/UX"},
+		),
+		models.NewCreateContributionByNames(
+			"api3", "paulo-granthon",
+			"Back-end de Apontamentos: serviço, repositório e filtros",
+			"Desenvolvi a camada de back-end dos apontamentos: o `AppointmentService` (insert, get, getById, update) e o `AppointmentRepository` com queries nativas para filtrar por usuário, data e intervalo de tempo, além de `updateStatusAppointment` e `findByActive`/`findByInactive`. Tratei detalhes de mapeamento ORM (`insertDate`/`expireDate`, `@Transient` no campo `status`, função `copy`) e a validação no `AppointmentController`.",
+			[]string{"Java", "Spring", "JPA", "SQL", "REST"},
+		),
+
 		// ----------------------------------------------------------------
 		// Semester 4 - api4 (Vue / Java + Spring) - Paulo: Scrum Master
 		// ----------------------------------------------------------------
@@ -528,6 +604,37 @@ func ContributionMigrate(
 			"Roteamento, NavBar recursiva e geração de relatórios CSV",
 			"Implementei o sistema de roteamento de páginas e o componente `NavBar`, evoluindo-o para rotas aninhadas com submenus por meio do componente `RecursiveRouterLink`. Implementei a geração e o download de relatórios em CSV para Partner, criando as funções genérica `downloadCSV` e específica `downloadPartnerCSV` (usando papaparse e file-saver). Também criei utilitários como `removeSpecialCharacters` e `getDisplayName` e configurei as regras de estilo de código (ESLint + Prettier) do front-end.",
 			[]string{"Vue", "TypeScript"},
+		),
+
+		models.NewCreateContributionByNames(
+			"api4", "paulo-granthon",
+			"Camada de serviços tipada e paginada do front-end (classe Page)",
+			"Estabeleci o padrão da camada de serviços do front criando o `UserService` com os schemas `UserSchema`/`UserPatchSchema` e mapeadores de resposta (PR #39); depois criei a classe `Page` definindo o contrato de respostas paginadas e adaptei `getPartners`/`getUsers` para receber `page` e `size`, refatorando `ListPartner`/`ListUser` para consumir os serviços (em vez de `fetch` direto) e usar os metadados de paginação (PR #76).",
+			[]string{"Vue", "TypeScript", "Paginação", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"api4", "paulo-granthon",
+			"Componente NotificationPopup e feedback centralizado de operações",
+			"Criei o componente reutilizável `NotificationPopup`, que exibe mensagens de sucesso/erro com fechamento automático, e a função centralizada `openNotificationPopup` com duração configurável (PR #107). Integrei o feedback às views de listagem e exportação, refatorando as chamadas de serviço para `try/catch` com `async/await` e exibindo as mensagens de erro vindas das respostas da API.",
+			[]string{"Vue", "TypeScript", "Componentização", "UI/UX"},
+		),
+		models.NewCreateContributionByNames(
+			"api4", "paulo-granthon",
+			"Dashboard comparativo de parceiros com gráficos empilhados",
+			"Desenvolvi a view `ComparativePartner` e o componente `StackedBarChartByTracks` para comparar métricas de parceiros por trilhas, com filtro por nome parcial, paginação e seleção via `CheckBoxTableCell`. Migrei `getPartnerMetrics` de GET para POST, corrigi o loop infinito de `getPageData` e padronizei nomes de classes CSS, funções e schemas para consistência.",
+			[]string{"Vue", "TypeScript", "Análise de Dados", "Componentização"},
+		),
+		models.NewCreateContributionByNames(
+			"api4", "paulo-granthon",
+			"Paginação do endpoint de métricas de parceiros (PartnerMetrics)",
+			"Adicionei paginação à rota de métricas de parceiros, convertendo o endpoint de GET para POST para receber os parâmetros via um novo schema `PartnerMetricsRequest`, e corrigi nomes de campos da entidade `PartnerMetrics` (PR #63). A mudança alinhou o contrato de métricas ao mesmo padrão paginado já adotado nos demais endpoints.",
+			[]string{"Java", "Spring", "REST", "Paginação"},
+		),
+		models.NewCreateContributionByNames(
+			"api4", "paulo-granthon",
+			"Configuração de ESLint/Prettier e padronização de estilo de código",
+			"Configurei o tooling de estilo do front-end (ESLint + Prettier), criando os arquivos de configuração e os scripts (incluindo `lint:fix`), e apliquei as regras à base existente (PR #14). Depois liderei a padronização de estilo também no back-end (PR #78), incluindo regra de `switch case` no ESLint e lint de markdown, alinhando os dois repositórios do projeto.",
+			[]string{"ESLint", "Prettier", "TypeScript", "DevOps"},
 		),
 
 		// ----------------------------------------------------------------
@@ -582,6 +689,37 @@ func ContributionMigrate(
 			[]string{"Git", "Husky"},
 		),
 
+		models.NewCreateContributionByNames(
+			"api5", "paulo-granthon",
+			"Configuração de SSL e ambiente para conexão de banco em produção",
+			"Implementei a leitura do parâmetro `SSLMODE` a partir de variáveis de ambiente na camada de conexão do back-end Go (PR #72), permitindo conexão segura ao banco gerenciado em produção sem hardcode. A mudança parametriza o modo SSL/TLS por ambiente (desenvolvimento, homologação e produção), viabilizando o deploy real do serviço contra o PostgreSQL de produção.",
+			[]string{"Go", "PostgreSQL", "DevOps"},
+		),
+		models.NewCreateContributionByNames(
+			"api5", "paulo-granthon",
+			"Testes unitários do módulo property e do enum DimCandidateStatus",
+			"Criei testes unitários para o módulo `property`, incluindo a cobertura do enum `DimCandidateStatus`, e refatorei as estruturas de casos de teste para um arquivo dedicado dentro do módulo (PR #84), ampliando a cobertura para além dos testes de integração com containers de banco.",
+			[]string{"Go", "Testes Unitários", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"api5", "paulo-granthon",
+			"Camada de serviços HTTP do front-end com método parametrizável",
+			"Refatorei a camada base de serviços do front-end introduzindo um tipo `Method` para permitir verbos HTTP além de POST e um utilitário `processRequest` para padronizar as chamadas à API, incluindo o serviço de Login (PRs #95 e #86). Corrigi imports de schemas de `Suggestion`, ajustei a versão da API em URLs de template e renomeei `GroupAccess` para `AccessGroup` por clareza semântica.",
+			[]string{"TypeScript", "React Native", "Refatoração", "REST"},
+		),
+		models.NewCreateContributionByNames(
+			"api5", "paulo-granthon",
+			"Infraestrutura de testes Jest no front-end",
+			"Configurei a infraestrutura de testes do front-end (PR #85): corrigi o comando de teste, atualizei o `tsconfig` para reconhecer o diretório `__tests__`, configurei o Jest com arquivos de configuração dedicados em vez de comandos inline e refinei os comandos de watch, preparando o projeto para o desenvolvimento de testes.",
+			[]string{"TypeScript", "Jest", "DevOps"},
+		),
+		models.NewCreateContributionByNames(
+			"api5", "paulo-granthon",
+			"Setup inicial do front-end com Expo/React Native e git hooks",
+			"Realizei o setup inicial do front-end com projeto Expo/React Native e roteamento via `expo-router` (PR #6), e configurei a rotina de qualidade com Husky e lint-staged: hook de pre-commit para formatação e testes, hook de commit-msg para commits semânticos e script de postinstall para inicializar os hooks.",
+			[]string{"TypeScript", "React Native", "Expo", "Husky"},
+		),
+
 		// ----------------------------------------------------------------
 		// Semester 6 - api6 (Nx monorepo: React / Flask / Rust)
 		// ----------------------------------------------------------------
@@ -614,6 +752,42 @@ func ContributionMigrate(
 			"Componente React de paginação reutilizável e gestão de usuários",
 			"Desenvolvi o componente React/TypeScript `Pagination` (PR #38), com botões de primeira/última página, controles anterior/próximo e suporte a sobrescrita de estilos para reuso. Posteriormente integrei a gestão de usuários ponta a ponta (PR #93), construindo a `UserManagementPage` com listagem, paginação e exclusão com confirmação, e no back-end Rust adicionei paginação ao endpoint `/users/` com a struct `PaginatedResponse` e conversão automática snake_case/camelCase.",
 			[]string{"React", "TypeScript", "Componentização", "Rust", "Paginação"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Criptografia de campos sensíveis com Fernet no serviço de autenticação",
+			"Implementei um módulo `fernet` no app de autenticação em Rust, responsável por cifrar e decifrar os campos sensíveis dos usuários. Criei a função `encrypt_field`, integrei a criptografia nos endpoints de `register`, `login` e `update_user` e a decriptação nas rotas GET, recuperando a chave de cada usuário a partir de uma entidade `keys` dedicada. Tratei a codificação base64, defini quais campos não deveriam ser cifrados (como `permission_id`) e modelei um banco de chaves (`api6_keys`) com conexão própria, separando os dados criptográficos do banco principal.",
+			[]string{"Rust", "Actix-web", "Criptografia", "Fernet", "SeaORM", "PostgreSQL"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Tratamento de erros customizado e modo de desenvolvimento na API de auth",
+			"Criei a struct `CustomError` e renomeei `ErrorType` para `ServerErrorType`, estruturando o tratamento de erros do serviço Rust. Adicionei detalhamento de erros de endpoint em modo de desenvolvimento (impressão no terminal e inclusão dos detalhes na resposta) e log condicional de `DatabaseError` quando em `dev_mode`, melhorando a observabilidade durante o desenvolvimento.",
+			[]string{"Rust", "Actix-web", "Refatoração"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Centralização de configuração e infraestrutura de logging do serviço Rust",
+			"Centralizei o parsing de variáveis de ambiente em um módulo `config`, configurei a infraestrutura de logging do app de autenticação e estruturei as conexões de banco via SeaORM, incluindo a conexão dedicada ao banco `api6_keys`. Usei o nome do container como host padrão dos bancos para funcionar em ambiente Docker e tratei os erros das structs de configuração.",
+			[]string{"Rust", "SeaORM", "Docker", "DevOps"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Containerização do serviço de autenticação com Docker e alvo Nx",
+			"Criei o `Dockerfile` e o `docker-compose` do app de autenticação em Rust e o comando Nx `serve-docker` para subir o serviço containerizado (PR #70). Garanti a inclusão das variáveis de ambiente do banco de chaves no build Docker e padronizei os containers de banco no docker-compose.",
+			[]string{"Docker", "Docker Compose", "Nx", "Rust", "DevOps"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Seeds de PostgreSQL e MongoDB com criptografia de credenciais",
+			"Desenvolvi os seeds de banco do app `db`: o seed do PostgreSQL com inserção de usuários abstraída e reutilizável, atribuição de `permission_id`/`role_id` e criptografia das senhas e campos sensíveis já na carga inicial. Criei o comando Nx unificado `seeds` orquestrando a inicialização de Postgres e Mongo (com `init-keys` e `init-postgres` como dependências), restringi a execução automática do seed no init do Mongo e ajustei a inicialização de sessão e os commits transacionais.",
+			[]string{"Python", "PostgreSQL", "MongoDB", "Criptografia", "Nx"},
+		),
+		models.NewCreateContributionByNames(
+			"api6", "paulo-granthon",
+			"Página de cadastro de produtividade e camada de serviços/AuthService no front React",
+			"Criei a página de registro de produtividade (`/register/yield`) em React, com componentes de formulário e de tabela e os schemas `Yield`/`Season` com suas funções de serviço (PR #36). Estabeleci a camada de serviços HTTP genérica (`processRequest`/`processGET`) tipada e o `AuthService` usado pela página de Login, integrando o fluxo de autenticação ao serviço Rust, com leitura do token do `localStorage`, unificação da pasta de serviços e correção da lógica de redirecionamento.",
+			[]string{"React", "TypeScript", "Autenticação", "REST", "Refatoração"},
 		),
 	}
 
