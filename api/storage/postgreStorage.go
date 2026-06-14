@@ -2,6 +2,7 @@ package storage
 
 import (
 	"database/sql"
+	"time"
 
 	"github.com/ztrue/tracerr"
 	"gorm.io/driver/postgres"
@@ -33,6 +34,21 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 	)
 	if err != nil {
 		return nil, tracerr.Errorf("failed to connect database: %w", tracerr.Wrap(err))
+	}
+
+	// Configure the connection pool and open a connection eagerly. gorm.Open is
+	// lazy, so without this the first request pays the full connection-setup cost
+	// (seconds against a freshly started Postgres). Pinging here moves that cost to
+	// startup and surfaces an unreachable database immediately.
+	sqlDB, err := db.DB()
+	if err != nil {
+		return nil, tracerr.Errorf("failed to get sql.DB handle: %w", tracerr.Wrap(err))
+	}
+	sqlDB.SetMaxOpenConns(10)
+	sqlDB.SetMaxIdleConns(5)
+	sqlDB.SetConnMaxLifetime(time.Hour)
+	if err := sqlDB.Ping(); err != nil {
+		return nil, tracerr.Errorf("failed to reach database: %w", tracerr.Wrap(err))
 	}
 
 	postgreProjectModule, err := NewPostgreProjectModule(db)
