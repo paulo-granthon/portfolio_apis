@@ -8,6 +8,7 @@ export type PortfolioContributionSchema = Pick<
 >;
 
 export interface PortfolioProjectSchema extends ProjectSchema {
+  participation: string;
   contributions: PortfolioContributionSchema[];
 }
 

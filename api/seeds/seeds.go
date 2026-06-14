@@ -35,6 +35,7 @@ func Run() error {
 		DROP TABLE IF EXISTS skills CASCADE;
 		DROP TABLE IF EXISTS contributions CASCADE;
 		DROP TABLE IF EXISTS contribution_skills CASCADE;
+		DROP TABLE IF EXISTS participations CASCADE;
 
 		CREATE TABLE IF NOT EXISTS users (
 			id SERIAL PRIMARY KEY,
@@ -93,6 +94,16 @@ func Run() error {
 			FOREIGN KEY (contribution_id) REFERENCES contributions(id),
 			FOREIGN KEY (skill_id) REFERENCES skills(id)
 		);
+
+		CREATE TABLE IF NOT EXISTS participations (
+			id SERIAL PRIMARY KEY,
+			project_id INT NOT NULL,
+			user_id INT NOT NULL,
+			summary TEXT NOT NULL,
+			UNIQUE (project_id, user_id),
+			FOREIGN KEY (project_id) REFERENCES projects(id),
+			FOREIGN KEY (user_id) REFERENCES users(id)
+		);
 	`); err != nil {
 		err = tracerr.Errorf("PostgreStorage.Migrate: error executing root migration: %w", err)
 		tracerr.PrintSourceColor(err)
@@ -117,6 +128,10 @@ func Run() error {
 
 	if err := ContributionMigrate(storage, *service); err != nil {
 		return tracerr.Errorf("failed to run seeds: failed to migrate contribution: %w", tracerr.Wrap(err))
+	}
+
+	if err := ParticipationMigrate(storage, *service); err != nil {
+		return tracerr.Errorf("failed to run seeds: failed to migrate participation: %w", tracerr.Wrap(err))
 	}
 
 	return nil
@@ -605,6 +620,73 @@ func ContributionMigrate(
 	for _, n := range exampleContributions {
 		if _, err := service.ContributionService.Create(n); err != nil {
 			return tracerr.Errorf("failed to create contribution: %w", tracerr.Wrap(err))
+		}
+	}
+
+	return nil
+}
+
+func ParticipationMigrate(
+	storage storage.Storage,
+	service service.Service,
+) error {
+	projectModule, err := storage.GetProjectModule()
+	if err != nil {
+		return tracerr.Errorf("failed to get project module: %w", tracerr.Wrap(err))
+	}
+
+	userModule, err := storage.GetUserModule()
+	if err != nil {
+		return tracerr.Errorf("failed to get user module: %w", tracerr.Wrap(err))
+	}
+
+	participationModule, err := storage.GetParticipationModule()
+	if err != nil {
+		return tracerr.Errorf("failed to get participation module: %w", tracerr.Wrap(err))
+	}
+
+	summaries := []models.CreateParticipationByNames{
+		models.NewCreateParticipationByNames(
+			"Khali", "paulo-granthon",
+			"Tive uma participação intensa e tecnicamente central no projeto Khali, com grande volume de contribuições ao longo de todo o desenvolvimento. Atuei como engenheiro das fundações do front-end, integrador e desenvolvedor full-stack: criei os alicerces da interface (a biblioteca de helpers e o design system do `Front.Core`, o componente de área rolável com Canvas e o `WindowManager` que governa a navegação como máquina de estados) e o sistema de módulos da Home com controle de acesso por papel. Trabalhei intensamente na camada de dados e visualização, escrevendo os cálculos de médias multidimensionais (por critério, sprint, time, grupo e papel) e os gráficos dos dashboards, e implementei telas centrais como a de avaliação 360° e os cadastros de grupos e times. Meus diferenciais foram a prototipação da KML (uma DSL declarativa para Tkinter) e o sistema de eventos publish-subscribe que desacoplou as telas. Por fim, fui o integrador de fato do repositório, conduzindo inúmeros merges e o fechamento do release. Onde mais me destaquei: arquitetura, abstrações reutilizáveis e a cola entre as partes do sistema.",
+		),
+		models.NewCreateParticipationByNames(
+			"API2Semestre", "paulo-granthon",
+			"No segundo semestre fui um dos pilares técnicos do projeto, com 32 PRs (a maioria de alto impacto) e centenas de commits no sistema desktop Java/JavaFX. Minha marca foi a engenharia de fundações reutilizáveis e a definição da arquitetura: reestruturei todo o projeto para o padrão Maven com módulo JavaFX, criei o sistema de tags FXML para configuração de telas com permissões e produzi abstrações que o time inteiro consumiu (a macro de células editáveis `TableMacros`, o `ChartGenerator`, o `LookupTextField` e as macros de filtro). Atuei full-stack dentro do desktop, modelando o domínio, construindo as telas centrais (Listagem, Aprovação, Dashboard, Relatórios e Parametrização) e otimizando a camada de dados com reuso de conexões. Tomei decisões técnicas fundamentadas e assumi o papel de integrador e mantenedor da qualidade na reta final. Onde mais brilhei: na criação de componentes e abstrações reaproveitáveis e na arquitetura do projeto.",
+		),
+		models.NewCreateParticipationByNames(
+			"api3", "paulo-granthon",
+			"Tive uma participação ampla e versátil no api3, com cerca de 366 commits e 32 PRs cobrindo toda a stack (React e TypeScript no front, Java e Spring no back, PostgreSQL e Docker). Estabeleci as fundações do projeto, do scaffolding inicial à dockerização completa, ao `CorsConfig`, à documentação Swagger e às ferramentas de produtividade. No back-end fui o principal responsável pela camada de apontamentos e pelo sistema de permissões; meu trabalho de maior destaque técnico foi o motor de cálculo de horas (`SliceCalculator`) e a persistência engenhosa dos dias da semana das regras de verba como bitmask via `DaysOfWeekConverter`. No front-end criei um arsenal de componentes reutilizáveis (Dropdown, LookUpTextField, células de tabela editáveis, SchemaList), o serviço de menu dinâmico por permissão e várias telas, e liderei a padronização visual. Onde mais me destaquei: na transversalidade, resolvendo algoritmos de negócio e modelagem de banco e, ao mesmo tempo, entregando UI polida e infraestrutura, atuando de ponta a ponta como desenvolvedor full-stack.",
+		),
+		models.NewCreateParticipationByNames(
+			"api4", "paulo-granthon",
+			"Como Scrum Master da equipe no quarto semestre, tive forte presença técnica no projeto Oracle, com grande volume de entregas nos dois repositórios de código (api4back e api4front) e conduzindo a integração no repositório-umbrella. Atuei como arquiteto transversal: no front Vue/TypeScript construí praticamente toda a biblioteca de componentes genéricos (Table, Form/FormPopup, Filter, NotificationPopup), o roteamento, a camada de serviços tipada e paginada, a geração de relatórios CSV e o dashboard comparativo de parceiros; no back Java/Spring entreguei validação, paginação determinística de endpoints e modelagem e seeds do PostgreSQL. Meu trabalho mais singular foi a fundação técnica e o ferramental: ESLint e Prettier e padronização de estilo nos dois repositórios, setup do monorepo com `concurrently` e submódulos, e os templates de PR e issue que organizaram o processo. Onde mais me destaquei: na criação de abstrações reutilizáveis no front e na garantia de qualidade e consistência transversal, combinando a liderança de processo com uma execução técnica intensa.",
+		),
+		models.NewCreateParticipationByNames(
+			"api5", "paulo-granthon",
+			"No quinto semestre fui um dos principais engenheiros de back-end e de dados do projeto Pro4tech, com grande volume de entregas (24 PRs no api5back, 16 no api5front e 6 no monorepo). Meu trabalho de maior peso concentrou-se no back-end Go e no data warehouse: modelei e evoluí as entidades dimensionais (criação e renomeação de `DimCandidate` e a introdução de `db_id`), desenhei as queries analíticas do dashboard e as funções de agregação, e estruturei os endpoints de sugestões com paginação reutilizável. Destaquei-me na engenharia de qualidade e infraestrutura, sendo responsável pela suíte de testes de integração com containers de banco, pela automação de Swagger, pelos scripts de seeds e ETL e pela configuração de ambiente (SSLMODE, CORS e URL da API) que viabilizou o deploy. No front-end TypeScript/React Native tive papel relevante porém mais secundário, focado em peças de fundação (MultiSelectFilter, camada de serviços, setup do projeto e testes com Jest). Em todos os repositórios fui o autor do setup do monorepo, dos git hooks e da padronização de commits. Onde mais brilhei: na modelagem e nas consultas do data warehouse em Go e na infraestrutura que sustentou o projeto.",
+		),
+		models.NewCreateParticipationByNames(
+			"api6", "paulo-granthon",
+			"Atuando como Product Owner da equipe no semestre final, tive uma atuação técnica bastante abrangente no projeto SIPMR (Kersys), presente em todas as camadas ao longo de mais de 500 commits e 18 PRs. Fui o principal responsável pelo serviço de autenticação em Rust/Actix-web (JWT, validação, criptografia Fernet de campos sensíveis, tratamento de erros, configuração e logging), pela modelagem dos bancos PostgreSQL e MongoDB (entidades SeaORM, chaves, clientes externos e tokens revogados) e pelos seeds com criptografia de credenciais. Na API Python/Flask modelei o domínio de produtividade com Pydantic e MongoDB e criei o middleware de autenticação; no front React entreguei componentes reutilizáveis, páginas de cadastro e gestão de usuários e a camada de serviços/AuthService. Fui ainda o arquiteto da infraestrutura: o monorepo Nx com Poetry, o pipeline de CI e a containerização Docker. Meu trabalho mais singular foi o fluxo completo de clientes externos e portabilidade de dados, que exigiu integrar Rust, banco e segurança. Onde mais me destaquei: na amplitude e na cola entre camadas, na arquitetura de autenticação e segurança, na modelagem de dados e no tooling do monorepo.",
+		),
+	}
+
+	for _, p := range summaries {
+		project, err := projectModule.GetByName(p.Project)
+		if err != nil {
+			return tracerr.Errorf("failed to get project %q for participation: %w", p.Project, tracerr.Wrap(err))
+		}
+
+		user, err := userModule.GetByUsername(p.User)
+		if err != nil {
+			return tracerr.Errorf("failed to get user %q for participation: %w", p.User, tracerr.Wrap(err))
+		}
+
+		if _, err := participationModule.Create(
+			models.NewCreateParticipation(project.Id, user.Id, p.Summary),
+		); err != nil {
+			return tracerr.Errorf("failed to create participation: %w", tracerr.Wrap(err))
 		}
 	}
 

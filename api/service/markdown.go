@@ -47,6 +47,10 @@ func RenderMarkdown(portfolio models.Portfolio) string {
 			fmt.Fprintf(&b, "\n%s\n", project.Description)
 		}
 
+		if project.Participation != "" {
+			fmt.Fprintf(&b, "\n### Minha participação\n\n%s\n", project.Participation)
+		}
+
 		b.WriteString("\n### Contribuições\n")
 		if len(project.Contributions) == 0 {
 			b.WriteString("\n_Nenhuma contribuição especificada._\n")

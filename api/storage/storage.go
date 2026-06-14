@@ -11,6 +11,12 @@ type Storage interface {
 	GetTeamModule() (TeamStorageModule, error)
 	GetSkillModule() (SkillStorageModule, error)
 	GetContributionModule() (ContributionStorageModule, error)
+	GetParticipationModule() (ParticipationStorageModule, error)
+}
+
+type ParticipationStorageModule interface {
+	GetByUserAndProject(userId uint64, projectId uint64) (*models.Participation, error)
+	Create(models.CreateParticipation) (*uint64, error)
 }
 
 type StorageModule[T any, TCreate any, TUpdate any] interface {

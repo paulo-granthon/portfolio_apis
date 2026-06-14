@@ -18,6 +18,7 @@ type contributionGetter interface {
 type PortfolioService struct {
 	userStorage    storage.UserStorageModule
 	projectStorage storage.ProjectStorageModule
+	participations storage.ParticipationStorageModule
 	contributions  contributionGetter
 }
 
@@ -35,9 +36,15 @@ func NewPortfolioService(
 		return nil, tracerr.Errorf("failed to create portfolio service: failed to get ProjectModule from storage: %w", tracerr.Wrap(err))
 	}
 
+	participationStorage, err := s.GetParticipationModule()
+	if err != nil {
+		return nil, tracerr.Errorf("failed to create portfolio service: failed to get ParticipationModule from storage: %w", tracerr.Wrap(err))
+	}
+
 	return &PortfolioService{
 		userStorage:    userStorage,
 		projectStorage: projectStorage,
+		participations: participationStorage,
 		contributions:  contributions,
 	}, nil
 }
@@ -80,8 +87,18 @@ func (s *PortfolioService) Build(userId uint64) (*models.Portfolio, error) {
 			}
 		}
 
+		participation, err := s.participations.GetByUserAndProject(userId, project.Id)
+		if err != nil {
+			return nil, tracerr.Errorf("failed to build portfolio: failed to get participation for project %d: %w", project.Id, tracerr.Wrap(err))
+		}
+		summary := ""
+		if participation != nil {
+			summary = participation.Summary
+		}
+
 		portfolioProjects[i] = models.PortfolioProject{
 			Project:       project,
+			Participation: summary,
 			Contributions: contributions,
 		}
 	}

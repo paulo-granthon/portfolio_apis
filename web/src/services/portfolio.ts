@@ -22,6 +22,7 @@ export function mapPortfolio(data: any): PortfolioSchema | undefined {
       summary: project.summary,
       description: project.description,
       url: project.url,
+      participation: project.participation ?? '',
       contributions: mapContributions(project.contributions),
     })),
   };
