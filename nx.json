@@ -11,7 +11,12 @@
     }
   },
   "plugins": [
-    "@nx-go/nx-go",
+    {
+      "plugin": "@nx-go/nx-go",
+      "options": {
+        "serveAirTargetName": "dev"
+      }
+    },
     {
       "plugin": "@nx/vite/plugin",
       "options": {
