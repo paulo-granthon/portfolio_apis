@@ -22,12 +22,19 @@ export default function Portfolio() {
     <>
       {portfolio ? (
         <div>
-          <div {...styles.portfolio}>
-            <h1>Portfolio</h1>
-            <a href={portfolioMarkdownUrl(portfolio.user.id)} download>
-              Download Markdown
-            </a>
-          </div>
+          <header {...styles.portfolio}>
+            <p {...styles.kicker}>// portfólio · banco de dados · fatec-sjc</p>
+            <div {...styles.headerRow}>
+              <h1 {...styles.headerTitle}>Portfólio</h1>
+              <a
+                {...styles.downloadButton}
+                href={portfolioMarkdownUrl(portfolio.user.id)}
+                download
+              >
+                › baixar.md
+              </a>
+            </div>
+          </header>
           <User user={portfolio.user} />
           <ProjectList projects={portfolio.projects} />
         </div>

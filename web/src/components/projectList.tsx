@@ -9,7 +9,9 @@ interface ProjectListProps {
 export default function ProjectList({ projects }: ProjectListProps) {
   return (
     <div {...styles.projects}>
-      <h2 {...styles.projectsHeader}>Projects</h2>
+      <h2 {...styles.projectsHeader}>
+        projetos · {projects.length} semestres
+      </h2>
       <div>
         {projects.map(project => (
           <Project key={project.name} project={project} />

@@ -2,43 +2,72 @@ import * as stylex from '@stylexjs/stylex';
 import * as base from './base';
 export { base };
 
-const profilePictureSize: string | number = '10vw';
-
 const styles = stylex.create({
   card: {
+    position: 'relative',
+    maxWidth: 'var(--maxw)',
+    width: '100%',
+    margin: '0 auto',
+    boxSizing: 'border-box',
     display: 'flex',
-    flexFlow: 'row',
-    gap: '1.25vw',
+    flexFlow: 'row wrap',
+    gap: '28px',
+    alignItems: 'center',
+    padding: '28px',
+    backgroundColor: 'var(--bg-elev)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'var(--border)',
+    borderRadius: 'var(--radius)',
+    boxShadow: '0 24px 60px -30px rgba(0, 0, 0, 0.8)',
   },
+  // gradient ring wrapper around the avatar
   cardLeft: {
-    margin: '1.5vw',
+    flexShrink: 0,
+    padding: '3px',
+    borderRadius: '20px',
+    backgroundImage: 'linear-gradient(140deg, var(--pink), var(--green))',
+    boxShadow: '0 0 34px -6px var(--pink-glow)',
   },
   cardLeftPicture: {
-    width: profilePictureSize,
-    height: profilePictureSize,
-    borderRadius: '50%',
+    display: 'block',
+    width: '116px',
+    height: '116px',
+    objectFit: 'cover',
+    borderRadius: '17px',
+    backgroundColor: 'var(--bg)',
   },
   cardRight: {
     display: 'flex',
     flexFlow: 'column',
-    width: '100%',
+    gap: '12px',
+    flex: '1 1 320px',
   },
   cardRightHeader: {
     display: 'flex',
-    flexFlow: 'row',
+    flexFlow: 'row wrap',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: '14px',
     width: '100%',
   },
   cardRightSemester: {
-    display: 'flex',
-    flexFlow: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '50%',
+    flexShrink: 0,
+    fontFamily: 'var(--font-mono)',
+    fontSize: '0.78rem',
+    fontWeight: 500,
+    color: 'var(--green)',
+    backgroundColor: 'rgba(46, 230, 166, 0.07)',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderColor: 'rgba(46, 230, 166, 0.3)',
+    borderRadius: '999px',
+    padding: '6px 14px',
   },
   cardRightSummary: {
-    margin: '1.5vw',
+    margin: 0,
+    maxWidth: '64ch',
+    color: 'var(--text-dim)',
   },
 });
 

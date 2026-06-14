@@ -1,0 +1,194 @@
+/* ───────────────────────────────────────────────────────────────────────────
+   Khali portfolio — dark "engineering terminal" theme.
+   Magenta-pink + signal-green accents over a near-black, grid-textured canvas.
+   ─────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --bg: #0a0c0e;
+  --bg-elev: #11151a;
+  --bg-elev-2: #161b21;
+  --border: #232a32;
+  --border-soft: #1a2027;
+
+  --text: #e8eef2;
+  --text-dim: #9aa6b1;
+  --text-faint: #5b6672;
+
+  --pink: #ff3d81;
+  --pink-soft: #ff7eae;
+  --green: #2ee6a6;
+  --green-soft: #7df0ca;
+
+  --pink-glow: rgba(255, 61, 129, 0.35);
+  --green-glow: rgba(46, 230, 166, 0.3);
+
+  --font-display: 'Syne', sans-serif;
+  --font-body: 'Sora', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --radius: 14px;
+  --maxw: 1080px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  background-color: var(--bg);
+  /* layered atmosphere: two corner glows + a faint engineering grid */
+  background-image:
+    radial-gradient(
+      900px 600px at 12% -8%,
+      rgba(255, 61, 129, 0.16),
+      transparent 60%
+    ),
+    radial-gradient(
+      800px 600px at 100% 8%,
+      rgba(46, 230, 166, 0.12),
+      transparent 55%
+    ),
+    linear-gradient(var(--border-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    100% 100%,
+    44px 44px,
+    44px 44px;
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* dim the grid so it reads as texture, not a table */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    1200px 800px at 50% 30%,
+    transparent,
+    rgba(10, 12, 14, 0.86) 78%
+  );
+  z-index: -1;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+p {
+  color: var(--text-dim);
+}
+
+a {
+  color: var(--green);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition:
+    color 0.18s ease,
+    border-color 0.18s ease,
+    text-shadow 0.18s ease;
+}
+
+a:hover {
+  color: var(--green-soft);
+  border-bottom-color: var(--green-soft);
+  text-shadow: 0 0 18px var(--green-glow);
+}
+
+/* skill tags render as <code> — turn them into glowing terminal pills */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--green-soft);
+  background: rgba(46, 230, 166, 0.07);
+  border: 1px solid rgba(46, 230, 166, 0.28);
+  border-radius: 999px;
+  padding: 0.22em 0.7em;
+  white-space: nowrap;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+code:hover {
+  border-color: var(--green);
+  box-shadow: 0 0 16px var(--green-glow);
+  transform: translateY(-1px);
+}
+
+::selection {
+  background: var(--pink);
+  color: #0a0c0e;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+  border: 3px solid var(--bg);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--pink);
+}
+
+/* staggered page-load reveal for the top-level sections of the portfolio */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#root > div > * {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+#root > div > *:nth-child(1) {
+  animation-delay: 0.02s;
+}
+#root > div > *:nth-child(2) {
+  animation-delay: 0.12s;
+}
+#root > div > *:nth-child(3) {
+  animation-delay: 0.22s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  #root > div > * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
