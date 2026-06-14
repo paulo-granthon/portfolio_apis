@@ -10,9 +10,10 @@ type Portfolio struct {
 }
 
 // PortfolioProject embeds Project so its fields are inlined in the JSON output,
-// and adds the user's contributions to that project.
+// and adds the user's narrative participation summary plus their contributions.
 type PortfolioProject struct {
 	Project
+	Participation string                  `json:"participation"`
 	Contributions []PortfolioContribution `json:"contributions"`
 }
 

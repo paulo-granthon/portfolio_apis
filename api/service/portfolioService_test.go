@@ -30,6 +30,19 @@ func (f fakeContributions) GetFilter(project *string, _ *string) ([]models.Contr
 	return f.byProjectId[*project], nil
 }
 
+type fakeParticipations struct {
+	byProjectId map[uint64]string
+}
+
+func (f fakeParticipations) GetByUserAndProject(_ uint64, projectId uint64) (*models.Participation, error) {
+	if summary, ok := f.byProjectId[projectId]; ok {
+		return &models.Participation{ProjectId: projectId, Summary: summary}, nil
+	}
+	return nil, nil
+}
+
+func (f fakeParticipations) Create(models.CreateParticipation) (*uint64, error) { return nil, nil }
+
 func TestBuild_OrdersBySemesterAndGroupsContributions(t *testing.T) {
 	svc := &PortfolioService{
 		userStorage: fakeUserStorage{user: &models.User{Id: 7, Name: "Paulo"}},
@@ -37,6 +50,9 @@ func TestBuild_OrdersBySemesterAndGroupsContributions(t *testing.T) {
 			{Id: 30, Name: "api3", Semester: 3},
 			{Id: 10, Name: "Khali", Semester: 1},
 			{Id: 20, Name: "api2", Semester: 2},
+		}},
+		participations: fakeParticipations{byProjectId: map[uint64]string{
+			10: "Resumo da participação no Khali.",
 		}},
 		contributions: fakeContributions{byProjectId: map[string][]models.ContributionDetail{
 			"10": {{Id: 1, Title: "c1", Skills: []string{"Go"}}},
@@ -62,8 +78,14 @@ func TestBuild_OrdersBySemesterAndGroupsContributions(t *testing.T) {
 		t.Errorf("projects not ordered by semester ascending: got %v", gotOrder)
 	}
 
-	// Khali (semester 1, id 10) -> 1 contribution carrying skills.
+	// Khali (semester 1, id 10) -> 1 contribution carrying skills, plus its participation summary.
 	khali := portfolio.Projects[0]
+	if khali.Participation != "Resumo da participação no Khali." {
+		t.Errorf("expected Khali participation summary, got %q", khali.Participation)
+	}
+	if portfolio.Projects[2].Participation != "" {
+		t.Errorf("expected empty participation for api3, got %q", portfolio.Projects[2].Participation)
+	}
 	if len(khali.Contributions) != 1 || khali.Contributions[0].Title != "c1" {
 		t.Errorf("unexpected contributions for Khali: %+v", khali.Contributions)
 	}

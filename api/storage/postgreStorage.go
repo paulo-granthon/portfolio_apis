@@ -10,12 +10,13 @@ import (
 )
 
 type PostgreStorage struct {
-	postgreProjectModule      *PostgreProjectModule
-	postgreUserModule         *PostgreUserModule
-	postgreTeamModule         *PostgreTeamModule
-	postgreSkillModule        *PostgreSkillModule
-	postgreContributionModule *PostgreContributionModule
-	db                        *gorm.DB
+	postgreProjectModule       *PostgreProjectModule
+	postgreUserModule          *PostgreUserModule
+	postgreTeamModule          *PostgreTeamModule
+	postgreSkillModule         *PostgreSkillModule
+	postgreContributionModule  *PostgreContributionModule
+	postgreParticipationModule *PostgreParticipationModule
+	db                         *gorm.DB
 }
 
 func NewPostgreStorage() (*PostgreStorage, error) {
@@ -76,13 +77,19 @@ func NewPostgreStorage() (*PostgreStorage, error) {
 		return nil, tracerr.Errorf("failed to create postgreContributionModule: %w", tracerr.Wrap(err))
 	}
 
+	postgreParticipationModule, err := NewPostgreParticipationModule(db)
+	if err != nil {
+		return nil, tracerr.Errorf("failed to create postgreParticipationModule: %w", tracerr.Wrap(err))
+	}
+
 	return &PostgreStorage{
-		postgreProjectModule:      postgreProjectModule,
-		postgreUserModule:         postgreUserModule,
-		postgreTeamModule:         postgreTeamModule,
-		postgreSkillModule:        postgreSkillModule,
-		postgreContributionModule: postgreContributionModule,
-		db:                        db,
+		postgreProjectModule:       postgreProjectModule,
+		postgreUserModule:          postgreUserModule,
+		postgreTeamModule:          postgreTeamModule,
+		postgreSkillModule:         postgreSkillModule,
+		postgreContributionModule:  postgreContributionModule,
+		postgreParticipationModule: postgreParticipationModule,
+		db:                         db,
 	}, nil
 }
 
@@ -119,6 +126,13 @@ func (s *PostgreStorage) GetContributionModule() (ContributionStorageModule, err
 		return nil, tracerr.Errorf("contributionModule not found")
 	}
 	return s.postgreContributionModule, nil
+}
+
+func (s *PostgreStorage) GetParticipationModule() (ParticipationStorageModule, error) {
+	if s.postgreParticipationModule.db == nil {
+		return nil, tracerr.Errorf("participationModule not found")
+	}
+	return s.postgreParticipationModule, nil
 }
 
 func (s *PostgreStorage) GetRawDB() (*sql.DB, error) {
