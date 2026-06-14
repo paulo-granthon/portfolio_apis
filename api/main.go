@@ -9,7 +9,7 @@ import (
 	"github.com/paulo-granthon/portfolio_apis/service"
 	"github.com/paulo-granthon/portfolio_apis/storage"
 	"os"
-	"strconv"
+	"path/filepath"
 
 	"github.com/ztrue/tracerr"
 )
@@ -87,17 +87,22 @@ func handleArgs() bool {
 	return true
 }
 
-// generateMarkdown builds a user's portfolio and renders it to markdown, writing
-// to the optional output path (or stdout). It reuses the same PortfolioService
-// and RenderMarkdown as the HTTP endpoint, so the file and the endpoint match.
+// generateMarkdown builds a user's portfolio and renders it to a markdown file.
+// It accepts two optional flags: -user (defaults to 1) and -out (defaults to
+// ../docs/portfolio_<user>.md, i.e. the repository's docs/ folder). It reuses the
+// same PortfolioService and RenderMarkdown as the HTTP endpoint, so the file and
+// the endpoint produce identical output.
 func generateMarkdown(args []string) error {
-	if len(args) < 1 {
-		return tracerr.Errorf("usage: markdown <userId> [outPath]")
+	fs := flag.NewFlagSet("markdown", flag.ContinueOnError)
+	userId := fs.Uint64("user", 1, "id of the user whose portfolio to render")
+	out := fs.String("out", "", "output path (defaults to ../docs/portfolio_<user>.md)")
+	if err := fs.Parse(args); err != nil {
+		return tracerr.Errorf("failed to parse markdown flags: %w", tracerr.Wrap(err))
 	}
 
-	userId, err := strconv.ParseUint(args[0], 10, 64)
-	if err != nil {
-		return tracerr.Errorf("invalid userId %q: %w", args[0], tracerr.Wrap(err))
+	outPath := *out
+	if outPath == "" {
+		outPath = fmt.Sprintf("../docs/portfolio_%d.md", *userId)
 	}
 
 	db, err := storage.NewPostgreStorage()
@@ -110,21 +115,23 @@ func generateMarkdown(args []string) error {
 		return tracerr.Errorf("failed to create service: %w", tracerr.Wrap(err))
 	}
 
-	portfolio, err := svc.PortfolioService.Build(userId)
+	portfolio, err := svc.PortfolioService.Build(*userId)
 	if err != nil {
 		return tracerr.Errorf("failed to build portfolio: %w", tracerr.Wrap(err))
 	}
 
 	markdown := service.RenderMarkdown(*portfolio)
 
-	if len(args) >= 2 {
-		if err := os.WriteFile(args[1], []byte(markdown), 0o644); err != nil {
-			return tracerr.Errorf("failed to write markdown to %q: %w", args[1], tracerr.Wrap(err))
+	if dir := filepath.Dir(outPath); dir != "" {
+		if err := os.MkdirAll(dir, 0o755); err != nil {
+			return tracerr.Errorf("failed to create output directory %q: %w", dir, tracerr.Wrap(err))
 		}
-		fmt.Printf("Wrote portfolio markdown to %s\n", args[1])
-		return nil
 	}
 
-	fmt.Print(markdown)
+	if err := os.WriteFile(outPath, []byte(markdown), 0o644); err != nil {
+		return tracerr.Errorf("failed to write markdown to %q: %w", outPath, tracerr.Wrap(err))
+	}
+
+	fmt.Printf("Wrote portfolio markdown to %s\n", outPath)
 	return nil
 }
