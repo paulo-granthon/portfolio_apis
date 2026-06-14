@@ -116,28 +116,39 @@ a:hover {
   text-shadow: 0 0 18px var(--green-glow);
 }
 
-/* skill tags render as <code> — turn them into glowing terminal pills */
+/* inline code inside prose: a subtle magenta chip (distinct from the green
+   skill pills, which override this in the contribution styles) */
 code {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
+  font-size: 0.84em;
   font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--green-soft);
-  background: rgba(46, 230, 166, 0.07);
-  border: 1px solid rgba(46, 230, 166, 0.28);
-  border-radius: 999px;
-  padding: 0.22em 0.7em;
-  white-space: nowrap;
-  transition:
-    border-color 0.18s ease,
-    box-shadow 0.18s ease,
-    transform 0.18s ease;
+  color: var(--pink-soft);
+  background: rgba(255, 61, 129, 0.09);
+  border: 1px solid rgba(255, 61, 129, 0.22);
+  border-radius: 6px;
+  padding: 0.08em 0.4em;
 }
 
-code:hover {
-  border-color: var(--green);
-  box-shadow: 0 0 16px var(--green-glow);
-  transform: translateY(-1px);
+/* a code reference that links to its definition on GitHub */
+a.codelink,
+a.codelink:hover {
+  border-bottom-color: transparent;
+  text-shadow: none;
+}
+a.codelink code {
+  cursor: pointer;
+  border-bottom: 1.5px solid var(--pink);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+a.codelink:hover code {
+  background: rgba(255, 61, 129, 0.18);
+  border-color: var(--pink);
+  box-shadow: 0 0 16px var(--pink-glow);
 }
 
 ::selection {

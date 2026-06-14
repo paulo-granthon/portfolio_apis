@@ -60,8 +60,23 @@ const styles = stylex.create({
     margin: '2px 0 0',
     gap: '7px',
   },
+  // skill tags: green pills, visually distinct from the magenta inline code
   skill: {
     height: 'fit-content',
+    fontSize: '0.72rem',
+    letterSpacing: '0.02em',
+    color: 'var(--green-soft)',
+    backgroundColor: 'rgba(46, 230, 166, 0.07)',
+    borderColor: 'rgba(46, 230, 166, 0.28)',
+    borderRadius: '999px',
+    padding: '0.22em 0.7em',
+    whiteSpace: 'nowrap',
+    transition: 'border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease',
+    ':hover': {
+      borderColor: 'var(--green)',
+      boxShadow: '0 0 16px var(--green-glow)',
+      transform: 'translateY(-1px)',
+    },
   },
   content: {
     margin: '4px 0 0',
