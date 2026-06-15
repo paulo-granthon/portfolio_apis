@@ -1,13 +1,23 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": ["default"],
-    "sharedGlobals": ["{workspaceRoot}/api/go.mod", "{workspaceRoot}/api/go.sum"]
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default"
+    ],
+    "sharedGlobals": [
+      "{workspaceRoot}/api/go.mod",
+      "{workspaceRoot}/api/go.sum"
+    ]
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"]
+      "dependsOn": [
+        "^build"
+      ]
     }
   },
   "plugins": [
@@ -28,5 +38,6 @@
         "typecheckTargetName": "typecheck"
       }
     }
-  ]
+  ],
+  "analytics": true
 }

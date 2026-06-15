@@ -21,6 +21,9 @@
 
   --pink-glow: rgba(255, 61, 129, 0.35);
   --green-glow: rgba(46, 230, 166, 0.3);
+  --glow-1: rgba(255, 61, 129, 0.16);
+  --glow-2: rgba(46, 230, 166, 0.12);
+  --vignette: rgba(10, 12, 14, 0.86);
 
   --font-display: 'Syne', sans-serif;
   --font-body: 'Sora', system-ui, sans-serif;
@@ -28,6 +31,37 @@
 
   --radius: 14px;
   --maxw: 1080px;
+}
+
+/* Register the palette variables as animatable colors so that swapping a
+   project's palette (set on :root by the scroll observer) TWEENS every value —
+   backgrounds, text, accents, glows — instead of snapping. */
+@property --bg { syntax: '<color>'; inherits: true; initial-value: #0a0c0e; }
+@property --bg-elev { syntax: '<color>'; inherits: true; initial-value: #11151a; }
+@property --bg-elev-2 { syntax: '<color>'; inherits: true; initial-value: #161b21; }
+@property --border { syntax: '<color>'; inherits: true; initial-value: #232a32; }
+@property --border-soft { syntax: '<color>'; inherits: true; initial-value: #1a2027; }
+@property --text { syntax: '<color>'; inherits: true; initial-value: #e8eef2; }
+@property --text-dim { syntax: '<color>'; inherits: true; initial-value: #9aa6b1; }
+@property --text-faint { syntax: '<color>'; inherits: true; initial-value: #5b6672; }
+@property --pink { syntax: '<color>'; inherits: true; initial-value: #ff3d81; }
+@property --pink-soft { syntax: '<color>'; inherits: true; initial-value: #ff7eae; }
+@property --green { syntax: '<color>'; inherits: true; initial-value: #2ee6a6; }
+@property --green-soft { syntax: '<color>'; inherits: true; initial-value: #7df0ca; }
+@property --pink-glow { syntax: '<color>'; inherits: true; initial-value: rgba(255, 61, 129, 0.35); }
+@property --green-glow { syntax: '<color>'; inherits: true; initial-value: rgba(46, 230, 166, 0.3); }
+@property --glow-1 { syntax: '<color>'; inherits: true; initial-value: rgba(255, 61, 129, 0.16); }
+@property --glow-2 { syntax: '<color>'; inherits: true; initial-value: rgba(46, 230, 166, 0.12); }
+@property --vignette { syntax: '<color>'; inherits: true; initial-value: rgba(10, 12, 14, 0.86); }
+
+:root {
+  transition:
+    --bg 0.55s ease, --bg-elev 0.55s ease, --bg-elev-2 0.55s ease, --border 0.55s ease,
+    --border-soft 0.55s ease, --text 0.55s ease, --text-dim 0.55s ease,
+    --text-faint 0.55s ease, --pink 0.55s ease, --pink-soft 0.55s ease,
+    --green 0.55s ease, --green-soft 0.55s ease, --pink-glow 0.55s ease,
+    --green-glow 0.55s ease, --glow-1 0.55s ease, --glow-2 0.55s ease,
+    --vignette 0.55s ease;
 }
 
 * {
@@ -46,25 +80,10 @@ body {
   font-weight: 400;
   line-height: 1.6;
   background-color: var(--bg);
-  /* layered atmosphere: two corner glows + a faint engineering grid */
+  /* base atmosphere: two corner glows (the animated pattern lives in .bg-fx) */
   background-image:
-    radial-gradient(
-      900px 600px at 12% -8%,
-      rgba(255, 61, 129, 0.16),
-      transparent 60%
-    ),
-    radial-gradient(
-      800px 600px at 100% 8%,
-      rgba(46, 230, 166, 0.12),
-      transparent 55%
-    ),
-    linear-gradient(var(--border-soft) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
-  background-size:
-    100% 100%,
-    100% 100%,
-    44px 44px,
-    44px 44px;
+    radial-gradient(900px 600px at 12% -8%, var(--glow-1), transparent 60%),
+    radial-gradient(800px 600px at 100% 8%, var(--glow-2), transparent 55%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -79,9 +98,122 @@ body::before {
   background: radial-gradient(
     1200px 800px at 50% 30%,
     transparent,
-    rgba(10, 12, 14, 0.86) 78%
+    var(--vignette) 78%
   );
   z-index: -1;
+}
+
+/* ── Per-project background scenes ───────────────────────────────────────────
+   Two stacked layers crossfade (slower than the palette morph) as the active
+   project changes; each renders that project's generative SVG scene. The scene
+   shapes are filled from the palette variables, so their colours morph with the
+   page while the scene itself fades across. */
+.bg-fx {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+.bg-fx-layer {
+  position: absolute;
+  inset: 0;
+  opacity: var(--layer-opacity, 1) !important;
+  transition: opacity 0.45s ease;
+}
+.scene {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* scene animation primitives, driven by per-element CSS custom properties */
+.sc-sway {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sc-sway var(--d, 8s) ease-in-out infinite alternate;
+}
+@keyframes sc-sway {
+  from {
+    transform: rotate(calc(-1 * var(--r, 5deg)));
+  }
+  to {
+    transform: rotate(var(--r, 5deg));
+  }
+}
+.sc-bob {
+  animation: sc-bob var(--d, 7s) ease-in-out infinite alternate;
+}
+@keyframes sc-bob {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(var(--y, -24px));
+  }
+}
+.sc-current {
+  animation: sc-current var(--d, 26s) ease-in-out infinite alternate;
+}
+@keyframes sc-current {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(var(--x, 30px), var(--y, 0px));
+  }
+}
+.sc-drift {
+  animation: sc-drift var(--d, 24s) linear infinite;
+}
+@keyframes sc-drift {
+  to {
+    transform: translate(var(--dx, 0), var(--dy, 0));
+  }
+}
+.sc-twinkle {
+  animation: sc-twinkle var(--d, 3s) ease-in-out infinite alternate;
+}
+@keyframes sc-twinkle {
+  from {
+    opacity: var(--o0, 0.2);
+  }
+  to {
+    opacity: var(--o1, 0.9);
+  }
+}
+.sc-spin {
+  transform-box: view-box;
+  animation: sc-spin var(--d, 80s) linear infinite;
+}
+@keyframes sc-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.sc-breathe {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: sc-breathe var(--d, 22s) ease-in-out infinite alternate;
+}
+@keyframes sc-breathe {
+  from {
+    transform: scale(1);
+    opacity: 0.75;
+  }
+  to {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+}
+.sc-scan {
+  animation: sc-scan var(--d, 7s) linear infinite;
+}
+@keyframes sc-scan {
+  to {
+    transform: translateX(1200px);
+  }
 }
 
 h1,
