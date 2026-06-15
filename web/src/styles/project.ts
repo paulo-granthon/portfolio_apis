@@ -38,24 +38,11 @@ const styles = stylex.create({
     borderBottomStyle: 'solid',
     borderBottomColor: 'var(--border)',
   },
-  // Every banner gets the same vertical space. Wide banners (most of them) use
-  // `cover` so they fill the section edge to edge; a banner with an unusual
-  // aspect ratio (api3 is square) falls back to `contain` so it isn't cropped,
-  // shown centered with side breathing room. The choice is made from the
-  // image's own aspect ratio once it loads (see Project).
-  projectImageContain: {
-    maxWidth: '100%',
-    maxHeight: '100%',
-    width: 'auto',
-    height: 'auto',
-    objectFit: 'contain',
-    display: 'block',
-  },
-  projectImageCover: {
-    width: '100%',
+  bannerImg: {
     height: '100%',
-    objectFit: 'cover',
+    width: 'auto',
     display: 'block',
+    flexShrink: 0,
   },
   projectBody: {
     position: 'relative',
@@ -154,8 +141,7 @@ const styles = stylex.create({
 
 export const project = stylex.props(styles.project);
 export const bannerSticky = stylex.props(styles.bannerSticky);
-export const projectImageContain = stylex.props(styles.projectImageContain);
-export const projectImageCover = stylex.props(styles.projectImageCover);
+export const bannerImg = stylex.props(styles.bannerImg);
 export const projectBody = stylex.props(styles.projectBody);
 export const semesterGhost = stylex.props(styles.semesterGhost);
 export const projectHeader = stylex.props(styles.projectHeader);

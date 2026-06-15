@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ContributionList from './contributionList';
 import { ContributionTimeline } from './contributionTimeline';
 import { PortfolioProjectSchema } from '../schemas/portfolio';
@@ -11,22 +10,14 @@ interface ProjectProps {
 }
 
 export default function Project({ project, githubUsername }: ProjectProps) {
-  // Wide banners fill the section (cover); only odd aspect ratios (api3 is
-  // square) fall back to contain so they aren't cropped. Decided on load.
-  const [cover, setCover] = useState(true);
-
   return (
     <article {...styles.project} data-project={project.name}>
       {project.image && (
         <div {...styles.bannerSticky}>
           <img
-            {...(cover ? styles.projectImageCover : styles.projectImageContain)}
+            {...styles.bannerImg}
             src={project.image}
             alt={`${project.name} banner`}
-            onLoad={e => {
-              const img = e.currentTarget;
-              setCover(img.naturalWidth / img.naturalHeight >= 1.9);
-            }}
           />
         </div>
       )}
