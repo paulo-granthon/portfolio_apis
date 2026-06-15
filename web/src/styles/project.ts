@@ -24,19 +24,41 @@ const styles = stylex.create({
       boxShadow: '0 30px 70px -36px var(--pink-glow)',
     },
   },
-  bannerSticky: {
+
+  // Sticky 2-col header: info (left) + banner image (right)
+  projectSticky: {
     position: 'sticky',
     top: 0,
     zIndex: 2,
-    height: '240px',
-    overflow: 'hidden',
-    backgroundColor: 'rgba(0, 0, 0, 0.35)',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexFlow: 'row nowrap',
+    minHeight: '240px',
+    backgroundColor: 'var(--bg-elev)',
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
     borderBottomColor: 'var(--border)',
+  },
+  projectStickyInfo: {
+    flex: '1 1 0',
+    minWidth: 0,
+    padding: '22px 26px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    position: 'relative',
+    overflow: 'hidden',
+  },
+  projectStickyBanner: {
+    flexShrink: 0,
+    width: '42%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    borderLeftWidth: '1px',
+    borderLeftStyle: 'solid',
+    borderLeftColor: 'var(--border)',
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
   },
   bannerImg: {
     height: '100%',
@@ -44,17 +66,22 @@ const styles = stylex.create({
     display: 'block',
     flexShrink: 0,
   },
-  projectBody: {
-    position: 'relative',
-    padding: '26px 30px 30px',
+
+  // Scrolls below the sticky header
+  projectScrollContent: {
+    padding: '22px 26px 28px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px',
   },
+
   semesterGhost: {
     position: 'absolute',
-    top: '-14px',
-    right: '18px',
+    top: '-10px',
+    right: '14px',
     fontFamily: 'var(--font-display)',
     fontWeight: 800,
-    fontSize: '7rem',
+    fontSize: '6.5rem',
     lineHeight: 1,
     color: 'var(--pink)',
     opacity: 0.07,
@@ -68,22 +95,22 @@ const styles = stylex.create({
     flexFlow: 'row wrap',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '14px',
+    gap: '10px',
   },
   projectHeaderTitle: {
     margin: 0,
-    fontSize: '1.7rem',
+    fontSize: '1.5rem',
   },
   projectHeaderExtra: {
     display: 'flex',
     flexFlow: 'row wrap',
-    gap: '8px',
+    gap: '6px',
     justifyContent: 'flex-end',
   },
   projectHeaderExtraItem: {
     margin: 0,
     fontFamily: 'var(--font-mono)',
-    fontSize: '0.74rem',
+    fontSize: '0.72rem',
     fontWeight: 500,
     color: 'var(--pink-soft)',
     backgroundColor: 'rgba(255, 61, 129, 0.08)',
@@ -91,43 +118,44 @@ const styles = stylex.create({
     borderStyle: 'solid',
     borderColor: 'rgba(255, 61, 129, 0.28)',
     borderRadius: '999px',
-    padding: '5px 12px',
+    padding: '4px 10px',
   },
   projectSubHeader: {
-    margin: '14px 0 0',
-    padding: 0,
     display: 'flex',
     flexFlow: 'row wrap',
     alignItems: 'baseline',
     justifyContent: 'space-between',
-    gap: '10px',
+    gap: '8px',
+    margin: 0,
+    padding: 0,
   },
   projectSummary: {
     margin: 0,
     color: 'var(--text)',
     fontWeight: 500,
+    fontSize: '0.9rem',
   },
   projectRepo: {
     fontFamily: 'var(--font-mono)',
-    fontSize: '0.82rem',
+    fontSize: '0.78rem',
   },
   projectDescription: {
-    margin: '18px 0 0',
+    margin: 0,
     color: 'var(--text-dim)',
   },
   participation: {
-    margin: '22px 0 4px',
-    padding: '18px 20px',
+    marginTop: '2px',
+    padding: '14px 18px',
     backgroundColor: 'rgba(255, 61, 129, 0.05)',
     borderLeftWidth: '3px',
     borderLeftStyle: 'solid',
     borderLeftColor: 'var(--pink)',
-    borderRadius: '0 10px 10px 0',
+    borderRadius: '0 8px 8px 0',
   },
   participationTitle: {
-    margin: '0 0 8px',
+    margin: '0 0 6px',
     fontFamily: 'var(--font-mono)',
-    fontSize: '0.74rem',
+    fontSize: '0.70rem',
     fontWeight: 600,
     letterSpacing: '0.14em',
     textTransform: 'uppercase',
@@ -136,20 +164,21 @@ const styles = stylex.create({
   participationText: {
     margin: 0,
     color: 'var(--text)',
+    fontSize: '0.88rem',
   },
 });
 
 export const project = stylex.props(styles.project);
-export const bannerSticky = stylex.props(styles.bannerSticky);
+export const projectSticky = stylex.props(styles.projectSticky);
+export const projectStickyInfo = stylex.props(styles.projectStickyInfo);
+export const projectStickyBanner = stylex.props(styles.projectStickyBanner);
 export const bannerImg = stylex.props(styles.bannerImg);
-export const projectBody = stylex.props(styles.projectBody);
+export const projectScrollContent = stylex.props(styles.projectScrollContent);
 export const semesterGhost = stylex.props(styles.semesterGhost);
 export const projectHeader = stylex.props(styles.projectHeader);
 export const projectHeaderTitle = stylex.props(styles.projectHeaderTitle);
 export const projectHeaderExtra = stylex.props(styles.projectHeaderExtra);
-export const projectHeaderExtraItem = stylex.props(
-  styles.projectHeaderExtraItem,
-);
+export const projectHeaderExtraItem = stylex.props(styles.projectHeaderExtraItem);
 export const projectSubHeader = stylex.props(styles.projectSubHeader);
 export const projectSummary = stylex.props(styles.projectSummary);
 export const projectRepo = stylex.props(styles.projectRepo);

@@ -12,15 +12,15 @@ const styles = stylex.create({
   },
   sidebar: {
     flexShrink: 0,
-    width: '320px',
+    width: '360px',
     height: '100vh',
     overflowY: 'auto',
     overflowX: 'hidden',
     boxSizing: 'border-box',
-    padding: '40px 20px 40px 24px',
+    padding: '36px 20px 40px 24px',
     display: 'flex',
     flexDirection: 'column',
-    gap: '28px',
+    gap: '24px',
     borderRightWidth: '1px',
     borderRightStyle: 'solid',
     borderRightColor: 'var(--border)',
@@ -32,12 +32,12 @@ const styles = stylex.create({
     overflowY: 'auto',
     overflowX: 'hidden',
     position: 'relative',
-    paddingTop: '24px',
     boxSizing: 'border-box',
+    padding: '32px 40px 0',
   },
-  portfolio: {
+  pageHeader: {
     width: '100%',
-    padding: 0,
+    marginBottom: '32px',
   },
   kicker: {
     fontFamily: 'var(--font-mono)',
@@ -46,7 +46,7 @@ const styles = stylex.create({
     letterSpacing: '0.16em',
     textTransform: 'uppercase',
     color: 'var(--pink)',
-    margin: '0 0 18px',
+    margin: '0 0 14px',
   },
   headerRow: {
     display: 'flex',
@@ -57,7 +57,7 @@ const styles = stylex.create({
   },
   headerTitle: {
     margin: 0,
-    fontSize: 'clamp(2.6rem, 7vw, 5rem)',
+    fontSize: 'clamp(2.2rem, 5vw, 4rem)',
     backgroundImage: 'linear-gradient(102deg, var(--pink), var(--green))',
     backgroundClip: 'text',
     WebkitBackgroundClip: 'text',
@@ -93,7 +93,7 @@ const styles = stylex.create({
     display: 'flex',
     flexFlow: 'column',
     width: '100%',
-    padding: '0 0 96px',
+    paddingBottom: '96px',
   },
   projectsHeader: {
     fontFamily: 'var(--font-mono)',
@@ -102,7 +102,7 @@ const styles = stylex.create({
     letterSpacing: '0.16em',
     textTransform: 'uppercase',
     color: 'var(--text-faint)',
-    margin: '8px 0 22px',
+    margin: '0 0 22px',
     paddingBottom: '14px',
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
@@ -113,7 +113,7 @@ const styles = stylex.create({
 export const layout = stylex.props(styles.layout);
 export const sidebar = stylex.props(styles.sidebar);
 export const scrollPane = stylex.props(styles.scrollPane);
-export const portfolio = stylex.props(styles.portfolio);
+export const pageHeader = stylex.props(styles.pageHeader);
 export const kicker = stylex.props(styles.kicker);
 export const headerRow = stylex.props(styles.headerRow);
 export const headerTitle = stylex.props(styles.headerTitle);

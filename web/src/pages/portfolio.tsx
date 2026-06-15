@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import User from '../components/user';
 import ProjectList from '../components/projectList';
+import { SidebarMetrics } from '../components/sidebarMetrics';
 import { PortfolioSchema } from '../schemas/portfolio';
 import { getPortfolio, portfolioMarkdownUrl } from '../services/portfolio';
 import { useScrollScenes } from '../theme/useScrollTheme';
@@ -32,12 +33,25 @@ export default function Portfolio() {
     return <p>Usuário não encontrado</p>;
   }
 
+  const activeProject =
+    portfolio.projects.find(p => p.name === active) ?? null;
+
   return (
     <>
       <BackgroundFx current={current} next={next} pct={pct} />
       <div {...styles.layout}>
         <aside {...styles.sidebar}>
-          <header {...styles.portfolio}>
+          <User user={portfolio.user} compact />
+          <SidebarMetrics
+            project={activeProject}
+            githubUsername={portfolio.user.githubUsername}
+          />
+        </aside>
+        <main
+          {...styles.scrollPane}
+          ref={setScrollEl as (el: HTMLElement | null) => void}
+        >
+          <header {...styles.pageHeader}>
             <p {...styles.kicker}>// portfólio · banco de dados · fatec-sjc</p>
             <div {...styles.headerRow}>
               <h1 {...styles.headerTitle}>Portfólio</h1>
@@ -50,9 +64,6 @@ export default function Portfolio() {
               </a>
             </div>
           </header>
-          <User user={portfolio.user} compact />
-        </aside>
-        <main {...styles.scrollPane} ref={setScrollEl as (el: HTMLElement | null) => void}>
           <ProjectList
             projects={portfolio.projects}
             githubUsername={portfolio.user.githubUsername ?? undefined}
