@@ -69,12 +69,38 @@ const styles = stylex.create({
     maxWidth: '64ch',
     color: 'var(--text-dim)',
   },
+  sidebarCard: {
+    maxWidth: 'none',
+    margin: 0,
+    padding: 0,
+    backgroundColor: 'transparent',
+    borderWidth: 0,
+    borderStyle: 'none',
+    borderColor: 'transparent',
+    borderRadius: 0,
+    boxShadow: 'none',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    gap: '16px',
+  },
+  sidebarRight: {
+    flex: '1 1 auto',
+    minWidth: 0,
+  },
+  sidebarPicture: {
+    width: '80px',
+    height: '80px',
+    borderRadius: '14px',
+  },
 });
 
 export const card = stylex.props(styles.card);
+export const cardCompact = stylex.props(styles.card, styles.sidebarCard);
 export const cardLeft = stylex.props(styles.cardLeft);
 export const cardLeftPicture = stylex.props(styles.cardLeftPicture);
+export const cardLeftPictureCompact = stylex.props(styles.cardLeftPicture, styles.sidebarPicture);
 export const cardRight = stylex.props(styles.cardRight);
+export const cardRightCompact = stylex.props(styles.cardRight, styles.sidebarRight);
 export const cardRightHeader = stylex.props(styles.cardRightHeader);
 export const cardRightSemester = stylex.props(styles.cardRightSemester);
 export const cardRightSummary = stylex.props(styles.cardRightSummary);

@@ -16,27 +16,44 @@ const styles = stylex.create({
     borderStyle: 'solid',
     borderColor: 'var(--border)',
     borderRadius: 'var(--radius)',
-    overflow: 'hidden',
-    transition: 'transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease',
+    // clip preserves rounded corners without blocking position:sticky in children
+    overflow: 'clip',
+    transition: 'border-color 0.22s ease, box-shadow 0.22s ease',
     ':hover': {
-      transform: 'translateY(-4px)',
-      borderColor: 'rgba(255, 61, 129, 0.55)',
+      borderColor: 'var(--pink)',
       boxShadow: '0 30px 70px -36px var(--pink-glow)',
     },
   },
-  projectImageContainer: {
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'center',
-    maxHeight: '240px',
+  bannerSticky: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 2,
+    height: '240px',
     overflow: 'hidden',
+    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     borderBottomWidth: '1px',
     borderBottomStyle: 'solid',
     borderBottomColor: 'var(--border)',
   },
-  projectImage: {
+  // Every banner gets the same vertical space. Wide banners (most of them) use
+  // `cover` so they fill the section edge to edge; a banner with an unusual
+  // aspect ratio (api3 is square) falls back to `contain` so it isn't cropped,
+  // shown centered with side breathing room. The choice is made from the
+  // image's own aspect ratio once it loads (see Project).
+  projectImageContain: {
+    maxWidth: '100%',
+    maxHeight: '100%',
+    width: 'auto',
+    height: 'auto',
+    objectFit: 'contain',
+    display: 'block',
+  },
+  projectImageCover: {
     width: '100%',
-    height: '240px',
+    height: '100%',
     objectFit: 'cover',
     display: 'block',
   },
@@ -136,8 +153,9 @@ const styles = stylex.create({
 });
 
 export const project = stylex.props(styles.project);
-export const projectImageContainer = stylex.props(styles.projectImageContainer);
-export const projectImage = stylex.props(styles.projectImage);
+export const bannerSticky = stylex.props(styles.bannerSticky);
+export const projectImageContain = stylex.props(styles.projectImageContain);
+export const projectImageCover = stylex.props(styles.projectImageCover);
 export const projectBody = stylex.props(styles.projectBody);
 export const semesterGhost = stylex.props(styles.semesterGhost);
 export const projectHeader = stylex.props(styles.projectHeader);

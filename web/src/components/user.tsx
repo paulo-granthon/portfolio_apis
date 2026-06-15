@@ -3,9 +3,10 @@ import * as userStyles from '../styles/user';
 
 interface UserProps {
   user: UserSchema;
+  compact?: boolean;
 }
 
-export default function User({ user }: UserProps) {
+export default function User({ user, compact }: UserProps) {
   const userCurrentSemester = user.semesterMatriculed
     .currentSemester()
     .toString();
@@ -15,11 +16,15 @@ export default function User({ user }: UserProps) {
     : undefined;
 
   return (
-    <div {...userStyles.card}>
+    <div {...(compact ? userStyles.cardCompact : userStyles.card)}>
       <div {...userStyles.cardLeft}>
-        <img {...userStyles.cardLeftPicture} alt={user.name} src={avatarUrl} />
+        <img
+          {...(compact ? userStyles.cardLeftPictureCompact : userStyles.cardLeftPicture)}
+          alt={user.name}
+          src={avatarUrl}
+        />
       </div>
-      <div {...userStyles.cardRight}>
+      <div {...(compact ? userStyles.cardRightCompact : userStyles.cardRight)}>
         <div {...userStyles.cardRightHeader}>
           <h2>{user.name}</h2>
           <span {...userStyles.cardRightSemester}>

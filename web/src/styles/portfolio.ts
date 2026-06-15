@@ -3,11 +3,41 @@ import * as base from './base';
 export { base };
 
 const styles = stylex.create({
+  layout: {
+    display: 'flex',
+    flexFlow: 'row nowrap',
+    height: '100vh',
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  sidebar: {
+    flexShrink: 0,
+    width: '320px',
+    height: '100vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    boxSizing: 'border-box',
+    padding: '40px 20px 40px 24px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '28px',
+    borderRightWidth: '1px',
+    borderRightStyle: 'solid',
+    borderRightColor: 'var(--border)',
+    backdropFilter: 'blur(12px)',
+  },
+  scrollPane: {
+    flex: '1 1 0',
+    height: '100vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    position: 'relative',
+    paddingTop: '24px',
+    boxSizing: 'border-box',
+  },
   portfolio: {
-    maxWidth: 'var(--maxw)',
     width: '100%',
-    margin: '0 auto',
-    padding: '72px 24px 24px',
+    padding: 0,
   },
   kicker: {
     fontFamily: 'var(--font-mono)',
@@ -62,10 +92,8 @@ const styles = stylex.create({
   projects: {
     display: 'flex',
     flexFlow: 'column',
-    maxWidth: 'var(--maxw)',
     width: '100%',
-    margin: '0 auto',
-    padding: '20px 24px 96px',
+    padding: '0 0 96px',
   },
   projectsHeader: {
     fontFamily: 'var(--font-mono)',
@@ -82,6 +110,9 @@ const styles = stylex.create({
   },
 });
 
+export const layout = stylex.props(styles.layout);
+export const sidebar = stylex.props(styles.sidebar);
+export const scrollPane = stylex.props(styles.scrollPane);
 export const portfolio = stylex.props(styles.portfolio);
 export const kicker = stylex.props(styles.kicker);
 export const headerRow = stylex.props(styles.headerRow);

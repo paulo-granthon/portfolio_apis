@@ -4,9 +4,10 @@ import * as styles from '../styles/portfolio';
 
 interface ProjectListProps {
   projects: PortfolioProjectSchema[];
+  githubUsername?: string;
 }
 
-export default function ProjectList({ projects }: ProjectListProps) {
+export default function ProjectList({ projects, githubUsername }: ProjectListProps) {
   return (
     <div {...styles.projects}>
       <h2 {...styles.projectsHeader}>
@@ -14,7 +15,7 @@ export default function ProjectList({ projects }: ProjectListProps) {
       </h2>
       <div>
         {projects.map(project => (
-          <Project key={project.name} project={project} />
+          <Project key={project.name} project={project} githubUsername={githubUsername} />
         ))}
       </div>
     </div>

@@ -1,21 +1,32 @@
+import { useState } from 'react';
 import ContributionList from './contributionList';
+import { ContributionTimeline } from './contributionTimeline';
 import { PortfolioProjectSchema } from '../schemas/portfolio';
 import { renderRichText } from './richText';
 import * as styles from '../styles/project';
 
 interface ProjectProps {
   project: PortfolioProjectSchema;
+  githubUsername?: string;
 }
 
-export default function Project({ project }: ProjectProps) {
+export default function Project({ project, githubUsername }: ProjectProps) {
+  // Wide banners fill the section (cover); only odd aspect ratios (api3 is
+  // square) fall back to contain so they aren't cropped. Decided on load.
+  const [cover, setCover] = useState(true);
+
   return (
-    <article {...styles.project}>
+    <article {...styles.project} data-project={project.name}>
       {project.image && (
-        <div {...styles.projectImageContainer}>
+        <div {...styles.bannerSticky}>
           <img
-            {...styles.projectImage}
+            {...(cover ? styles.projectImageCover : styles.projectImageContain)}
             src={project.image}
             alt={`${project.name} banner`}
+            onLoad={e => {
+              const img = e.currentTarget;
+              setCover(img.naturalWidth / img.naturalHeight >= 1.9);
+            }}
           />
         </div>
       )}
@@ -58,6 +69,10 @@ export default function Project({ project }: ProjectProps) {
         )}
 
         <ContributionList contributions={project.contributions} />
+
+        {githubUsername && project.url && (
+          <ContributionTimeline repoUrl={project.url} author={githubUsername} />
+        )}
       </div>
     </article>
   );
