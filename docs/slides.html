@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfólio Acadêmico — Paulo Granthon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=IBM+Plex+Sans+Condensed:wght@300;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/theme/black.css">
+
+  <style>
+    /* ── Variables ──────────────────────────────────── */
+    :root {
+      --bg:          #070b12;
+      --bg-card:     #0c1120;
+      --bg-lift:     #111926;
+      --text:        #c4cedf;
+      --text-dim:    #4a5470;
+      --text-mid:    #7a87a4;
+      --accent:      #3dffc0;
+      --accent-glow: rgba(61, 255, 192, 0.12);
+      --blue:        #7ba7ff;
+      --yellow:      #ffd080;
+      --red:         #ff7a8a;
+      --border:      #182035;
+      --border-lit:  #243050;
+      --mono:        'IBM Plex Mono', 'Fira Code', 'Courier New', monospace;
+      --cond:        'IBM Plex Sans Condensed', 'Arial Narrow', sans-serif;
+    }
+
+    /* ── Global reset on Reveal ─────────────────────── */
+    .reveal,
+    .reveal * {
+      font-family: var(--mono);
+      box-sizing: border-box;
+    }
+
+    /* ── Background ─────────────────────────────────── */
+    body { background: var(--bg); }
+
+    .reveal .backgrounds {
+      background:
+        radial-gradient(ellipse 60% 40% at 15% 15%, rgba(61,255,192,.05) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 35% at 85% 85%, rgba(123,167,255,.04) 0%, transparent 70%),
+        var(--bg);
+    }
+
+    /* scanline overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 3px,
+        rgba(0,0,0,.06) 3px,
+        rgba(0,0,0,.06) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── Slide base ─────────────────────────────────── */
+    .reveal .slides section {
+      text-align: left;
+      color: var(--text);
+      padding: 0 64px;
+      height: 100%;
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    /* ── Typography ─────────────────────────────────── */
+    .reveal h1, .reveal h2 {
+      font-family: var(--mono);
+      font-weight: 600;
+      letter-spacing: -.025em;
+      text-transform: none;
+      margin: 0 0 .4em;
+      line-height: 1.1;
+    }
+
+    .reveal h1 { font-size: 1.6em; color: var(--accent); }
+    .reveal h2 { font-size: 1.4em; color: var(--text); }
+
+    .reveal p {
+      font-size: .82em;
+      line-height: 1.75;
+      color: var(--text);
+      font-weight: 300;
+      margin: 0 0 .6em;
+    }
+
+    .reveal strong { color: var(--accent); font-weight: 600; }
+    .reveal em { color: var(--yellow); font-style: normal; }
+
+    .reveal code {
+      font-family: var(--mono);
+      font-size: .88em;
+      color: var(--yellow);
+      background: rgba(255,208,128,.08);
+      padding: .1em .35em;
+      border-radius: 2px;
+    }
+
+    /* ── Lists ──────────────────────────────────────── */
+    .reveal ul { list-style: none; padding: 0; margin: 0; }
+
+    .reveal ul li {
+      font-size: .8em;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--text);
+      padding: .25em 0 .25em 1.4em;
+      position: relative;
+    }
+
+    .reveal ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: .75em;
+      top: .4em;
+    }
+
+    /* ── Progress / Slide number ─────────────────────── */
+    .reveal .progress { height: 2px; color: var(--accent); background: var(--border); }
+    .reveal .slide-number {
+      font-family: var(--mono);
+      font-size: .5em;
+      color: var(--text-dim);
+      background: none;
+      right: 18px;
+      bottom: 18px;
+    }
+
+    /* ── Section label ──────────────────────────────── */
+    .sec {
+      display: block;
+      font-size: .52em;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: .5em;
+      font-weight: 400;
+    }
+
+    /* ── Divider ────────────────────────────────────── */
+    .div {
+      height: 1px;
+      margin: .6em 0 .9em;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--border-lit) 40%, transparent 100%);
+      opacity: .5;
+    }
+
+    /* ── Tags ───────────────────────────────────────── */
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: .6em 0; }
+
+    .tag {
+      font-size: .58em;
+      font-weight: 500;
+      letter-spacing: .06em;
+      padding: .2em .65em;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      background: var(--accent-glow);
+      border-radius: 2px;
+    }
+    .tag.b { border-color: var(--blue);   color: var(--blue);   background: rgba(123,167,255,.1); }
+    .tag.y { border-color: var(--yellow); color: var(--yellow); background: rgba(255,208,128,.1); }
+    .tag.r { border-color: var(--red);    color: var(--red);    background: rgba(255,122,138,.1); }
+
+    /* ── Two-col layout ─────────────────────────────── */
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; }
+    .three { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; align-items: start; }
+
+    /* ── Highlight box ──────────────────────────────── */
+    .hbox {
+      border-left: 3px solid var(--accent);
+      padding: 12px 18px;
+      background: var(--accent-glow);
+      margin: .8em 0;
+    }
+
+    .hbox p { margin: 0; font-size: .78em; }
+
+    /* ── Stat numbers ───────────────────────────────── */
+    .stats { display: flex; gap: 32px; align-items: flex-end; margin: .8em 0; }
+
+    .stat .num {
+      font-family: var(--cond);
+      font-size: 3em;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat .lbl {
+      font-size: .52em;
+      color: var(--text-dim);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: .2em;
+    }
+
+    /* ── Project grid ───────────────────────────────── */
+    .pgrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: .8em;
+    }
+
+    .pcard {
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      padding: 16px 14px 14px;
+    }
+
+    .pcard::before {
+      content: attr(data-s);
+      position: absolute;
+      top: -1px;
+      left: 10px;
+      font-size: .5em;
+      font-weight: 700;
+      letter-spacing: .1em;
+      background: var(--text-dim);
+      color: var(--bg);
+      padding: .1em .55em;
+    }
+
+    .pcard[data-role]::after {
+      content: attr(data-role);
+      position: absolute;
+      top: -1px;
+      right: 10px;
+      font-size: .5em;
+      font-weight: 700;
+      letter-spacing: .1em;
+      background: var(--blue);
+      color: var(--bg);
+      padding: .1em .55em;
+    }
+
+    .pcard .pname {
+      font-size: .72em;
+      font-weight: 600;
+      color: var(--text);
+      display: block;
+      margin-top: .5em;
+    }
+
+    .pcard .pco {
+      font-size: .58em;
+      color: var(--text-dim);
+      display: block;
+      margin: .15em 0;
+    }
+
+    .pcard .pstack {
+      font-size: .56em;
+      color: var(--blue);
+      display: block;
+    }
+
+    /* api6 card starts neutral, becomes highlighted once the
+       hidden fragment trigger is revealed */
+    .pgrid:has(.api6-trigger.visible) .pcard-api6 {
+      border-color: var(--accent);
+      background: var(--accent-glow);
+    }
+    .pgrid:has(.api6-trigger.visible) .pcard-api6::before { background: var(--accent); }
+    .pgrid:has(.api6-trigger.visible) .pcard-api6 .pname { color: var(--accent); }
+    .pgrid:has(.api6-trigger.visible) .pcard-api6 .pstack { color: var(--accent); }
+
+    /* ── Architecture diagram v2 ─────────────────────── */
+    .arch2 {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin: .7em 0;
+    }
+
+    .a2-row { display: flex; justify-content: center; gap: 16px; }
+
+    .a2-conn {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: .65em;
+      line-height: 1.3;
+    }
+
+    .a2-branch {
+      display: flex;
+      justify-content: space-between;
+      padding: 0 19%;
+      color: var(--text-dim);
+      font-size: .65em;
+      line-height: 1.3;
+    }
+
+    .a2-dbconn {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      color: var(--text-dim);
+      font-size: .6em;
+      line-height: 1.3;
+    }
+
+    .a2-dbconn > span { flex: 1; max-width: 200px; text-align: center; }
+
+    .a2-box {
+      border: 1px solid var(--border-lit);
+      background: var(--bg-card);
+      padding: 8px 16px;
+      text-align: center;
+    }
+
+    .a2-box.user {
+      border-style: dashed;
+      color: var(--text-mid);
+      font-size: .68em;
+      padding: 5px 24px;
+      background: var(--bg-lift);
+    }
+
+    .a2-box.re { border-color: var(--blue); flex: 0 0 auto; min-width: 260px; }
+    .a2-box.re .a2name { color: var(--blue); }
+
+    .a2-box.py { border-color: var(--yellow); flex: 1; max-width: 200px; }
+    .a2-box.py .a2name { color: var(--yellow); }
+
+    .a2-box.rs { border-color: var(--accent); flex: 1; max-width: 200px; }
+    .a2-box.rs .a2name { color: var(--accent); }
+
+    .a2-db {
+      flex: 1;
+      max-width: 160px;
+      border: 1px dashed var(--border-lit);
+      background: var(--bg);
+      padding: 6px 10px;
+      text-align: center;
+    }
+
+    .a2-db.shared { border-style: solid; border-color: var(--text-mid); }
+
+    .a2name { display: block; font-size: .68em; font-weight: 600; color: var(--text); }
+    .a2type { display: block; font-size: .55em; color: var(--text-dim); margin-top: .1em; }
+
+    /* ── Career timeline ─────────────────────────────── */
+    .timeline { display: flex; flex-direction: column; gap: 3px; margin-top: .6em; }
+
+    .tl-entry {
+      border: 1px solid var(--border-lit);
+      background: var(--bg-card);
+      padding: 8px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .tl-entry.current { border-color: var(--accent); background: var(--accent-glow); }
+    .tl-entry.current .tl-role { color: var(--accent); }
+
+    .tl-role { font-size: .68em; font-weight: 600; color: var(--text); }
+    .tl-dur  { font-size: .52em; color: var(--text-dim); }
+
+    .tl-arrow {
+      font-size: .52em;
+      color: var(--text-dim);
+      text-align: center;
+      padding: 1px 0 1px 14px;
+    }
+
+    /* ── QR codes ─────────────────────────────────────── */
+    .qr-row { display: flex; gap: 26px; margin-top: .9em; }
+
+    .qr-item { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+
+    .qr-item img {
+      width: 176px;
+      height: 176px;
+      border: 1px solid var(--border-lit);
+      background: #fff;
+      padding: 4px;
+    }
+
+    .qr-item .qr-label { font-size: .52em; color: var(--text); text-align: center; }
+    .qr-item .qr-desc {
+      font-size: .46em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      text-align: center;
+    }
+
+    /* ── Folder tree ────────────────────────────────── */
+    .tree {
+      font-size: .62em;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-mid);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      margin: .7em 0;
+    }
+
+    .tree .hl { color: var(--accent); }
+    .tree .cm { color: var(--text-dim); }
+    .tree .bl { color: var(--blue); }
+
+    /* ── Cover slide animations ─────────────────────── */
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-16px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes drawLine {
+      from { opacity: 0; width: 0; }
+      to   { opacity: .5; width: 100%; }
+    }
+
+    .cover-title {
+      font-family: var(--cond);
+      font-size: 5em;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: .95;
+      letter-spacing: -.03em;
+      animation: slideLeft .7s ease both;
+    }
+
+    .cover-sub {
+      font-size: .72em;
+      font-weight: 300;
+      color: var(--text-dim);
+      margin-top: .6em;
+      animation: fadeUp .7s ease .35s both;
+    }
+
+    .cover-sub span { color: var(--text-mid); }
+
+    .cover-div {
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 1em 0;
+      animation: drawLine .7s ease .15s both;
+    }
+
+    .cover-role {
+      font-size: .6em;
+      color: var(--text-dim);
+      animation: fadeUp .7s ease .55s both;
+    }
+
+    .cover-role span { color: var(--text); }
+
+    /* ── Cursor blink ───────────────────────────────── */
+    .cursor {
+      display: inline-block;
+      width: .55em;
+      height: 1em;
+      background: var(--accent);
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+      margin-left: .1em;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<!-- ══════════════════════════════════════════════════
+     01  CAPA
+═══════════════════════════════════════════════════ -->
+<section>
+  <div class="cover-title">paulo<br>granthon<span class="cursor"></span></div>
+  <div class="cover-div"></div>
+  <div class="cover-sub">
+    <span>Banco de Dados</span> · FATEC São José dos Campos<br>
+    2022 — presente &nbsp;·&nbsp; 6 semestres
+  </div>
+  <div class="cover-div" style="margin-top: .8em;"></div>
+  <div class="cover-role">
+    Backend Developer @ <span>Gorila Invest</span>
+  </div>
+
+  <aside class="notes">
+    [~15s] Olá! Sou Paulo Granthon, estudante de Banco de Dados na FATEC São José dos Campos desde 2022, e hoje vou apresentar meu portfólio das seis APIs que desenvolvi ao longo do curso.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     02  QUEM SOU EU
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 01 · apresentação</span>
+  <h2>quem sou eu</h2>
+  <div class="div"></div>
+
+  <div class="two">
+    <ul>
+      <li class="fragment">De <strong>Cabo Frio (RJ)</strong>, me mudei para São José dos Campos para morar com a família e buscar novas oportunidades</li>
+      <li class="fragment">Indicado por um amigo já matriculado, entrei na FATEC em <strong>2022/2</strong> — vindo de uma fase explorando <strong>desenvolvimento de jogos</strong> por conta própria, sem foco profissional definido</li>
+      <li class="fragment"><strong>Banco de Dados</strong> se encaixou: mais código, modelagem, e o trabalho em equipe dos projetos de API deu um <strong>headstart real</strong> para o mercado</li>
+    </ul>
+
+    <div>
+      <div class="timeline fragment">
+        <div class="tl-entry">
+          <span class="tl-role">Estagiário</span>
+          <span class="tl-dur">1 ano e 4 meses</span>
+        </div>
+        <div class="tl-arrow">↓ promoção</div>
+        <div class="tl-entry">
+          <span class="tl-role">Desenvolvedor Junior</span>
+          <span class="tl-dur">1 ano e 3 meses</span>
+        </div>
+        <div class="tl-arrow">↓ promoção</div>
+        <div class="tl-entry current">
+          <span class="tl-role">Desenvolvedor Mid-level</span>
+          <span class="tl-dur">atual · Gorila Invest</span>
+        </div>
+      </div>
+
+      <div class="hbox fragment" style="margin-top:.7em;">
+        <p style="color:var(--text-dim); font-size:.7em; margin-bottom:.4em;">stack do dia a dia</p>
+        <div class="tags">
+          <span class="tag">Go</span>
+          <span class="tag">Rust</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag b">PostgreSQL</span>
+          <span class="tag b">Docker</span>
+          <span class="tag">React</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    [~50s] De Cabo Frio - RJ, vim para São José dos Campos para me candidatar para o curso de Banco de Dados da FATEC, que um amigo havia indicado após uma fase tentando desenvolver jogos por conta própria, sem foco na carreira profissional tradicional definido. Entrei em no segundo semestre de 2022 e o curso se encaixou perfeitamente: muito código, modelagem, e os projetos de API em equipe me deram um headstart real pro mercado. Comecei como estagiário na Gorila Invest após a empresa que iniciei em SJC, fui promovido a junior depois de 1 ano e 4 meses, e há 1 ano e 3 meses fui promovido novamente — hoje sou desenvolvedor mid-level lá.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     03  ESTE PORTFÓLIO (meta-narrativa)
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 01 · apresentação</span>
+  <h2>a tarefa era simples</h2>
+  <div class="div"></div>
+
+  <p class="fragment" style="color:var(--text-dim);">
+    a disciplina pede que cada aluno documente sua trajetória pelos projetos de API do curso —
+  </p>
+  <p class="fragment" style="color:var(--text-dim);">
+    na prática: <strong style="color:var(--text);">escrever um portfólio em markdown.</strong>
+  </p>
+
+  <div class="tree fragment">
+    <span class="cm">minha solução:</span><br>
+    <br>
+    portfolio_apis/<br>
+    ├── <span class="bl">api/</span>   <span class="cm">← Go REST API</span><br>
+    ├── <span class="bl">web/</span>   <span class="cm">← React + tema dark-terminal</span><br>
+    ├── <span class="bl">db/</span>    <span class="cm">← PostgreSQL containerizado</span><br>
+    └── <span class="hl">docs/</span>  <span class="cm">← portfolio.md <em>gerado pelo sistema</em></span>
+  </div>
+
+  <p class="fragment" style="font-size:.65em; color:var(--text-dim); margin-top:.3em;">
+    seeds populam o banco com os dados dos projetos → API Go serve o conteúdo → frontend React renderiza e exporta o markdown
+  </p>
+
+  <p class="fragment" style="font-size:.65em; color:var(--text-dim);">
+    escrever o markdown à mão seria trivial — preferi transformar a entrega num projeto de desenvolvimento real, do tipo que mais gosto de construir.
+  </p>
+
+  <aside class="notes">
+    [~20s] Antes de entrar nos projetos, quero mostrar algo rápido: o portfólio que os professores têm em mãos foi gerado por um sistema que eu mesmo construí. A disciplina pede que documentemos nossa trajetória pelas APIs em markdown — e em vez de escrever isso à mão, que seria trivial, criei uma API em Go, um frontend em React e um PostgreSQL containerizado com seeds dos dados dos projetos. O markdown é um artefato gerado pelo sistema. Esse projeto também está aqui no repositório que vou mostrar ao final.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     04  6 SEMESTRES, 6 PROJETOS
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 02 · visão geral · 2022 — 2025</span>
+  <h2>6 semestres, 6 projetos</h2>
+  <div class="div"></div>
+
+  <div class="pgrid">
+    <div class="pcard" data-s="1º SEM">
+      <span class="pname">Khali</span>
+      <span class="pco">FATEC</span>
+      <span class="pstack">Python · Tkinter</span>
+    </div>
+    <div class="pcard" data-s="2º SEM">
+      <span class="pname">API2Semestre</span>
+      <span class="pco">2RP Net</span>
+      <span class="pstack">Java · JavaFX · JDBC</span>
+    </div>
+    <div class="pcard" data-s="3º SEM">
+      <span class="pname">api3</span>
+      <span class="pco">2RP Net</span>
+      <span class="pstack">Java + Spring · React</span>
+    </div>
+    <div class="pcard" data-s="4º SEM" data-role="SM">
+      <span class="pname">api4</span>
+      <span class="pco">Oracle</span>
+      <span class="pstack">Vue 3 · Java / Spring</span>
+    </div>
+    <div class="pcard" data-s="5º SEM">
+      <span class="pname">api5</span>
+      <span class="pco">Pro4tech</span>
+      <span class="pstack">Go · TypeScript</span>
+    </div>
+    <div class="pcard pcard-api6" data-s="6º SEM" data-role="PO">
+      <span class="pname">SIPMR — api6</span>
+      <span class="pco">Kersys</span>
+      <span class="pstack">Rust · Python · React</span>
+    </div>
+    <span class="fragment api6-trigger" style="display:none;"></span>
+  </div>
+
+  <aside class="notes">
+    [~2min] Vou passar brevemente pelos seis projetos.
+    1º: Khali, sistema de Avaliação 360° desktop em Python/Tkinter, parceiro interno FATEC. Fui um dos contribuidores mais ativos, criei o design system em Tkinter e a KML, uma DSL declarativa para descrever telas.
+    2º: API2Semestre para a 2RP Net, controle de horas extras em Java/JavaFX. Reestruturei o projeto para Maven, criei o sistema de tags FXML e vários componentes reutilizáveis.
+    3º: api3, evolução web do sistema de horas para a mesma 2RP Net, em Java+Spring e React. ~366 commits, atuei full-stack, implementei o motor SliceCalculator e dockerizei o projeto.
+    4º: api4 para a Oracle, analytics de parceiros em Vue 3 + Java/Spring. Fui Scrum Master (marcador SM), criei a biblioteca de componentes, o sistema de serviços tipados e paginados.
+    5º: api5 para a Pro4tech, dashboard de recrutamento. Principal engenheiro de back-end em Go, modelei o data warehouse e criei a suíte de testes de integração com containers.
+    6º: e esse é o foco: o SIPMR, para a Kersys, onde fui Product Owner (marcador PO). Vou entrar em detalhe agora — [pressione para destacar o card] e, se der, mostro a página web do portfólio aqui antes de seguir.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     05  API6 · O PROJETO
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · kersys</span>
+  <h1>SIPMR</h1>
+  <div class="div"></div>
+
+  <p class="fragment" style="font-size:.78em; color:var(--text-dim); margin-bottom:.8em;">
+    <strong style="color:var(--text);">S</strong>istema <strong style="color:var(--text);">I</strong>nteligente de
+    <strong style="color:var(--text);">P</strong>lanejamento e <strong style="color:var(--text);">M</strong>onitoramento de
+    <strong style="color:var(--text);">R</strong>eflorestamento
+  </p>
+
+  <ul>
+    <li class="fragment">Desenvolvido para a <strong>Kersys</strong>, empresa de soluções para o agronegócio</li>
+    <li class="fragment">Plataforma para <strong>monitorar e gerenciar plantios</strong> e otimizar recuperação ambiental</li>
+    <li class="fragment">Dashboards de métricas, gestão de eventos de plantio, <strong>simulador com machine learning</strong></li>
+    <li class="fragment">Autenticação com <strong>controle de acesso por perfil</strong> e gestão de usuários</li>
+  </ul>
+
+  <div class="tags fragment" style="margin-top:.9em;">
+    <span class="tag">Rust / Actix-web</span>
+    <span class="tag y">Python / Flask</span>
+    <span class="tag b">React / TypeScript</span>
+    <span class="tag b">PostgreSQL</span>
+    <span class="tag b">MongoDB</span>
+    <span class="tag">Nx monorepo</span>
+    <span class="tag b">Docker</span>
+  </div>
+
+  <aside class="notes">
+    [~45s] O SIPMR foi o projeto do 6º semestre, desenvolvido para a Kersys. A plataforma monitora plantios e ajuda a otimizar a recuperação ambiental — inclui dashboards com métricas de produtividade, gestão de eventos de plantio, um simulador com machine learning e autenticação completa. A stack foi intencionalmente diversa: Rust para o serviço de autenticação, Python/Flask para a API de dados de produtividade, React/TypeScript no frontend.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     06  API6 · MEU PAPEL
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · contribuição</span>
+  <h2>product owner <span style="color:var(--text-dim); font-weight:300;">+</span> principal contribuidor</h2>
+  <div class="div"></div>
+
+  <!-- TODO: confirme os números reais de adições/deleções no GitHub (Insights → Contributors) -->
+  <div class="stats fragment" style="gap:24px;">
+    <div class="stat"><span class="num" style="font-size:2.2em;">500+</span><span class="lbl">commits</span></div>
+    <div class="stat"><span class="num" style="font-size:2.2em;">18</span><span class="lbl">pull requests</span></div>
+    <div class="stat"><span class="num" style="font-size:2.2em; color:var(--blue);">+12k</span><span class="lbl">adições</span></div>
+    <div class="stat"><span class="num" style="font-size:2.2em; color:var(--red);">-4k</span><span class="lbl">deleções</span></div>
+  </div>
+
+  <ul>
+    <li class="fragment">Como PO: <strong>defini o backlog</strong>, conduzi cerimônias Scrum e mantive comunicação com a Kersys</li>
+    <li class="fragment">Como engenheiro: <strong>Rust, Python, React, infraestrutura Docker, CI/CD</strong> — todas as camadas, sem lacunas na stack</li>
+    <li class="fragment">O <code>auth</code>: centraliza toda a autenticação e serve um <strong>botão embarcável</strong> que qualquer consumidor externo pode adicionar à própria página, abrindo um popup de login (estilo Google) onde o usuário autoriza o acesso aos seus dados</li>
+    <li class="fragment">Meu maior destaque técnico: a <strong>arquitetura de autenticação e segurança</strong></li>
+  </ul>
+
+  <p class="fragment" style="font-size:.58em; color:var(--text-dim); font-style:italic; margin-top:.6em;">
+    agradecimento especial a <strong style="color:var(--text);">Marcos Malaquias</strong>, que me apoiou nas responsabilidades de PO — gestão de produto não é minha praia natural, sou mais um cara de mão na massa, e essa parceria foi essencial
+  </p>
+
+  <aside class="notes">
+    [~45s] Fui simultaneamente Product Owner da equipe e o principal contribuidor técnico — mais de 500 commits e 18 pull requests, com volume bem acima da média em linhas adicionadas e removidas. Como PO, cuidei do backlog e da comunicação com o cliente — e aqui quero dar um agradecimento ao Marcos Malaquias, que me ajudou bastante nessa parte, porque gestão de produto não é onde eu sou mais forte naturalmente, sou mais hands-on. Como engenheiro, não tive lacunas na stack: Rust, Python, React, infra Docker, CI. O serviço de auth também serve um botão embarcável — qualquer site externo pode colocar esse botão, que abre um popup de login estilo Google, e o usuário autoriza o acesso aos seus dados. O maior destaque técnico foi a arquitetura de autenticação, que vou detalhar agora.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     07  API6 · ARQUITETURA
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · arquitetura</span>
+  <h2>três serviços, três bancos</h2>
+  <div class="div"></div>
+
+  <div class="arch2 fragment">
+    <div class="a2-row">
+      <div class="a2-box user">usuário</div>
+    </div>
+
+    <div class="a2-conn">↓</div>
+
+    <div class="a2-row">
+      <div class="a2-box re">
+        <span class="a2name">React / TypeScript</span>
+        <span class="a2type">frontend</span>
+      </div>
+    </div>
+
+    <div class="a2-branch">
+      <span>↓</span>
+      <span>↓</span>
+    </div>
+
+    <div class="a2-row">
+      <div class="a2-box py">
+        <span class="a2name">Python / Flask</span>
+        <span class="a2type">yield API</span>
+      </div>
+      <div class="a2-box rs">
+        <span class="a2name">Rust / Actix-web</span>
+        <span class="a2type">auth service</span>
+      </div>
+    </div>
+
+    <div class="a2-dbconn">
+      <span>↓ flask</span>
+      <span>↓ flask &nbsp;·&nbsp; rust ↓</span>
+      <span>↓ rust</span>
+    </div>
+
+    <div class="a2-row">
+      <div class="a2-db">
+        <span class="a2name">MongoDB</span>
+        <span class="a2type">yield data</span>
+      </div>
+      <div class="a2-db shared">
+        <span class="a2name">PostgreSQL</span>
+        <span class="a2type">main · compartilhado</span>
+      </div>
+      <div class="a2-db">
+        <span class="a2name">PostgreSQL</span>
+        <span class="a2type">api6_keys</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="fragment" style="display:grid; grid-template-columns: 1fr 1fr; gap:.3em 2em; margin-top:.6em; font-size:.55em;">
+    <div><strong>Nx monorepo</strong> <span style="color:var(--text-dim);">— orquestra build, lint e testes dos 3 projetos</span></div>
+    <div><strong>Docker Compose</strong> <span style="color:var(--text-dim);">— sobe os 3 serviços + 2 bancos com um comando</span></div>
+    <div><strong>GitHub Actions</strong> <span style="color:var(--text-dim);">— pipeline de CI/CD automatizado</span></div>
+    <div><strong>Poetry</strong> <span style="color:var(--text-dim);">— dependências do serviço Python</span></div>
+    <div><strong>SeaORM</strong> <span style="color:var(--text-dim);">— ORM assíncrono para o serviço Rust</span></div>
+  </div>
+
+  <aside class="notes">
+    [~50s] A arquitetura foi planejada em três serviços independentes, todos a partir do usuário. O usuário acessa o frontend React, que consome as duas APIs por REST. A API Python/Flask cuida dos dados de yield e usa MongoDB, mas também acessa o PostgreSQL principal — não só o Mongo. O serviço de autenticação em Rust usa dois bancos PostgreSQL separados: o principal, que é compartilhado com o Flask, e um banco dedicado exclusivamente para chaves criptográficas, o api6_keys — propositalmente isolado do resto. Toda a infraestrutura foi orquestrada com um monorepo Nx, Docker Compose sobe tudo com um comando, o GitHub Actions cuida do CI/CD, Poetry gerencia as dependências do Python e o SeaORM é o ORM assíncrono do lado Rust.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     08  API6 · AUTH EM RUST
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · destaque técnico</span>
+  <h1>serviço de auth em Rust</h1>
+  <div class="div"></div>
+
+  <div class="two">
+    <ul>
+      <li class="fragment">Microsserviço construído <strong>do zero</strong> com Actix-web</li>
+      <li class="fragment"><strong>JWT</strong> com assinatura criptográfica para geração e validação de tokens</li>
+      <li class="fragment"><strong>Revogação de tokens</strong> via tabela <code>revoked_tokens</code> no PostgreSQL</li>
+      <li class="fragment">Middleware de <strong>proteção de rotas</strong> integrado</li>
+      <li class="fragment">Documentação <strong>OpenAPI / Swagger</strong> completa</li>
+      <li class="fragment">Login de usuário inativo <strong>bloqueado na camada de serviço</strong></li>
+      <li class="fragment">Serve um <strong>botão HTML embarcável</strong> e a página de login (template) já configurada com as informações necessárias; ao autorizar, retorna um <strong>token</strong> para o cliente externo — que precisa estar <strong>previamente cadastrado</strong> no sistema</li>
+    </ul>
+
+    <div class="fragment">
+      <div class="hbox">
+        <p style="color:var(--text-dim); font-size:.68em; margin-bottom:.4em;">por que Rust?</p>
+        <p>Segurança de memória em tempo de compilação, sem garbage collector. Ideal para serviços críticos onde bugs de memória são inaceitáveis.</p>
+      </div>
+      <div class="tags" style="margin-top:.6em;">
+        <span class="tag">Actix-web</span>
+        <span class="tag">JWT</span>
+        <span class="tag b">SeaORM</span>
+        <span class="tag r">Segurança</span>
+      </div>
+    </div>
+  </div>
+
+  <aside class="notes">
+    [~60s] O coração técnico do api6 foi o serviço de autenticação em Rust. Concebi e implementei do zero com Actix-web: geração e validação de tokens JWT com assinatura criptográfica, revogação de tokens persistida em banco (não só expiração), middleware que protege rotas automaticamente e documentação OpenAPI gerada. Além disso, o serviço serve um botão HTML que qualquer cliente externo pode embutir na própria página — esse botão abre a página de login (um template já servido pelo Rust, com todas as informações pré-requisito configuradas), o usuário autoriza, e o sistema retorna um token que o cliente externo usa para buscar os dados. Importante: só clientes externos previamente cadastrados podem usar esse fluxo. A escolha de Rust foi estratégica: um serviço de autenticação é crítico — qualquer bug de memória pode gerar vulnerabilidades de segurança. Rust elimina essa categoria inteira de problemas em tempo de compilação.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     09  API6 · CRIPTOGRAFIA + CLIENTES EXTERNOS
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · destaque técnico</span>
+  <h1>criptografia &amp; portabilidade</h1>
+  <div class="div"></div>
+
+  <div class="two">
+    <div>
+      <p style="color:var(--text-dim); font-size:.65em; margin-bottom:.4em;">criptografia Fernet de campos sensíveis</p>
+      <ul>
+        <li class="fragment">Módulo <code>fernet</code> em Rust cifrando campos de usuário</li>
+        <li class="fragment">Banco <strong><code>api6_keys</code> separado</strong> para isolar chaves criptográficas</li>
+        <li class="fragment">Criptografia aplicada <strong>já na carga dos seeds</strong> — nenhum dado sensível em texto puro</li>
+      </ul>
+    </div>
+    <div>
+      <p style="color:var(--text-dim); font-size:.65em; margin-bottom:.4em;">clientes externos e portabilidade de dados</p>
+      <ul>
+        <li class="fragment">Tabela <code>external_clients</code> com chaves únicas por entidade</li>
+        <li class="fragment">JWT ampliado para suportar <strong>dupla entidade</strong> (usuário + cliente externo)</li>
+        <li class="fragment">Fluxo em 3 etapas: <em>botão → autorização → token → dados</em></li>
+        <li class="fragment">App de exemplo simulando o cliente externo</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    [~60s] Além do JWT, implementei criptografia Fernet para campos sensíveis dos usuários. A decisão de separar as chaves criptográficas num banco dedicado — o api6_keys — foi deliberada: compromisso do banco principal não expõe as chaves. Implementei também o fluxo completo de clientes externos e portabilidade de dados — um usuário pode autorizar um sistema externo a acessar seus dados em três etapas, com JWT que carrega dupla entidade. Esse fluxo exigiu integrar Rust, banco e segurança de ponta a ponta.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     10  API6 · REFLEXÃO
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 03 · api6 · o que aprendi</span>
+  <h2>o que o api6 me ensinou</h2>
+  <div class="div"></div>
+
+  <ul>
+    <li class="fragment">Eu já era <strong>apaixonado por Rust</strong> antes do api6 — mais exercitar algo que eu já buscava do que aprender do zero; queria trazer Rust para as APIs <strong>desde o início do curso</strong></li>
+    <li class="fragment">Arquiteturas multi-serviço trazem liberdade tecnológica, mas exigem <strong>disciplina de contratos e infraestrutura</strong> — o <strong>Nx</strong> também era algo que eu queria trazer para as APIs havia tempos</li>
+    <li class="fragment">Modelar segurança desde o início é muito mais barato do que <strong>refatorar depois</strong></li>
+  </ul>
+
+  <div class="hbox fragment" style="margin-top: 1em;">
+    <p>O maior ganho: a confiança de que consigo <strong>conceber e entregar sistemas complexos do zero</strong>, em linguagens novas, com qualidade de produção.</p>
+  </div>
+
+  <aside class="notes">
+    [~50s] O api6 foi o projeto que mais me desafiou e mais me ensinou. Eu já era apaixonado por Rust de antes — então mais do que aprender do zero, foi a chance de exercitar uma linguagem que eu já queria usar nas APIs desde o início do curso. O mesmo vale para o Nx: eu já queria trazer um monorepo organizado para as APIs há tempos, e aqui finalmente coube. Arquiteturas multi-serviço dão liberdade tecnológica, mas exigem disciplina de contratos e infraestrutura. E modelar segurança desde o início é muito mais barato do que refatorar depois. No fim, o maior ganho foi a confiança de que consigo conceber e entregar sistemas complexos do zero, em linguagens novas, com qualidade de produção.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     11  FUTURO
+═══════════════════════════════════════════════════ -->
+<section>
+  <span class="sec">// 04 · próximos passos</span>
+  <h2>pretensões</h2>
+  <div class="div"></div>
+
+  <div class="two">
+    <div>
+      <p style="color:var(--text-dim); font-size:.65em; margin-bottom:.4em;">carreira</p>
+      <ul>
+        <li class="fragment">Crescer o máximo possível — inclusive buscando atuar <strong>internacionalmente</strong></li>
+        <li class="fragment">Maximizar a remuneração mantendo-me <strong>hands-on</strong>, sem migrar para cargos administrativos</li>
+        <li class="fragment">Aprofundar em <strong>Rust</strong>, minha linguagem favorita</li>
+        <li class="fragment">Crescer também em <strong>banco de dados e infraestrutura</strong></li>
+      </ul>
+    </div>
+    <div>
+      <p style="color:var(--text-dim); font-size:.65em; margin-bottom:.4em;">estudos e projetos</p>
+      <ul>
+        <li class="fragment">Pós-graduação não é prioridade imediata — prefiro seguir ganhando experiência prática primeiro</li>
+        <li class="fragment"><strong>Open source</strong> está no radar — quero contribuir em áreas que me importam</li>
+        <li class="fragment">Continuar construindo ferramentas que <strong>resolvam problemas reais</strong></li>
+        <li class="fragment">Manter forte minha <strong>pesquisa e projetos próprios</strong> — programar por hobby é algo que adoro</li>
+        <li class="fragment">Quem sabe, no futuro, voltar a <strong>desenvolver jogos</strong> — algo do qual hoje estou um pouco distante</li>
+      </ul>
+    </div>
+  </div>
+
+  <aside class="notes">
+    [~1min30s] Para o futuro, meu objetivo é crescer o máximo possível na carreira — inclusive buscando oportunidades internacionais e maximizando ganhos. Mas sempre me mantendo hands-on, sem migrar para uma posição administrativa, porque é o lado técnico que eu amo. Rust é minha linguagem favorita e quero ir cada vez mais a fundo nela, assim como em banco de dados e infraestrutura. No lado acadêmico, pós-graduação não é prioridade imediata — prefiro seguir ganhando experiência prática. Open source está no radar, quero continuar construindo ferramentas que resolvam problemas reais, e quero manter forte minha pesquisa e meus projetos próprios — programar por hobby é algo que eu amo. E quem sabe, no futuro, eu volte a programar jogos, algo que estou um pouco distante hoje mas que fazia parte de mim antes da FATEC.
+  </aside>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     12  ENCERRAMENTO
+═══════════════════════════════════════════════════ -->
+<section>
+  <div class="cover-title" style="font-size:4em;">obrigado<span class="cursor"></span></div>
+  <div class="cover-div"></div>
+
+  <div class="two" style="margin-top:.6em; gap:48px;">
+    <div>
+      <p style="color:var(--text-dim); font-size:.58em; margin-bottom:.25em;">github pessoal</p>
+      <p style="font-size:.75em;"><strong>github.com/paulo-granthon</strong></p>
+      <p style="color:var(--text-dim); font-size:.58em; margin: .7em 0 .25em;">este portfólio</p>
+      <p style="font-size:.75em;"><strong>github.com/paulo-granthon/portfolio_apis</strong></p>
+      <p style="color:var(--text-dim); font-size:.58em; margin: .7em 0 .25em;">equipe dos projetos</p>
+      <p style="font-size:.72em;"><strong>github.com/projetoKhali</strong></p>
+    </div>
+    <div>
+      <div class="hbox">
+        <p style="color:var(--text-dim); font-size:.62em; margin-bottom:.3em;">este slide foi gerado com</p>
+        <div class="tags">
+          <span class="tag">Reveal.js</span>
+          <span class="tag b">HTML / CSS</span>
+        </div>
+        <p style="font-size:.6em; color:var(--text-dim); margin-top:.5em;">
+          o portfólio em markdown foi gerado por<br>
+          <span class="tag" style="font-size:1em; margin-top:.3em; display:inline-block;">Go API</span>
+          <span class="tag b" style="font-size:1em; margin-top:.3em; display:inline-block;">React</span>
+          <span class="tag b" style="font-size:1em; margin-top:.3em; display:inline-block;">PostgreSQL</span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="qr-row" style="justify-content:center;">
+    <div class="qr-item">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fgithub.com%2Fpaulo-granthon" alt="QR github pessoal">
+      <span class="qr-desc">github pessoal</span>
+      <span class="qr-label">paulo-granthon</span>
+    </div>
+    <div class="qr-item">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fgithub.com%2Fpaulo-granthon%2Fportfolio_apis" alt="QR portfolio_apis">
+      <span class="qr-desc">este portfólio</span>
+      <span class="qr-label">portfolio_apis</span>
+    </div>
+    <div class="qr-item">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=https%3A%2F%2Fgithub.com%2FprojetoKhali" alt="QR equipe projetoKhali">
+      <span class="qr-desc">equipe dos projetos</span>
+      <span class="qr-label">projetoKhali</span>
+    </div>
+  </div>
+
+  <aside class="notes">
+    [~30s] Obrigado pela atenção! Fico à disposição para perguntas. Se quiserem ver os repositórios, os QR codes levam direto ao portfolio_apis e aos projetos da equipe Khali no GitHub.
+  </aside>
+</section>
+
+</div><!-- /slides -->
+</div><!-- /reveal -->
+
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.1/dist/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    hash:            true,
+    slideNumber:     'c/t',
+    progress:        true,
+    controls:        false,
+    center:          false,
+    transition:      'fade',
+    transitionSpeed: 'fast',
+    width:           1280,
+    height:          720,
+    margin:          0.05,
+  });
+</script>
+</body>
+</html>
