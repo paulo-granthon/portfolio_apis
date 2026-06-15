@@ -50,7 +50,9 @@ const styles = stylex.create({
   },
   projectStickyBanner: {
     flexShrink: 0,
+    alignSelf: 'flex-start',
     width: '42%',
+    height: '240px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

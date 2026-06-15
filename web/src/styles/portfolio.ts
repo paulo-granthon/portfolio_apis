@@ -33,7 +33,7 @@ const styles = stylex.create({
     overflowX: 'hidden',
     position: 'relative',
     boxSizing: 'border-box',
-    padding: '32px 40px 0',
+    padding: '32px 64px 0',
   },
   pageHeader: {
     width: '100%',
