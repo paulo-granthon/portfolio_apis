@@ -2,546 +2,330 @@
 
 ![Paulo Granthon](https://github.com/paulo-granthon.png?size=200)
 
-Matriculado em 2022/2º semestre.
+## Introdução
 
-Backend developer intern at @gorilainvest | Database technologist student at FATEC | Self titled full-stack developer
+<div align="justify">
 
-## 1º Semestre — Khali
+Comecei a programar como hobby quase que uma década antes de entrar na FATEC. Nesse período desenvolvi jogos em C# com Unity, escrevi código em Java, Python com Django, HTML e JavaScript, e aprendi a usar Git e GitHub, explorando de forma independente. Quando cheguei ao curso já tinha uma bagagem técnica, mas enxerguei na FATEC algo que o aprendizado solo não consegue oferecer: a experiência de construir software em equipe, sob pressão real de prazos e com responsabilidades compartilhadas.
+
+Entrei também em busca de uma formação oficial para o currículo, de preencher lacunas de conhecimento que só aparecem quando você trabalha com outras pessoas, e de uma rota mais acessível para o mercado — o estágio é uma porta que uma graduação abre com muito mais facilidade do que a caçada direta a vagas de junior.
+
+Dentro dos projetos, minha experiência prévia me colocou naturalmente num papel de apoio técnico para o time — ensinei Git, expliquei conceitos de arquitetura, e fui procurado para ajudar a resolver bugs e tomar decisões técnicas. Mas as decisões sempre foram coletivas: nenhuma escolha passou sem consenso da equipe, e minha opinião não pesava mais do que a de qualquer outro integrante. Esse papel de apoio foi diminuindo de intensidade ao longo dos semestres, conforme o time crescia e as pessoas construíam a própria autonomia — o que era exatamente o que devia acontecer.
+
+Atualmente atuo como desenvolvedor backend na Gorila Invest, aplicando na prática muito do que construí ao longo desses seis semestres.
+
+</div>
+
+## Contatos
+
+[![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/paulo-granthon)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/paulo-granthon)
+
+## Meus Principais Conhecimentos
+
+- Python / Django
+- Tkinter
+- Java / JavaFX / Spring Boot
+- JavaScript / TypeScript
+- React / Vue
+- Go
+- Rust / Actix Web
+- PostgreSQL / MongoDB
+- Docker / Docker Compose
+- Nx (monorepo)
+- Modelagem de Dados
+- APIs REST
+- Git / GitHub
+
+---
+
+## Meus Projetos
+
+---
+
+<details>
+<summary><strong>1º Semestre — Khali</strong></summary>
+
+<br/>
 
 ![Khali](https://user-images.githubusercontent.com/111442399/194777358-24905c4f-e62b-414d-8754-b3ccaf878547.png)
 
-- **Empresa:** FATEC
-- **Repositório:** <https://github.com/projetoKhali/Khali>
+- **Empresa:** FATEC / PBLTeX
+- **Repositório:** [projetoKhali/Khali](https://github.com/projetoKhali/Khali)
 
-Plataforma desktop para aplicação do método de Avaliação 360°.
+### Missão
 
-Aplicação desktop em Python (Tkinter) que viabiliza a Avaliação 360° entre alunos e instrutores da instituição de ensino fictícia PBLTeX, voltada a cursos com metodologia PBL. Gerencia cadastro e autenticação de usuários, grupos, times e papéis, organiza Sprints com períodos avaliativos, coleta avaliações com feedback obrigatório para notas baixas e gera dashboards de desempenho individual, por time e por grupo, com persistência em arquivos CSV.
+Desenvolver uma plataforma desktop para aplicação do método de Avaliação 360°, voltada ao contexto educacional da instituição fictícia PBLTeX.
+
+### Tecnologias Utilizadas
+
+- **Python / Tkinter:** Interface gráfica desktop e toda a lógica da aplicação.
+- **Matplotlib:** Geração dos dashboards e gráficos de desempenho.
+- **CSV:** Camada de persistência de dados.
+- **Git / GitHub:** Controle de versão e colaboração da equipe.
 
 ### Minha participação
 
-Fui um dos integrantes mais ativos e tecnicamente centrais do projeto Khali, com volume de commits muito acima dos demais. Atuei como engenheiro das fundações do front-end, integrador e desenvolvedor full-stack: criei os alicerces da interface (a biblioteca de helpers e o design system do `Front.Core`, o componente de área rolável com Canvas e o `WindowManager` que governa a navegação como máquina de estados) e o sistema de módulos da Home com controle de acesso por papel. Trabalhei intensamente na camada de dados e visualização, escrevendo os cálculos de médias multidimensionais (por critério, sprint, time, grupo e papel) e os gráficos dos dashboards, e implementei telas centrais como a de avaliação 360° e os cadastros de grupos e times. Meus diferenciais foram a prototipação da KML (uma DSL declarativa para Tkinter) e o sistema de eventos publish-subscribe que desacoplou as telas. Por fim, fui o integrador de fato do repositório, conduzindo inúmeros merges e o fechamento do release. Onde mais me destaquei: arquitetura, abstrações reutilizáveis e a cola entre as partes do sistema.
+Trabalhei nas fundações do projeto: o design system do `Front.Core`, o `WindowManager` para navegação entre telas, a camada de persistência com `CSVHandler`, os cálculos de médias e os dashboards com Matplotlib. Também desenvolvi telas centrais como a avaliação 360°, os cadastros e o sistema de módulos da Home com controle de acesso por papel.
 
-### Contribuições
+### Hard Skills
 
-#### Back-end de cadastro, autenticação e criptografia de senhas
+- **Python:** Sei fazer com autonomia.
+- **Tkinter:** Sei fazer com autonomia.
+- **Modelagem de Dados:** Sei fazer com autonomia.
+- **Análise de Dados:** Sei fazer com autonomia.
+- **Componentização:** Sei fazer com autonomia.
+- **Git:** Sei fazer com autonomia.
 
-Implementei o núcleo de back-end do sistema de cadastro e autenticação (módulo `Authentication`), incluindo registro de usuários, validação de nomes e senhas e a relação entre Grupos, Times e Papéis (Roles). Desenvolvi o módulo `Gerar_Senha`, responsável pela criptografia de senhas e geração automática de credenciais, integrando-o ao fluxo de registro e ao sistema de envio de e-mail. Tratei as verificações de `group_id` e `role_id` no registro e estruturei a persistência por meio do `CSVHandler`.
+### Soft Skills
 
-**Habilidades:** Autenticação, Modelagem de Dados, Python
+O primeiro semestre foi, acima de tudo, um exercício de começar do zero com outras pessoas. Não havia padrão estabelecido de como trabalhar juntos, como dividir tarefas, como comunicar decisões técnicas. A principal soft skill que precisei desenvolver foi a **comunicação técnica**: como explicar para colegas sem o mesmo histórico de programação por que uma abordagem era melhor que outra, ou como usar Git sem travar o repositório. Passei boa parte do projeto ensinando Git e os fundamentos de versionamento para o time, o que exigiu paciência e clareza.
 
-#### Camada de modelos de dados e persistência em CSV (CSVHandler)
+Também foi o semestre em que percebi a importância de estabelecer **padrões antes de escalar**: o que definimos nas primeiras sprints criou uma base que o time inteiro passou a usar. Isso exigiu **proatividade** para criar componentes reutilizáveis e documentação mínima antes mesmo que alguém pedisse. O **trabalho em equipe** aqui significou aceitar que nem sempre o resultado seria o que eu faria sozinho — e que isso era parte do processo.
 
-Construí e mantive a camada de acesso a dados do projeto, incluindo os Models (User, Group, Team, Sprint, Role) com verificações de nulidade e funções de conversão `to_<model>`. Desenvolvi o `CSVHandler`, responsável pela leitura e escrita em arquivos CSV, incluindo a função `get_data_list_by_fields_value_csv` para consultas filtradas por campos. Atualizei a estrutura de dados de Grupos e adicionei funções de acesso direto à base nos próprios modelos.
+</details>
 
-**Habilidades:** Modelagem de Dados, Python
+---
 
-#### Módulo de Sprints e períodos avaliativos
+<details>
+<summary><strong>2º Semestre — API2Semestre</strong></summary>
 
-Implementei a lógica de Sprints que governa os prazos das avaliações, incluindo as funções `current_sprint`, `previous_sprint`, `current_rating_period`, `rating_period_start` e `rating_period_end`, que determinam a Sprint vigente e os períodos avaliativos ativos. Esses cálculos alimentam tanto a tela inicial (informações da Sprint ativa e prazo) quanto o controle de quando as avaliações podem ser enviadas.
-
-**Habilidades:** Python
-
-#### KML - Khali Markdown Language (protótipo de UI declarativa)
-
-Prototipei a `Khali Markdown Language` (KML), uma linguagem de marcação própria, em estilo XML, para descrever telas do Tkinter de forma declarativa: criei o parser e o sistema de Tags (`window`, `module`, `frame`, `label`, `entry`, `button`, `img`, `loop`, `id`) que são interpretados recursivamente e convertidos nos widgets correspondentes. Cheguei a renderizar alguns componentes com sucesso e validei a abordagem comparando KML com Tkinter puro, mas a exploração não foi adotada na versão final do produto, nenhuma tela exposta ao usuário acabou construída com KML. Ainda assim, foi um exercício relevante de design de linguagem e parsing.
-
-**Habilidades:** Python, Tkinter
-
-#### Sistema de Eventos e gerenciamento de janelas (WindowManager)
-
-Desenvolvi um sistema de Eventos (módulo `Events`) com registro e desregistro de callbacks, usado para sincronizar estado entre componentes da interface (por exemplo, o armazenamento temporário de formulários ao alterar a quantidade de formulários exibidos). Implementei também o `WindowManager` para o controle de navegação entre telas, integrando-o à autenticação e à home.
-
-**Habilidades:** Python, Tkinter
-
-#### Dashboards de desempenho e cálculo de médias
-
-Fui o principal autor do módulo de Dashboards e do integrador de médias, implementando gráficos com matplotlib (barras horizontais, radar/pentágono do usuário e gráficos de pizza). Criei os cálculos de média por usuário, por papel (`role_media`), por time (`users_media_team`, `team_media_sprints`) e por grupo (`group_media_sprints`), além de visões comparativas como `user_media_x_team`, `team_media_x_group` e `group_media_x_groups`, com tratamento de matrizes vazias e dados nulos.
-
-**Habilidades:** Análise de Dados, matplotlib, Python
-
-#### Telas de cadastro, avaliação e edição de times
-
-Implementei e refatorei diversas telas em Tkinter: cadastro do Administrador (com edição e exclusão de grupos), cadastro pelo Líder do Grupo (com validações e popup de sucesso), a tela de avaliação (com desativação de campos no envio e integração ao sistema de Eventos), a home (com seletor de módulos) e a edição de times (com inclusão e remoção de usuários, edição e exclusão). Desenvolvi também componentes reutilizáveis como Scrollbar e funções gerais de Tkinter no `Front.Core`.
-
-**Habilidades:** Python, Tkinter, UI/UX
-
-#### Integração geral, refatorações e correções de bugs
-
-Atuei de forma transversal integrando back-end e front-end (login, home e avaliação) e fui responsável por grande volume de refatorações e correções de bugs ao longo das quatro Sprints, incluindo merges de múltiplas branches da equipe, correções no `CSVHandler`, em referências de papéis, em seletores de Sprint do perfil, em dropdowns e em casos de dados nulos nos dashboards. Mantive o README e abri o PR de fechamento, consolidando a branch principal e a documentação.
-
-**Habilidades:** Git, Python
-
-#### Front.Core - design system e helpers de UI em Tkinter
-
-Construí o módulo `Front/Core.py`, a fundação visual e funcional de toda a interface. Centralizei a paleta de cores do projeto e expus funções genéricas que abstraem a verbosidade do Tkinter (`criar_frame`, `criar_label`, `criar_button`, `criar_entry`), além de helpers avançados como `bind_entry_placeholder` (texto-fantasma que some ao focar o campo), `create_dropdown` (menus integrados ao sistema de eventos para atualizações reativas) e `bind_edit_label` (transforma labels em campos editáveis ao clicar). Isso deu consistência de estilo e layout a todas as telas e eliminou boilerplate repetido entre os demais desenvolvedores.
-
-**Habilidades:** Componentização, Python, Refatoração, Tkinter, UI/UX
-
-#### Componente de área rolável (Scrollbar) com Canvas
-
-Implementei o `Front/Scrollbar.py`, um container rolável montado sobre a combinação Canvas + Frame + Scrollbar do Tkinter. Inseri o conteúdo no Canvas via `create_window` e usei o evento `<Configure>` para ajustar dinamicamente largura/altura e recalcular a `scrollregion` conforme o conteúdo muda. Sincronizei a barra de rolagem (`yview`/`yscrollcommand`) e adicionei suporte à roda do mouse com binding global ativado ao entrar no frame e removido ao sair, integrado ao sistema de eventos para desabilitar a rolagem quando submódulos abrem.
-
-**Habilidades:** Componentização, Python, Tkinter, UI/UX
-
-#### ModulesManager e seletor de módulos da Home
-
-Desenvolvi o sistema de módulos carregados dentro da Home (`ModulesManager` + `home_front`), incluindo o seletor de módulos estilizado, a verificação de permissões por papel (`role_id`) e o tratamento de casos de grupo nulo. Esse sistema permite que diferentes telas (lista de usuários, avaliação, dashboards, edição de times) sejam plugadas como módulos dentro da janela principal de forma condicional ao perfil do usuário.
-
-**Habilidades:** Componentização, Controle de Acesso, Python, Tkinter
-
-## 2º Semestre — API2Semestre
+<br/>
 
 ![API2Semestre](https://raw.githubusercontent.com/projetoKhali/API2Semestre/main/Docs/Banners/Novobanner.png)
 
 - **Empresa:** 2RP Net
-- **Repositório:** <https://github.com/projetoKhali/API2Semestre>
+- **Repositório:** [projetoKhali/API2Semestre](https://github.com/projetoKhali/API2Semestre)
 
-Sistema desktop em JavaFX para apontamento e controle de horas extras e sobreaviso.
+### Missão
 
-Aplicação desktop em Java/JavaFX desenvolvida para a 2RP Net. Permite que colaboradores registrem horas extras e sobreaviso vinculados a centros de resultado e projetos, enquanto gestores (PO) aprovam ou rejeitam os apontamentos e administradores parametrizam regras de fechamento, percentuais e adicional noturno, geram relatórios em CSV e acompanham um dashboard analítico. O acesso é baseado em papéis (colaborador, gestor e administrador) com persistência em banco relacional.
+Desenvolver uma aplicação desktop em Java/JavaFX para registro, aprovação e gestão de horas extras e sobreaviso, com parametrização de regras, relatórios e dashboard analítico.
+
+### Tecnologias Utilizadas
+
+- **Java / JavaFX:** Lógica de negócio e interface desktop.
+- **JDBC / PostgreSQL:** Camada de acesso a dados.
+- **Maven:** Build e gerenciamento de dependências.
+- **SQL:** Consultas e modelagem do banco.
+- **Git / GitHub:** Controle de versão.
 
 ### Minha participação
 
-No segundo semestre fui um dos pilares técnicos e o desenvolvedor de maior volume do time, com 32 PRs (a maioria de alto impacto) e centenas de commits no sistema desktop Java/JavaFX. Minha marca foi a engenharia de fundações reutilizáveis e a definição da arquitetura: reestruturei todo o projeto para o padrão Maven com módulo JavaFX, criei o sistema de tags FXML para configuração de telas com permissões e produzi abstrações que o time inteiro consumiu (a macro de células editáveis `TableMacros`, o `ChartGenerator`, o `LookupTextField` e as macros de filtro). Atuei full-stack dentro do desktop, modelando o domínio, construindo as telas centrais (Listagem, Aprovação, Dashboard, Relatórios e Parametrização) e otimizando a camada de dados com reuso de conexões. Tomei decisões técnicas fundamentadas e assumi o papel de integrador e mantenedor da qualidade na reta final. Onde mais brilhei: na criação de componentes e abstrações reaproveitáveis e na arquitetura do projeto.
+Contribuí na reestruturação do projeto para o padrão Maven, criei componentes reutilizáveis para o time (`TableMacros`, `ChartGenerator`, `LookupTextField`), implementei a camada de persistência com `Query.java` tipado, a autenticação, o fluxo de aprovação de apontamentos, dashboards, relatórios e a tela de parametrização de regras.
 
-### Contribuições
+### Hard Skills
 
-#### Camada de persistência e abstração de queries SQL (Query.java)
+- **Java:** Sei fazer com autonomia.
+- **JavaFX:** Sei fazer com autonomia.
+- **Maven:** Sei fazer com autonomia.
+- **JDBC / SQL:** Sei fazer com autonomia.
+- **Arquitetura de software:** Sei fazer com autonomia.
 
-Refatorei a camada de acesso a dados do sistema introduzindo um construtor de queries (PR #87). Criei a classe `Query.java` junto de `QueryParam` e os enums `QueryType`, `QueryTable` e `TableProperty`, eliminando a escrita de strings SQL cruas dentro de `QueryLibs`. Com isso, as consultas passaram a ser montadas de forma parametrizada e tipada, reduzindo erros e duplicação de código. Também atuei nos métodos de conexão com o banco (`SQLConnection`), no reaproveitamento de conexões e na remoção de parâmetros redundantes.
+### Soft Skills
 
-**Habilidades:** Java, JDBC, Modelagem de Dados, SQL
+Esse semestre consolidou meu papel de **liderança técnica** dentro do time. Por ser o primeiro contato de boa parte da equipe com Java e com um projeto desktop estruturado, precisei criar uma arquitetura que fosse compreensível o suficiente para que todos pudessem contribuir. Isso exigiu **clareza de comunicação**: uma abstração só tem valor se quem vai usá-la consegue entendê-la.
 
-#### Autenticação, sessão e fluxo de aprovação de apontamentos
+Também desenvolvi minha **organização** ao assumir a responsabilidade por componentes centrais do projeto — qualquer bug nessas peças impactava o trabalho de todo mundo. Precisei ser cuidadoso, documentar decisões e estar disponível para explicar o que havia construído. O **trabalho em equipe** aqui ganhou uma dimensão nova: não era só colaborar, era garantir que meu trabalho habilitasse o trabalho dos outros.
 
-Implementei o mecanismo de autenticação e o gerenciamento de sessão do sistema (PR #71), incluindo a tela de login com identidade visual e o protótipo do `ViewManager` para o controle de navegação entre telas conforme o usuário logado. Desenvolvi também a lógica de aprovação e rejeição de apontamentos pelo gestor (PO), com as condições de rejeição, e complementei o trabalho de permissões e configuração de visualização por papel (`ViewConfig`/`Permissions`).
+</details>
 
-**Habilidades:** Autenticação, Controle de Acesso, Java, JavaFX
+---
 
-#### Tela de Relatórios com exportação em CSV
+<details>
+<summary><strong>3º Semestre — api3</strong></summary>
 
-Desenvolvi a tela de extração de relatórios (PR #102), com tabela de pré-visualização dos dados e exportação em CSV. Implementei o `ReportController` e o modelo `Report.java` usando `PropertyValueFactory` para popular a tabela, além de checkboxes de seleção de colunas que alternam os campos exibidos na prévia. Realizei ajustes posteriores na formatação de datas em `ReportIntervalWrapper` e na soma de `TotalHours`.
-
-**Habilidades:** Java, JavaFX
-
-#### Dashboard analítico com gráfico de Volume por Hora do Dia
-
-Criei a estrutura base da tela de Dashboard (PR #124), integrando-a ao gerenciador de views, e desenvolvi a classe utilitária `ChartGenerator.java` para gerar gráficos dinâmicos. Implementei o gráfico de Volume por Hora do Dia com lógica de interseção de intervalos de apontamento em janelas de 24 horas, avaliando três estratégias de comparação e escolhendo a que gerava menor distorção visual. Adicionei também filtros ao Dashboard e ajustes de estilo.
-
-**Habilidades:** Análise de Dados, Java, JavaFX
-
-#### Parametrização de regras de horas e cadastro de Centro de Resultado
-
-Implementei a tela e a lógica de parametrização (PR #104), com o controller `Parametrization.java`, o wrapper `IntervalFeeWrapper` e ajustes em `Expedient.java` (dia de fechamento) e `IntervalFee` (tipo e duração do apontamento), incluindo a criação da tabela de parametrização e a validação de formato de horário. Também entreguei o cadastro de Centro de Resultado e a edição de verbas.
-
-**Habilidades:** Java, JavaFX, Modelagem de Dados
-
-#### Componente genérico reutilizável de busca e seleção (LookupTextField)
-
-Desenvolvi o componente genérico `LookupTextField` (PR #115), uma caixa de pesquisa e seleção reutilizável para padronizar buscas em diferentes telas do sistema, em vez de múltiplas soluções customizadas. Também implementei a tela de Listagem e contribuí na reestruturação do sistema de arquivos do projeto e na atualização do diagrama de entidades.
-
-**Habilidades:** Componentização, Java, JavaFX, UI/UX
-
-#### Reestruturação para o padrão Maven e configuração do módulo JavaFX
-
-Liderei a reorganização completa do sistema de arquivos do projeto (PRs #52 e #84), migrando para o layout convencional do Maven com `pom.xml` e `src/main/java/module-info.java` para configurar dependências externas e a compatibilidade com o JavaFX. Realoquei todo o código Java para `src/main/java/org/openjfx/API2Semestre/` e os FXML para `src/main/resources/`, removi arquivos legados e limpei artefatos de build no `.gitignore`. Essa base garantiu compatibilidade com o NetBeans e um build padronizado para todo o time.
-
-**Habilidades:** Java, JavaFX, Maven, Refatoração
-
-#### Sistema de configuração de telas via tags FXML customizadas
-
-No PR #62 (alto impacto), implementei tags FXML customizadas e específicas do projeto para o gerenciamento da configuração de telas (ViewConfig), criando uma abordagem padronizada para a montagem da interface, e acoplei a ela o tratamento de permissões de visualização por papel. Conduzi também a refatoração de pastas seguindo convenções Java. O trabalho foi reconhecido pelo time como de alta qualidade e serviu de base para as demais telas.
-
-**Habilidades:** Controle de Acesso, FXML, Java, JavaFX, Refatoração
-
-#### Macro reutilizável de células editáveis em tabelas e edição de Verbas
-
-Criei `view.macros.TableMacros.enableEditableCells`, uma macro que torna editável qualquer coluna de qualquer tabela, recebendo parâmetros para validação, atualização de itens e exibição (PR #131). Sobre essa abstração, entreguei a edição de Verbas na tela de Parametrização, e a mesma macro passou a sustentar a edição nas telas de Usuários, Centros de Resultado e Clientes, garantindo consistência e reduzindo duplicação em todo o sistema.
-
-**Habilidades:** Componentização, Java, JavaFX
-
-#### Tela de Listagem e Aprovação com filtros dinâmicos por coluna
-
-No PR #67 (alto impacto, resolvendo seis issues), construí a listagem dinâmica de apontamentos em tabela, com seleção de linhas e filtragem textual por coluna via macros (`AppointmentFilter`, `AppointmentWrapper`), e a tela de Aprovação com checkboxes para aprovar/rejeitar apontamentos e popups de feedback. Refatorei o `buildTable`, corrigi o `collaboratorSelect` na criação de apontamentos e integrei tudo à camada de persistência, atravessando os controllers e os FXML.
-
-**Habilidades:** Componentização, Controle de Acesso, Java, JavaFX
-
-#### Modelagem inicial do domínio de apontamentos
-
-No PR #25 entreguei as classes de modelo fundamentais do domínio: `Appointment.java`, que armazena as informações dos registros de apontamento, e o enum `AppointmentType`, que distingue Hora-Extra e Sobreaviso. Essa estrutura serviu de base para toda a gestão de apontamentos do sistema de controle de horas.
-
-**Habilidades:** Java, Modelagem de Dados
-
-#### Otimização do acesso ao banco com reuso de conexões
-
-No PR #146 (consolidando 25 commits) conduzi melhorias de performance no acesso ao banco, adicionando reuso de conexão em `Appointments.java` e otimizações em `QueryLibs` e `SQLConnector`. Junto disso, corrigi o cálculo de soma de `TotalHours`, acessores do Dashboard e Expedient, a formatação de relatórios e fiz o debugging de diversas telas, além de limpar imports e TODOs obsoletos.
-
-**Habilidades:** Java, JDBC, Refatoração, SQL
-
-## 3º Semestre — api3
+<br/>
 
 ![api3](https://raw.githubusercontent.com/projetoKhali/api3/main/docs/Banners/Api.png)
 
 - **Empresa:** 2RP Net
-- **Repositório:** <https://github.com/projetoKhali/api3>
+- **Repositório:** [projetoKhali/api3](https://github.com/projetoKhali/api3)
 
-Sistema web para controle de horas extras e sobreavisos, evolução web do aplicativo desktop anterior.
+### Missão
 
-Sistema web full stack (React + TypeScript no front-end, Java + Spring no back-end, PostgreSQL e Docker) para controle da jornada de trabalho, identificando e classificando horas extras e sobreavisos. Possui perfis de acesso distintos (administrador, gestor e colaborador), apontamento e aprovação de horas, cadastro de clientes, projetos e centros de resultado, parametrização de verbas, extração de relatórios em CSV e dashboards. Desenvolvido pela equipe Khali em parceria com a 2RP Net.
+Evoluir a solução desktop do semestre anterior para uma aplicação web full stack, mantendo o domínio de apontamentos, aprovação e parametrização de verbas em uma arquitetura mais distribuída.
+
+### Tecnologias Utilizadas
+
+- **React / TypeScript:** Frontend web.
+- **Java / Spring Boot:** Backend REST.
+- **PostgreSQL:** Banco de dados relacional.
+- **Docker / Docker Compose:** Containerização e ambiente.
+- **Swagger:** Documentação da API.
 
 ### Minha participação
 
-Fui, com folga, o contribuidor mais ativo e versátil do api3, com cerca de 366 commits e 32 PRs cobrindo toda a stack (React e TypeScript no front, Java e Spring no back, PostgreSQL e Docker). Estabeleci as fundações do projeto, do scaffolding inicial à dockerização completa, ao `CorsConfig`, à documentação Swagger e às ferramentas de produtividade. No back-end fui o principal responsável pela camada de apontamentos e pelo sistema de permissões; meu trabalho de maior destaque técnico foi o motor de cálculo de horas (`SliceCalculator`) e a persistência engenhosa dos dias da semana das regras de verba como bitmask via `DaysOfWeekConverter`. No front-end criei um arsenal de componentes reutilizáveis (Dropdown, LookUpTextField, células de tabela editáveis, SchemaList), o serviço de menu dinâmico por permissão e várias telas, e liderei a padronização visual. Onde mais me destaquei: na transversalidade, resolvendo algoritmos de negócio e modelagem de banco e, ao mesmo tempo, entregando UI polida e infraestrutura, atuando como o full-stack de referência do time.
+Atuei de forma transversal em toda a stack: dockerizei o projeto, documentei a API com Swagger, implementei o motor de cálculo de fatias (`SliceCalculator`), o sistema de permissões por perfil, a autenticação, telas centrais no frontend e componentes reutilizáveis. Por já conhecer React, fui o ponto de referência do time para a tecnologia durante toda a migração.
 
-### Contribuições
+### Hard Skills
 
-#### Inclusão das entidades iniciais do back-end
+- **React / TypeScript:** Sei fazer com autonomia.
+- **Spring Boot:** Sei fazer com autonomia.
+- **PostgreSQL:** Sei fazer com autonomia.
+- **Docker:** Sei fazer com autonomia.
+- **Swagger:** Sei fazer com autonomia.
 
-Modelei e implementei as entidades iniciais do domínio em Java, estabelecendo a base do back-end. Criei as classes `User` e `UserType`, `Appointment` com os enums `AppointmentStatus` e `AppointmentType`, `Client` e `PayRateRule` (regras de verba), além de restrições de unicidade na entidade `User`. Esse conjunto de entidades serviu de fundação para os repositórios, serviços e controllers desenvolvidos ao longo das sprints.
+### Soft Skills
 
-**Habilidades:** Java, Modelagem de Dados, PostgreSQL, Spring
+A migração do desktop para a web foi um momento de **transferência de conhecimento** intensa. React e TypeScript eram tecnologias que eu já conhecia, mas eram novidade para o restante do time. Precisei explicar conceitos, revisar código, mostrar padrões e, principalmente, fazer isso sem criar dependência — o objetivo era que o time aprendesse, não que o time me pedisse ajuda para sempre.
 
-#### Dockerização do projeto
+Isso desenvolveu minha **didática**: é diferente saber fazer algo e conseguir explicar da forma certa para cada pessoa. Também exercitei minha **adaptabilidade**: Spring Boot era novo para mim, então ao mesmo tempo em que ensinava o que sabia, aprendia o que não sabia ainda. O semestre fortaleceu minha capacidade de **colaboração** em ambos os sentidos — como quem ensina e como quem aprende.
 
-Estruturei todo o ambiente de execução conteinerizado do projeto. Criei os `Dockerfile` do back-end e do front-end, o `docker-compose.yml` orquestrando os containers de API, front-end e banco de dados PostgreSQL (com política de auto restart da API), e configurei o `application.properties` para o ambiente Docker. Adicionei ainda scripts de execução para Unix e Windows, um Makefile, o script `pgconnect.sh` e arquivos `.env.schema`, padronizando a inicialização do ambiente para toda a equipe.
+</details>
 
-**Habilidades:** Bash, Batch, Docker, Docker Compose, Makefile, PostgreSQL
+---
 
-#### Sistema de permissões de acesso às telas
+<details>
+<summary><strong>4º Semestre — api4</strong></summary>
 
-Implementei o sistema de controle de acesso baseado em perfis (administrador, gestor e colaborador), abrangendo back-end e front-end. No back-end criei a entidade `Permission` e a rota `/{id}/permissions` no `UserController`. No front-end desenvolvi o serviço `Access`, com a função `getUserSideMenuItems` que gera dinamicamente os itens do menu lateral conforme as permissões. Configurei também o `CorsConfig` com os `allowedOrigins` corretos para viabilizar a comunicação entre front e back.
-
-**Habilidades:** Controle de Acesso, Java, React, Spring, TypeScript
-
-#### Tela de Apontamentos
-
-Desenvolvi a tela de apontamentos de horas extras e sobreaviso no front-end React/TypeScript. Criei o schema `Appointment`, o `AppointmentService` para consumo da API, o componente `AppointmentForm` e a página `Appointments`, integrando-os à rota `/appointments`. Implementei validação no `handleSubmit`, tratamento de erros via `errorCallback`, conversão de campos de texto para dropdowns e correções de bugs como recarregamento de página em submit inválido e loop contínuo de `useEffect`.
-
-**Habilidades:** React, REST, TypeScript
-
-#### Back-end e tela de Clientes
-
-Implementei a funcionalidade completa de cadastro de clientes, de ponta a ponta. No back-end criei o `ClientController` com seus endpoints REST. No front-end desenvolvi o `ClientService`, o schema `Client`, o componente `ClientForm` e a página `Clients`, mapeada à rota `/clients`. Também ajustei campos das entidades, como a inclusão de `insertDate` e `expireDate` no `Client`.
-
-**Habilidades:** Java, React, REST, Spring, TypeScript
-
-#### Componente personalizado de Dropdown
-
-Desenvolvi um componente `Dropdown` reutilizável em React/TypeScript, usado em diversos formulários do sistema, como o de apontamentos. Defini a tipagem das `DropdownProps` (incluindo placeholder), implementei o comportamento de fechar o dropdown após a seleção, adicionei o ícone caret-down e apliquei estilização CSS dedicada. O componente substituiu campos de texto por seleção controlada em vários formulários.
-
-**Habilidades:** Componentização, CSS, React, TypeScript, UI/UX
-
-#### Componente de LookUpTextField
-
-Criei o componente `LookUpTextField` em React/TypeScript, um campo de texto com funcionalidade de busca/lookup para seleção assistida de valores em formulários. Desenvolvi o componente e apliquei estilização CSS própria, integrando-o aos formulários do sistema em que era necessário selecionar um valor existente entre muitos disponíveis.
-
-**Habilidades:** Componentização, CSS, React, TypeScript, UI/UX
-
-#### Componentes de Célula de Tabela Editável e de Botão
-
-Desenvolvi componentes reutilizáveis de célula de tabela para o front-end. Criei o `EditableTableCell`, célula que permite edição inline de valores (populando o input com o valor atual ao iniciar a edição), e o `ButtonTableCell`, célula que renderiza um botão de ação. Realizei refatorações de nomenclatura, padronizando os componentes como `EditableTableColumn` e `ButtonTableColumn`, e os integrei às páginas do sistema.
-
-**Habilidades:** Componentização, React, TypeScript, UI/UX
-
-#### Fluxo de inclusão de usuários à ResultCenter
-
-Implementei o fluxo de associação de usuários (membros) aos Centros de Resultado (`ResultCenter`), abrangendo back-end e front-end. No back-end criei o `MemberController`, a função `findByUserType` no `UserRepository` e `getResultCentersOfUser` no `ResultCenterController`. No front-end desenvolvi o `MemberService`, o `MemberSchema` e o componente `SchemaList`, permitindo buscar usuários por tipo e vinculá-los ao centro de resultado durante sua criação.
-
-**Habilidades:** Java, React, REST, Spring, TypeScript
-
-#### Motor de cálculo de fatias para relatórios de horas
-
-Desenvolvi o motor que segmenta os apontamentos em fatias (slices) para a extração de relatórios e a aplicação das regras de verba. No back-end criei as classes `Slice`, `SliceCalculator`, `SliceService` e `SliceController`, a utilitária `Pair` e o conceito de `Week`, além de funções como `getShiftTimeRange` e `IntegratedPayRateRule` no `PayRateRuleService`. No front-end criei o `SliceSchema` e o `SliceService`. Esse fluxo viabilizou o cálculo correto de horas extras e sobreaviso considerando turnos e percentuais.
-
-**Habilidades:** Java, React, Spring, TypeScript
-
-#### Parametrização de regras de verba (PayRateRule)
-
-Implementei a tela e a integração de parametrização das regras de verba. No front-end desenvolvi funções no `PayRateRulesService` (`postPayRateRules`, `validatePayRateRules`), inicializei a página `Parametrization` com os parâmetros carregados e adicionei o campo `daysOfWeek` ao schema. No back-end criei o conversor `DaysOfWeekConverter`, a entidade `Expedient`, a configuração `JpaConfig` e a função `findDefault` no repositório.
-
-**Habilidades:** Java, JPA, React, Spring, TypeScript
-
-#### Cadastro de usuários e autenticação (Login)
-
-Implementei o cadastro de usuários e o fluxo de login. No back-end criei o `UserController` com seus endpoints, movi `getUsers` para o `UserService` e configurei a documentação da API com SpringFox/Swagger. No front-end criei a página `Login`, adicionei a função `requestLogin` ao `UserService`, a interface `UserData` e ajustes na página de usuários, incluindo ocultar a senha no input.
-
-**Habilidades:** Autenticação, Java, React, Spring, Swagger, TypeScript
-
-#### Padronização visual e estilização do sistema
-
-Liderei a frente de padronização visual do front-end. Padronizei a paleta de cores, organizei os arquivos CSS em um diretório `/styles` dedicado, criei estilos para páginas e componentes (login, popup, menu lateral colapsável, formulários genéricos, `AppointmentForm`, `Dropdown` e `LookUpTextField`), integrei a biblioteca de ícones boxicons, adicionei o logotipo Khali à tela de login e ajustei espaçamentos e tamanhos dos componentes.
-
-**Habilidades:** CSS, React, TypeScript, UI/UX
-
-#### Documentação interativa da API com Swagger (SpringFox)
-
-Integrei o SpringFox ao back-end Spring Boot para gerar documentação interativa da API, adicionando as dependências `springfox-boot-starter`/`springfox-swagger2` ao `pom.xml` e criando a classe `SpringFoxConfig` (PR #68). Isso disponibilizou uma Swagger UI navegável documentando automaticamente todos os endpoints REST (apontamentos, usuários, clientes, centros de resultado, parametrização), facilitando o consumo pelo front-end e os testes manuais.
-
-**Habilidades:** Java, REST, Spring, Swagger
-
-#### Componente genérico de lista editável de itens (SchemaList)
-
-Criei o componente reutilizável `SchemaList` em React+TypeScript, usado para gerenciar coleções dinâmicas de itens dentro de formulários (por exemplo, a lista de membros ao criar um Centro de Resultado). O componente abstrai a adição, exibição e remoção de itens tipados por schema, padronizando o tratamento de listas dinâmicas e servindo de base para fluxos de cadastro com múltiplas entradas.
-
-**Habilidades:** Componentização, React, TypeScript, UI/UX
-
-#### Back-end de Apontamentos: serviço, repositório e filtros
-
-Desenvolvi a camada de back-end dos apontamentos: o `AppointmentService` (insert, get, getById, update) e o `AppointmentRepository` com queries nativas para filtrar por usuário, data e intervalo de tempo, além de `updateStatusAppointment` e `findByActive`/`findByInactive`. Tratei detalhes de mapeamento ORM (`insertDate`/`expireDate`, `@Transient` no campo `status`, função `copy`) e a validação no `AppointmentController`.
-
-**Habilidades:** Java, JPA, REST, Spring, SQL
-
-## 4º Semestre — api4
+<br/>
 
 ![api4](https://github.com/projetoKhali/api4/assets/108769169/ecda074a-ef3f-4ca5-9cf0-d4b559bcbec5)
 
 - **Empresa:** Oracle
-- **Repositório:** <https://github.com/projetoKhali/api4>
+- **Repositório:** [projetoKhali/api4](https://github.com/projetoKhali/api4)
 
-Plataforma de analytics para consultores de alianças acompanharem parceiros e produtos no ecossistema Oracle.
+### Missão
 
-Plataforma web de analytics desenvolvida para a Oracle. Oferece a consultores de aliança dashboards individuais e comparativos para monitorar a evolução de parceiros em trilhas, expertises e qualificações, além de métricas de desempenho de produtos por região. Inclui cadastro de parceiros e usuários, relatórios filtráveis com exportação em CSV e visualização de dados. Front-end em Vue 3 + TypeScript e back-end em Java/Spring com PostgreSQL, orquestrados via Docker.
+Construir uma plataforma de analytics para acompanhamento de parceiros, trilhas, expertises, qualificações e indicadores de produtos, com relatórios e visualizações filtráveis.
+
+### Tecnologias Utilizadas
+
+- **Vue 3 / TypeScript:** Frontend web.
+- **Java / Spring Boot:** Backend REST.
+- **PostgreSQL:** Banco de dados relacional.
+- **Docker:** Containerização.
+- **ESLint / Prettier:** Padronização de código.
 
 ### Minha participação
 
-Como Scrum Master da equipe no quarto semestre, fui de longe o desenvolvedor mais prolífico do projeto Oracle, com volume muito superior ao dos demais nos dois repositórios de código (api4back e api4front) e conduzindo a integração no repositório-umbrella. Atuei como arquiteto transversal: no front Vue/TypeScript construí praticamente toda a biblioteca de componentes genéricos (Table, Form/FormPopup, Filter, NotificationPopup), o roteamento, a camada de serviços tipada e paginada, a geração de relatórios CSV e o dashboard comparativo de parceiros; no back Java/Spring entreguei validação, paginação determinística de endpoints e modelagem e seeds do PostgreSQL. Meu trabalho mais singular foi a fundação técnica e o ferramental: ESLint e Prettier e padronização de estilo nos dois repositórios, setup do monorepo com `concurrently` e submódulos, e os templates de PR e issue que organizaram o processo. Onde mais me destaquei: na criação de abstrações reutilizáveis no front e na garantia de qualidade e consistência transversal, combinando a liderança de processo com a execução técnica principal.
+Atuei como Scrum Master e como desenvolvedor central do projeto. No front-end Vue construí a maior parte da biblioteca de componentes (`Table`, `Form`, `Filter`, `NotificationPopup`), o roteamento com submenus recursivos e a camada de serviços tipada e paginada. No back-end entreguei paginação, validações e modelagem do banco. Também estabeleci o tooling de qualidade e o setup do monorepo.
 
-### Contribuições
+### Hard Skills
 
-#### Scrum Master e arquitetura do monorepo e da infraestrutura Docker/PostgreSQL
+- **Vue 3 / TypeScript:** Sei fazer com autonomia.
+- **Spring Boot:** Sei fazer com autonomia.
+- **Scrum Master:** Sei fazer com autonomia.
+- **ESLint / Prettier:** Sei fazer com autonomia.
 
-Como Scrum Master da equipe Khali, liderei a organização técnica do projeto, estruturado em três repositórios (umbrella `api4`, `api4back` e `api4front` via submódulos). Configurei a execução integrada do monorepo com o pacote `concurrently`, criei os templates de pull request e de issue e padronizei o fluxo de contribuição. No back-end, montei toda a infraestrutura de banco de dados em container, criando o `docker-compose` do PostgreSQL e configurando o `application.properties` com as variáveis de conexão, além de ajustar o `pom.xml` do projeto Spring.
+### Soft Skills
 
-**Habilidades:** Docker, Git, Java, PostgreSQL, Scrum, Spring, Vue
+Exercer o papel de Scrum Master foi o maior aprendizado desse semestre. Além de continuar desenvolvendo, precisei acompanhar o progresso de todos os integrantes, identificar quem estava travado e intervir antes que o problema atrasasse a sprint. Isso exigiu **atenção e escuta ativa**: perceber quando alguém estava com dificuldade às vezes significava ler entre as linhas, não esperar que a pessoa pedisse ajuda.
 
-#### Modelagem e seeds do banco de dados PostgreSQL
+Também precisei desenvolver minha **organização de processos**: garantir que as histórias estivessem bem definidas antes da sprint começar, que os critérios de aceitação fossem claros e que o time soubesse o que precisava entregar. A **responsabilidade** de coordenar entregas para um cliente real como a Oracle aumentou minha maturidade em relação a prazos e qualidade. Aprendi que liderar tecnicamente e liderar um processo são habilidades distintas — e que a segunda é, em muitos aspectos, mais difícil.
 
-Trabalhei diretamente na camada de banco de dados do back-end, escrevendo e corrigindo os scripts DDL (`postgres_version`), de seeds (`postgres_seeds`) e de limpeza (`postgres_drop_all`). Adicionei a constraint UNIQUE em `usr_login` na tabela Users, corrigi chaves primárias da tabela Expertise, ajustei colunas da tabela Track e apliquei constraints de unicidade. Criei seeds com dados oficiais para Track, Expertise e Users, usando `ON CONFLICT DO NOTHING` para evitar erros na carga.
+</details>
 
-**Habilidades:** Modelagem de Dados, PostgreSQL, SQL
+---
 
-#### Endpoints, paginação e validação no back-end Java/Spring
+<details>
+<summary><strong>5º Semestre — api5</strong></summary>
 
-No back-end Spring, implementei paginação em endpoints de relatórios e métricas (`allPartnerReports`, `allPartnerMetrics`), inclusive adicionando uma coluna `id` dedicada via `row_number` para ordenação estável. Criei a classe `Validation` com as funções `validatePartner` e `validateUser`, integrando-as às rotinas de `saveAndUpdatePartner` e `saveAndUpdateUser` para validação de dados em requisições POST. Também realizei refatorações de legibilidade.
-
-**Habilidades:** Java, Paginação, REST, Spring
-
-#### Biblioteca de componentes Vue: Table, Form, Popup e Filter
-
-No front-end Vue 3 + TypeScript, construí boa parte da biblioteca de componentes reutilizáveis. Desenvolvi o componente `Table` (incluindo células-botão com roteamento e atualização manual de dados), os componentes de formulário `Form` e `FormPopup`, agrupei os componentes de `Popup` e criei o tipo `PopupProps`, além do componente `Filter`. Apliquei tipagem genérica em inputs e centralizei a responsabilidade de notificação na função `openNotifPopup` das views.
-
-**Habilidades:** Componentização, TypeScript, Vue
-
-#### Roteamento, NavBar recursiva e geração de relatórios CSV
-
-Implementei o sistema de roteamento de páginas e o componente `NavBar`, evoluindo-o para rotas aninhadas com submenus por meio do componente `RecursiveRouterLink`. Implementei a geração e o download de relatórios em CSV para Partner, criando as funções genérica `downloadCSV` e específica `downloadPartnerCSV` (usando papaparse e file-saver). Também criei utilitários como `removeSpecialCharacters` e `getDisplayName` e configurei as regras de estilo de código (ESLint + Prettier) do front-end.
-
-**Habilidades:** TypeScript, Vue
-
-#### Camada de serviços tipada e paginada do front-end (classe Page)
-
-Estabeleci o padrão da camada de serviços do front criando o `UserService` com os schemas `UserSchema`/`UserPatchSchema` e mapeadores de resposta (PR #39); depois criei a classe `Page` definindo o contrato de respostas paginadas e adaptei `getPartners`/`getUsers` para receber `page` e `size`, refatorando `ListPartner`/`ListUser` para consumir os serviços (em vez de `fetch` direto) e usar os metadados de paginação (PR #76).
-
-**Habilidades:** Paginação, Refatoração, TypeScript, Vue
-
-#### Componente NotificationPopup e feedback centralizado de operações
-
-Criei o componente reutilizável `NotificationPopup`, que exibe mensagens de sucesso/erro com fechamento automático, e a função centralizada `openNotificationPopup` com duração configurável (PR #107). Integrei o feedback às views de listagem e exportação, refatorando as chamadas de serviço para `try/catch` com `async/await` e exibindo as mensagens de erro vindas das respostas da API.
-
-**Habilidades:** Componentização, TypeScript, UI/UX, Vue
-
-#### Dashboard comparativo de parceiros com gráficos empilhados
-
-Desenvolvi a view `ComparativePartner` e o componente `StackedBarChartByTracks` para comparar métricas de parceiros por trilhas, com filtro por nome parcial, paginação e seleção via `CheckBoxTableCell`. Migrei `getPartnerMetrics` de GET para POST, corrigi o loop infinito de `getPageData` e padronizei nomes de classes CSS, funções e schemas para consistência.
-
-**Habilidades:** Análise de Dados, Componentização, TypeScript, Vue
-
-#### Paginação do endpoint de métricas de parceiros (PartnerMetrics)
-
-Adicionei paginação à rota de métricas de parceiros, convertendo o endpoint de GET para POST para receber os parâmetros via um novo schema `PartnerMetricsRequest`, e corrigi nomes de campos da entidade `PartnerMetrics` (PR #63). A mudança alinhou o contrato de métricas ao mesmo padrão paginado já adotado nos demais endpoints.
-
-**Habilidades:** Java, Paginação, REST, Spring
-
-#### Configuração de ESLint/Prettier e padronização de estilo de código
-
-Configurei o tooling de estilo do front-end (ESLint + Prettier), criando os arquivos de configuração e os scripts (incluindo `lint:fix`), e apliquei as regras à base existente (PR #14). Depois liderei a padronização de estilo também no back-end (PR #78), incluindo regra de `switch case` no ESLint e lint de markdown, alinhando os dois repositórios do projeto.
-
-**Habilidades:** DevOps, ESLint, Prettier, TypeScript
-
-## 5º Semestre — api5
+<br/>
 
 ![api5](https://github.com/user-attachments/assets/94aecab2-e751-4ab4-a2a8-1a6589b4eb01)
 
 - **Empresa:** Pro4tech
-- **Repositório:** <https://github.com/projetoKhali/api5>
+- **Repositório:** [projetoKhali/api5](https://github.com/projetoKhali/api5)
 
-Dashboard interativo de inteligência em recrutamento e seleção para decisões estratégicas de contratação.
+### Missão
 
-Plataforma de otimização de recrutamento e seleção desenvolvida para a Pro4tech. Centraliza e visualiza dados fragmentados dos processos seletivos em um dashboard interativo, com métricas em tempo real (tempo médio de contratação, status de vagas, processos em andamento), filtros personalizados, extração de relatórios e gestão de usuários com grupos de acesso. Arquitetura em três serviços: back-end em Go, front-end em TypeScript e microsserviço de previsão em Python.
+Centralizar e visualizar dados de recrutamento e seleção em um dashboard interativo, apoiando decisões estratégicas com métricas, filtros, relatórios e gestão de acesso.
+
+### Tecnologias Utilizadas
+
+- **Go:** Backend e data warehouse.
+- **React Native / TypeScript:** Frontend mobile.
+- **PostgreSQL:** Banco de dados e data warehouse.
+- **Docker / CI/CD:** Infraestrutura e automação.
+- **Jest:** Testes de frontend.
 
 ### Minha participação
 
-No quinto semestre fui o principal engenheiro de back-end e de dados do projeto Pro4tech, de longe o contribuidor de maior volume (24 PRs no api5back, 16 no api5front e 6 no monorepo). Meu trabalho de maior peso concentrou-se no back-end Go e no data warehouse: modelei e evoluí as entidades dimensionais (criação e renomeação de `DimCandidate` e a introdução de `db_id`), desenhei as queries analíticas do dashboard e as funções de agregação, e estruturei os endpoints de sugestões com paginação reutilizável. Destaquei-me na engenharia de qualidade e infraestrutura, sendo responsável pela suíte de testes de integração com containers de banco, pela automação de Swagger, pelos scripts de seeds e ETL e pela configuração de ambiente (SSLMODE, CORS e URL da API) que viabilizou o deploy. No front-end TypeScript/React Native tive papel relevante porém mais secundário, focado em peças de fundação (MultiSelectFilter, camada de serviços, setup do projeto e testes com Jest). Em todos os repositórios fui o autor do setup do monorepo, dos git hooks e da padronização de commits. Onde mais brilhei: na modelagem e nas consultas do data warehouse em Go e na infraestrutura que sustentou o projeto.
+Concentrei minha atuação no back-end e na modelagem dimensional do data warehouse, nas consultas analíticas do dashboard, nos testes de integração com containers dedicados e na infraestrutura do monorepo. Convenci o time a adotar Go como linguagem do back-end e atuei como referência técnica para a equipe durante toda a transição.
 
-### Contribuições
+### Hard Skills
 
-#### Modelagem do data warehouse e entidades do back-end em Go com Ent ORM
+- **Go:** Sei fazer com autonomia.
+- **PostgreSQL / ETL:** Sei fazer com autonomia.
+- **Docker / CI/CD:** Sei fazer com autonomia.
+- **Testes de integração:** Sei fazer com autonomia.
 
-No repositório `api5back`, modelei e implementei as entidades do data warehouse de recrutamento utilizando o Ent ORM em Go, criando estruturas como `HiringProcessCandidate`, `DimCandidateStatus`, `DimProcess` e `DimVacancy`. Adicionei identificadores únicos (`db_id`) às entidades do DW (PR #54), padronizei o esquema de candidatos (PR #67) e renomeei `GroupAccess` para `AccessGroup` em todo o código. Também construí a função `VacancyStatusSummary` (PR #22), base para os gráficos do dashboard.
+### Soft Skills
 
-**Habilidades:** Ent ORM, Go, Modelagem de Dados, PostgreSQL
+A decisão de usar Go foi uma que eu propus ao time e precisei defender com argumentos concretos. Desenvolvi minha **capacidade de persuasão técnica**: não é suficiente estar convicto de que algo é melhor — é preciso construir o caso com clareza, entender as preocupações dos colegas e dar espaço para que a decisão seja coletiva. O time topou, e isso trouxe uma responsabilidade adicional: eu precisava garantir que essa escolha não prejudicaria ninguém.
 
-#### Endpoint de dashboard e consultas analíticas do processo seletivo
+Isso me levou a investir mais em **compartilhamento de conhecimento**: workshops informais, revisões de PR mais detalhadas, disponibilidade para tirar dúvidas. À medida que o projeto avançava e o time ganhava confiança com Go, percebi que essa mentoria foi diminuindo naturalmente — o que era exatamente o objetivo. Esse processo me ensinou que **transferir conhecimento bem** significa tornar a si mesmo progressivamente dispensável, e que isso é um sucesso, não uma perda.
 
-Desenvolvi o endpoint do dashboard de processo seletivo (PR #32) no `api5back`, responsável por agregar as métricas exibidas na aplicação, incluindo o cálculo de tempo médio de contratação. Implementei a lógica de filtros das consultas (`applyFactHiringProcessQueryFilters`), com verificação de nulidade de `DepartmentIds`, e otimizei as queries com `DISTINCT ON` por `db_id` para retornar os estados mais recentes das entidades.
+</details>
 
-**Habilidades:** Análise de Dados, Go, SQL
+---
 
-#### Endpoints de sugestões com paginação reutilizável
+<details>
+<summary><strong>6º Semestre — api6</strong></summary>
 
-No `api5back`, criei os endpoints de `/suggestions` com paginação (PR #73). Extraí a lógica de paginação para um módulo dedicado (`ParsePageRequest`, `ParseOffsetAndTotalPages`), padronizei os nomes das funções do serviço de sugestões e adicionei os tratamentos de nulidade necessários. No front-end, garanti a compatibilidade do cliente com a paginação dos endpoints de sugestões (PR #86).
-
-**Habilidades:** Go, Paginação
-
-#### Suíte de testes de integração com containers de banco dedicados
-
-Estruturei a estratégia de testes do back-end em Go, criando testes de integração que executam um container de banco de dados dedicado (PR #20) e compartilham um único container entre múltiplos testes (PR #23) para reduzir o tempo de execução. Escrevi testes unitários de paginação, de propriedades e dos serviços de sugestões, consolidando a confiabilidade da camada de dados.
-
-**Habilidades:** Docker, Go, Testes de Integração, Testes Unitários
-
-#### Scripts de seeds e ETL do data warehouse
-
-No `api5back`, implementei os scripts de seeds do data warehouse (PRs #24, #47, #65), refatorando os dados de `dw_base` em constantes públicas reutilizáveis, de-duplicando nomes de vagas e definindo o banco-alvo via `SeedsPreset`. Criei o script `drop-all` para reset do ambiente e corrigi a planilha do ETL quanto a status de candidatos inválidos, além de mensagens de erro mais informativas.
-
-**Habilidades:** ETL, Go, Modelagem de Dados
-
-#### Pipeline de CI e configuração de ambiente do back-end
-
-Criei o workflow de CI do `api5back` e ajustei o branch-alvo do deploy automático. Adicionei a leitura de `SSLMODE` a partir de variáveis de ambiente, restaurei a configuração de CORS no `main`, incluí a dependência `gin-metrics` para métricas, ajustei o build tag de produção no Makefile e gerei a documentação Swagger dos endpoints, integrando os comandos do Swag à rotina de desenvolvimento.
-
-**Habilidades:** CI/CD, GitHub Actions, Go, Swagger
-
-#### Filtros e integração com a API no front-end em TypeScript
-
-No `api5front`, implementei os filtros de status do dashboard, o componente de multi-seleção (com botões de limpar lista e limpar filtros) e a aplicação automática dos filtros ao alterar valores. Refatorei a camada de serviços para consumir a URL da API via variável de ambiente, criei o tipo `Method` no serviço base para suportar métodos além de POST e corrigi a navegação para o dashboard no login.
-
-**Habilidades:** Componentização, TypeScript
-
-#### Configuração do monorepo e padronização de commits e hooks
-
-No repositório umbrella `api5`, estruturei o monorepo com submódulos Git para back-end e front-end e criei comandos de orquestração no `package.json`. Configurei os git hooks com Husky para garantir estilo de código, execução de testes e mensagens de commit semânticas, corrigindo a sintaxe da chamada de testes no hook `pre-commit` e permitindo mensagens padrão de merge no hook `commit-msg`.
-
-**Habilidades:** Git, Husky
-
-#### Configuração de SSL e ambiente para conexão de banco em produção
-
-Implementei a leitura do parâmetro `SSLMODE` a partir de variáveis de ambiente na camada de conexão do back-end Go (PR #72), permitindo conexão segura ao banco gerenciado em produção sem hardcode. A mudança parametriza o modo SSL/TLS por ambiente (desenvolvimento, homologação e produção), viabilizando o deploy real do serviço contra o PostgreSQL de produção.
-
-**Habilidades:** DevOps, Go, PostgreSQL
-
-#### Testes unitários do módulo property e do enum DimCandidateStatus
-
-Criei testes unitários para o módulo `property`, incluindo a cobertura do enum `DimCandidateStatus`, e refatorei as estruturas de casos de teste para um arquivo dedicado dentro do módulo (PR #84), ampliando a cobertura para além dos testes de integração com containers de banco.
-
-**Habilidades:** Go, Refatoração, Testes Unitários
-
-#### Camada de serviços HTTP do front-end com método parametrizável
-
-Refatorei a camada base de serviços do front-end introduzindo um tipo `Method` para permitir verbos HTTP além de POST e um utilitário `processRequest` para padronizar as chamadas à API, incluindo o serviço de Login (PRs #95 e #86). Corrigi imports de schemas de `Suggestion`, ajustei a versão da API em URLs de template e renomeei `GroupAccess` para `AccessGroup` por clareza semântica.
-
-**Habilidades:** React Native, Refatoração, REST, TypeScript
-
-#### Infraestrutura de testes Jest no front-end
-
-Configurei a infraestrutura de testes do front-end (PR #85): corrigi o comando de teste, atualizei o `tsconfig` para reconhecer o diretório `__tests__`, configurei o Jest com arquivos de configuração dedicados em vez de comandos inline e refinei os comandos de watch, preparando o projeto para o desenvolvimento de testes.
-
-**Habilidades:** DevOps, Jest, TypeScript
-
-#### Setup inicial do front-end com Expo/React Native e git hooks
-
-Realizei o setup inicial do front-end com projeto Expo/React Native e roteamento via `expo-router` (PR #6), e configurei a rotina de qualidade com Husky e lint-staged: hook de pre-commit para formatação e testes, hook de commit-msg para commits semânticos e script de postinstall para inicializar os hooks.
-
-**Habilidades:** Expo, Husky, React Native, TypeScript
-
-## 6º Semestre — api6
+<br/>
 
 ![api6](https://github.com/user-attachments/assets/d0217c10-db11-470b-a029-f8b664cf4cd2)
 
 - **Empresa:** Kersys
-- **Repositório:** <https://github.com/projetoKhali/api6>
+- **Repositório:** [projetoKhali/api6](https://github.com/projetoKhali/api6)
 
-Sistema inteligente de planejamento e monitoramento de reflorestamento (SIPMR).
+### Missão
 
-Plataforma web (SIPMR) desenvolvida para a Kersys que monitora e gerencia plantios para otimizar a recuperação ambiental. Reúne dashboards de métricas e produtividade, gestão de eventos de plantio, simulador de cenários e previsões com machine learning, geração de relatórios e gestão de usuários com autenticação. Arquitetura em monorepo Nx com front-end React/TypeScript, API em Python/Flask, serviço de autenticação em Rust/Actix-web e bancos PostgreSQL e MongoDB.
+Desenvolver uma plataforma para monitorar e planejar reflorestamento, com dashboards, simulador de cenários, previsões com machine learning e gestão de usuários.
+
+### Tecnologias Utilizadas
+
+- **React / TypeScript:** Frontend web.
+- **Python / Flask:** API principal.
+- **Rust / Actix Web:** Microsserviço de autenticação.
+- **PostgreSQL / MongoDB:** Persistência relacional e documental.
+- **Nx:** Orquestrador de monorepo.
+- **Docker / CI/CD:** Containerização e automação.
 
 ### Minha participação
 
-Atuando como Product Owner da equipe no semestre final, fui também o contribuidor tecnicamente mais abrangente do projeto SIPMR (Kersys), presente em todas as camadas ao longo de mais de 500 commits e 18 PRs. Fui o principal responsável pelo serviço de autenticação em Rust/Actix-web (JWT, validação, criptografia Fernet de campos sensíveis, tratamento de erros, configuração e logging), pela modelagem dos bancos PostgreSQL e MongoDB (entidades SeaORM, chaves, clientes externos e tokens revogados) e pelos seeds com criptografia de credenciais. Na API Python/Flask modelei o domínio de produtividade com Pydantic e MongoDB e criei o middleware de autenticação; no front React entreguei componentes reutilizáveis, páginas de cadastro e gestão de usuários e a camada de serviços/AuthService. Fui ainda o arquiteto da infraestrutura: o monorepo Nx com Poetry, o pipeline de CI e a containerização Docker. Meu trabalho mais singular foi o fluxo completo de clientes externos e portabilidade de dados, que exigiu integrar Rust, banco e segurança. Onde mais me destaquei: na amplitude e na cola entre camadas, na arquitetura de autenticação e segurança, na modelagem de dados e no tooling do monorepo.
+Atuei como Product Owner do semestre final, papel que exigiu de mim mais do que qualquer outro ao longo do curso. Tecnicamente, fui responsável pelo serviço de autenticação em Rust (JWT, criptografia Fernet, revogação de tokens, middleware, logging), pela modelagem dos bancos PostgreSQL e MongoDB, pela infraestrutura do monorepo Nx, pelo pipeline de CI/CD e pela containerização de todos os serviços. Também contribuí na API Python/Flask e no frontend React, estando presente em todas as camadas do sistema.
 
-### Contribuições
+A iniciativa de usar o Nx como orquestrador de monorepo partiu de mim desde o início: foi uma decisão arquitetural que permitiu separar bem os microsserviços enquanto mantinha o repositório gerenciável. E a inclusão de Rust no projeto foi algo que planejei desde que entrei na FATEC — vi nesse semestre a oportunidade perfeita para aplicá-lo em uma parte isolada e bem delimitada do sistema, e trouxe isso para o time como proposta, que foi aceita.
 
-#### Serviço de autenticação em Rust/Actix-web com JWT
+### Hard Skills
 
-Concebi e implementei do zero o app `auth`, um microsserviço de autenticação em Rust com o framework Actix-web (PRs #64 e #70). O serviço oferece login por credenciais, geração e validação de tokens JWT com assinatura criptográfica, revogação de tokens via tabela `revoked_tokens` no PostgreSQL, middleware de proteção de rotas e documentação OpenAPI/Swagger. Também o integrei ao restante do sistema com entry point Docker, retorno de permissões no login e correções de segurança como impedir o login de usuário inativo.
+- **Rust / Actix Web:** Sei fazer com autonomia.
+- **Flask / Python:** Sei fazer com autonomia.
+- **React / TypeScript:** Sei fazer com autonomia.
+- **PostgreSQL / MongoDB:** Sei fazer com autonomia.
+- **Nx (monorepo):** Sei fazer com autonomia.
+- **Docker / CI/CD:** Sei fazer com autonomia.
+- **Arquitetura de sistemas:** Sei fazer com autonomia.
 
-**Habilidades:** Actix-web, Autenticação, Docker, JWT, PostgreSQL, Rust
+### Soft Skills
 
-#### Autenticação de clientes externos e portabilidade de dados
+O semestre mais desafiador do curso foi também o que mais me ensinou sobre mim mesmo — especialmente sobre os limites que ainda tenho.
 
-Projetei e implementei todo o fluxo de clientes externos e portabilidade de dados (PR #117). Modelei a tabela `external_clients` e refatorei `user_key` para suportar chaves criptográficas de múltiplas entidades, com campo `entity_type` e restrição de unicidade. Implementei o CRUD e a autenticação de clientes externos, ampliei o JWT para suportar dupla entidade e construí o fluxo de portabilidade em três etapas (botão, tela de autorização com geração de token, e troca do token por dados). Entreguei ainda um app de exemplo simulando o cliente externo.
+Fui escolhido como Product Owner porque a equipe e os professores avaliaram que meu conhecimento técnico seria uma vantagem para traduzir a linguagem dos desenvolvedores para o cliente e vice-versa. Essa lógica faz sentido no papel: um PO que entende o que está sendo construído consegue negociar escopo com mais precisão e articular requisitos com mais clareza. Na prática, essa **ponte entre mundos técnico e de negócio** funcionou bem — eu conseguia explicar para o cliente Kersys por que determinada funcionalidade era complexa, ou defender para o time por que a demanda do cliente era legítima.
 
-**Habilidades:** JWT, Modelagem de Dados, PostgreSQL, Rust
+Mas o papel de PO vai muito além disso, e eu precisei encarar minhas limitações com **honestidade**. As responsabilidades do dia a dia do Product Owner — acompanhar o backlog, organizar as reuniões de refinamento, manter a comunicação constante com o cliente e priorizar histórias — eram tarefas que consumiam tempo de uma forma que eu não estava acostumado. Sou, por natureza, uma pessoa de execução técnica: prefiro resolver um problema no código do que gerenciar o processo de decidir qual problema resolver. Reconhecer isso foi necessário, e buscar ajuda foi a decisão certa.
 
-#### Infraestrutura de CI/CD, monorepo Nx e tooling de testes
+Foi aqui que a **colaboração** com Marcos Malaquias, um dos integrantes do time, fez toda a diferença. Marcos tinha uma habilidade natural para as responsabilidades processuais do papel de PO que eu não tinha. Dividimos o trabalho de forma complementar: eu trazia a visão técnica nas interações com o cliente e nas decisões de escopo, e Marcos sustentava o processo do dia a dia, as cerimônias e a organização do backlog. Não foi uma divisão planejada desde o começo — emergiu da necessidade e da **confiança mútua** que construímos ao longo do projeto. Esse tipo de parceria, em que duas pessoas reconhecem pontos cegos um do outro e trabalham em complemento, foi uma das lições mais valiosas que o curso me deu.
 
-Estabeleci a base de infraestrutura do projeto (PR #8) com pipeline de CI/CD em GitHub Actions executando testes e validações automatizadas, orquestração de tarefas via Nx (install, test, test-integration, lint, lock) e Nx Cloud. Configurei o gerenciamento de dependências Python com Poetry e ambiente virtual compartilhado, adicionei pytest, testcontainers e Black, e criei o `.env.example` para PostgreSQL e MongoDB. Também tratei ajustes de Nx ao longo do projeto e a unificação dos comandos de seed.
+Ao mesmo tempo, não me afastei do código. Criar o monorepo com Nx, arquitetar o serviço de autenticação em Rust, modelar os bancos — essas decisões partiam de mim e eu as executava. Isso criou um equilíbrio que funcionou para o projeto, mas que também me ensinou algo sobre **autoconhecimento profissional**: entendi onde estou mais forte e onde preciso crescer. Ser um bom engenheiro e ser um bom gestor de produto são carreiras que se tocam mas não são a mesma. Essa distinção ficou muito clara nesse semestre.
 
-**Habilidades:** CI/CD, Docker, GitHub Actions, Nx, Poetry
+Por fim, ver o sistema funcionar com Rust na stack — algo que eu queria desde o primeiro dia de aula — foi uma satisfação que vai além da tecnologia. Foi a demonstração de que é possível, mesmo dentro de um projeto acadêmico com restrições, defender uma escolha técnica com argumentos e viabilizá-la com o apoio do time.
 
-#### Modelo e rotas de produtividade (yield) na API Python/Flask
+</details>
 
-Implementei o modelo de eventos de produtividade (`YieldEvent`) usando Pydantic na API Python (PR #30), com suíte de testes unitários usando MagicMock e mock de MongoDB. Em seguida desenvolvi o mecanismo de rotas de yield (PR #34), reorganizando a lógica de servidor do módulo `server` para `api`, criando o registro padronizado de blueprints Flask, aplicando CORS em toda a aplicação e corrigindo a inicialização do MongoDB (variável de database, `authSource=admin` e teste de conexão antes de instanciar o Flask).
+---
 
-**Habilidades:** Flask, MongoDB, Pydantic, Python, REST, Testes Unitários
+## Próximos Passos
 
-#### Componente React de paginação reutilizável e gestão de usuários
+<div align="justify">
 
-Desenvolvi o componente React/TypeScript `Pagination` (PR #38), com botões de primeira/última página, controles anterior/próximo e suporte a sobrescrita de estilos para reuso. Posteriormente integrei a gestão de usuários ponta a ponta (PR #93), construindo a `UserManagementPage` com listagem, paginação e exclusão com confirmação, e no back-end Rust adicionei paginação ao endpoint `/users/` com a struct `PaginatedResponse` e conversão automática snake_case/camelCase.
+Concluo a FATEC com uma formação que já estou aplicando na prática: atuando como desenvolvedor backend na Gorila Invest, onde trabalho com sistemas financeiros em produção.
 
-**Habilidades:** Componentização, Paginação, React, Rust, TypeScript
+O que quero continuar desenvolvendo é minha capacidade de atuar em sistemas distribuídos de maior escala — arquitetura, observabilidade, modelagem de dados e integração entre serviços. Rust é uma linguagem em que pretendo me aprofundar. E o lado de gestão e comunicação com produto que o papel de PO no último semestre me expôs é algo que quero continuar desenvolvendo, com mais consciência dos meus pontos cegos.
 
-#### Criptografia de campos sensíveis com Fernet no serviço de autenticação
+A FATEC me deu o que eu vim buscar: experiência real de colaboração, a formação oficial e as lacunas preenchidas. O próximo passo é consolidar isso no mercado.
 
-Implementei um módulo `fernet` no app de autenticação em Rust, responsável por cifrar e decifrar os campos sensíveis dos usuários. Criei a função `encrypt_field`, integrei a criptografia nos endpoints de `register`, `login` e `update_user` e a decriptação nas rotas GET, recuperando a chave de cada usuário a partir de uma entidade `keys` dedicada. Tratei a codificação base64, defini quais campos não deveriam ser cifrados (como `permission_id`) e modelei um banco de chaves (`api6_keys`) com conexão própria, separando os dados criptográficos do banco principal.
-
-**Habilidades:** Actix-web, Criptografia, Fernet, PostgreSQL, Rust, SeaORM
-
-#### Tratamento de erros customizado e modo de desenvolvimento na API de auth
-
-Criei a struct `CustomError` e renomeei `ErrorType` para `ServerErrorType`, estruturando o tratamento de erros do serviço Rust. Adicionei detalhamento de erros de endpoint em modo de desenvolvimento (impressão no terminal e inclusão dos detalhes na resposta) e log condicional de `DatabaseError` quando em `dev_mode`, melhorando a observabilidade durante o desenvolvimento.
-
-**Habilidades:** Actix-web, Refatoração, Rust
-
-#### Centralização de configuração e infraestrutura de logging do serviço Rust
-
-Centralizei o parsing de variáveis de ambiente em um módulo `config`, configurei a infraestrutura de logging do app de autenticação e estruturei as conexões de banco via SeaORM, incluindo a conexão dedicada ao banco `api6_keys`. Usei o nome do container como host padrão dos bancos para funcionar em ambiente Docker e tratei os erros das structs de configuração.
-
-**Habilidades:** DevOps, Docker, Rust, SeaORM
-
-#### Containerização do serviço de autenticação com Docker e alvo Nx
-
-Criei o `Dockerfile` e o `docker-compose` do app de autenticação em Rust e o comando Nx `serve-docker` para subir o serviço containerizado (PR #70). Garanti a inclusão das variáveis de ambiente do banco de chaves no build Docker e padronizei os containers de banco no docker-compose.
-
-**Habilidades:** DevOps, Docker, Docker Compose, Nx, Rust
-
-#### Seeds de PostgreSQL e MongoDB com criptografia de credenciais
-
-Desenvolvi os seeds de banco do app `db`: o seed do PostgreSQL com inserção de usuários abstraída e reutilizável, atribuição de `permission_id`/`role_id` e criptografia das senhas e campos sensíveis já na carga inicial. Criei o comando Nx unificado `seeds` orquestrando a inicialização de Postgres e Mongo (com `init-keys` e `init-postgres` como dependências), restringi a execução automática do seed no init do Mongo e ajustei a inicialização de sessão e os commits transacionais.
-
-**Habilidades:** Criptografia, MongoDB, Nx, PostgreSQL, Python
-
-#### Página de cadastro de produtividade e camada de serviços/AuthService no front React
-
-Criei a página de registro de produtividade (`/register/yield`) em React, com componentes de formulário e de tabela e os schemas `Yield`/`Season` com suas funções de serviço (PR #36). Estabeleci a camada de serviços HTTP genérica (`processRequest`/`processGET`) tipada e o `AuthService` usado pela página de Login, integrando o fluxo de autenticação ao serviço Rust, com leitura do token do `localStorage`, unificação da pasta de serviços e correção da lógica de redirecionamento.
-
-**Habilidades:** Autenticação, React, Refatoração, REST, TypeScript
+</div>
